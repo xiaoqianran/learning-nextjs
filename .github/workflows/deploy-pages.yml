@@ -1,0 +1,74 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-fund --no-audit
+
+      - name: Build static site (Next export)
+        run: npm run build:pages
+        env:
+          GITHUB_PAGES: "true"
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
+      - name: Prepare Pages artifact
+        run: |
+          set -euo pipefail
+          if [ ! -d out ]; then
+            echo "Expected Next.js static export dir: out/"
+            ls -la
+            exit 1
+          fi
+          mkdir -p _site
+          cp -a out/. _site/
+          # Avoid Jekyll processing
+          touch _site/.nojekyll
+          # SPA-ish fallback for unknown paths
+          if [ -f _site/index.html ]; then
+            cp _site/index.html _site/404.html
+          fi
+          echo "Artifact contents:"
+          ls -la _site | head -40
+          echo "Lesson samples:"
+          ls _site/lesson 2>/dev/null | head -20 || true
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

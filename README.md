@@ -1,5 +1,12 @@
 # React 实战学习 · Next.js 版
 
+**在线：** https://xiaoqianran.github.io/learning-nextjs/  
+**仓库：** https://github.com/xiaoqianran/learning-nextjs  
+**源项目：** https://github.com/xiaoqianran/learning-react  
+
+通过 GitHub Actions 自动构建并部署到 **GitHub Pages**（Source = GitHub Actions）。
+
+
 基于 [learning-react](https://github.com/xiaoqianran/learning-react) 移植到 **Next.js App Router**。
 
 ## 功能
