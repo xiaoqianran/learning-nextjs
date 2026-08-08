@@ -56,6 +56,9 @@ jobs:
           ls -la _site | head -40
           echo "Lesson samples:"
           ls _site/lesson 2>/dev/null | head -20 || true
+          test -f _site/llms.txt
+          test -f _site/llms-full.txt
+          echo "llms.txt bytes: $(wc -c < _site/llms.txt)"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

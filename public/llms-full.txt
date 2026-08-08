@@ -1,0 +1,5481 @@
+# learning-nextjs — full curriculum
+
+生成自本站 166 课。语义以官方文档为准。
+
+---
+
+# React 是什么
+
+- slug: `intro`
+- track: 基础
+- level: 入门
+- minutes: 7
+
+### 一句话
+
+React 用组件描述界面，用状态驱动更新。你写「UI 是状态的函数」，库负责高效更新 DOM。
+
+
+### 最小组件
+
+```tsx
+function App() {
+  const [n, setN] = useState(0)
+  return <button onClick={() => setN(n + 1)}>点了 {n} 次</button>
+}
+```
+
+
+**交互 Demo：** 动手：计数器（kind: `counter`）
+
+
+**测验：**
+- Q: React 核心思路？
+  - [ ] 手写 DOM
+  - [✓] UI = f(state)
+  - [ ] 仅 class 组件
+  - [ ] 必须 jQuery
+  - 解析: 声明式：状态决定 UI。
+- Q: 现代 React 默认？
+  - [ ] 仅 Class
+  - [✓] 函数组件 + Hooks
+  - [ ] 仅 Vue SFC
+  - [ ] 仅 jQuery
+  - 解析: 函数组件与 Hooks。
+
+
+---
+
+# JSX 与渲染
+
+- slug: `jsx`
+- track: 基础
+- level: 入门
+- minutes: 9
+
+### JSX 不是 HTML
+
+JSX 是语法糖，编译为 React.createElement / jsx()。用 className、htmlFor；花括号嵌入表达式。
+
+
+### 条件与列表
+
+```tsx
+{ok && <p>显示</p>}
+{items.map((it) => (
+  <li key={it.id}>{it.text}</li>
+))}
+```
+
+
+**交互 Demo：** 动手：改数据看 JSX（kind: `jsx`）
+
+
+**测验：**
+- Q: class 在 JSX 中写？
+  - [ ] class
+  - [✓] className
+  - [ ] class-name
+  - [ ] css
+  - 解析: DOM 属性是 className。
+- Q: 列表需要？
+  - [ ] 可无 key
+  - [✓] 稳定 key
+  - [ ] 只用 index 永远最好
+  - [ ] 禁止 map
+  - 解析: 稳定 key 帮助协调。
+
+
+---
+
+# 组件与 Props
+
+- slug: `components-props`
+- track: 基础
+- level: 入门
+- minutes: 10
+
+### Props
+
+```tsx
+type CardProps = { title: string; children?: React.ReactNode }
+function Card({ title, children }: CardProps) {
+  return (
+    <section>
+      <h2>{title}</h2>
+      {children}
+    </section>
+  )
+}
+```
+
+
+### 组件与 Props
+
+组件是函数，props 是入参。单向数据流：父传子，子通过回调通知父。children 是组合插槽。
+
+
+**交互 Demo：** 动手：传 props（kind: `props`）
+
+
+**测验：**
+- Q: Props 方向？
+  - [ ] 子改父随意
+  - [✓] 父→子单向
+  - [ ] 全局可变
+  - [ ] 仅字符串
+  - 解析: 单向数据流。
+- Q: children？
+  - [ ] 非法
+  - [✓] 嵌套内容插槽
+  - [ ] 仅数组
+  - [ ] 生命周期
+  - 解析: 组合模式。
+
+
+---
+
+# useState 状态
+
+- slug: `state`
+- track: 基础
+- level: 入门
+- minutes: 11
+
+### 不可变
+
+不要直接 mutate 对象/数组。用展开或 map/filter 生成新引用，React 才能发现变化。
+
+
+### 更新模式
+
+```tsx
+setN(n + 1)
+setN((x) => x + 1) // 基于最新值
+setUser({ ...user, name: 'Ada' })
+setItems((xs) => xs.filter((x) => x.id !== id))
+```
+
+
+**交互 Demo：** 动手：状态更新（kind: `state`）
+
+
+**测验：**
+- Q: 对象状态正确更新？
+  - [ ] obj.x=1
+  - [✓] setObj({...obj,x:1})
+  - [ ] mutate 即可
+  - [ ] 只用 props
+  - 解析: 不可变更新。
+- Q: 连续 set 依赖上次？
+  - [ ] setN(n+1) 两次总对
+  - [✓] 函数式 setN(x=>x+1)
+  - [ ] 禁止更新
+  - [ ] 用 var
+  - 解析: 函数式更新。
+
+
+---
+
+# useEffect 副作用
+
+- slug: `effects`
+- track: 基础
+- level: 入门
+- minutes: 12
+
+### 何时用 Effect
+
+订阅、定时器、与非 React 系统同步。派生数据优先用渲染中计算，不必 effect。
+
+
+### 清理
+
+```tsx
+useEffect(() => {
+  const id = setInterval(() => setT(Date.now()), 1000)
+  return () => clearInterval(id)
+}, [])
+```
+
+
+**交互 Demo：** 动手：挂载与清理（kind: `effect`）
+
+
+**测验：**
+- Q: 空依赖 []？
+  - [ ] 每次渲染
+  - [✓] 仅挂载/卸载
+  - [ ] 从不运行
+  - [ ] 仅卸载
+  - 解析: 挂载跑一次。
+- Q: return 函数？
+  - [ ] 渲染 UI
+  - [✓] 清理副作用
+  - [ ] 定义 props
+  - [ ] 路由
+  - 解析: cleanup。
+
+
+---
+
+# 列表与 Key
+
+- slug: `lists-keys`
+- track: 基础
+- level: 入门
+- minutes: 9
+
+### 列表与 Key
+
+map 渲染列表时 key 必须稳定。用 index 当 key 在重排/插入时会导致状态错位。
+
+
+### 对应源码 · 列表 map + 稳定 key
+
+```tsx
+const [items, setItems] = useState([
+  { id: 1, text: '学 useState' },
+  { id: 2, text: '学 key' },
+])
+
+<ul>
+  {items.map((it) => (
+    <li key={it.id}>
+      {it.text}
+      <button onClick={() =>
+        setItems((xs) => xs.filter((x) => x.id !== it.id))
+      }>删</button>
+    </li>
+  ))}
+</ul>
+```
+
+
+**交互 Demo：** 动手：增删列表（kind: `list`）
+
+
+**测验：**
+- Q: key 优先用？
+  - [ ] 随机数
+  - [✓] 稳定 id
+  - [ ] 永远 index
+  - [ ] 不要 key
+  - 解析: 稳定业务 id。
+- Q: index 当 key 风险？
+  - [ ] 无
+  - [✓] 重排时状态错位
+  - [ ] 更快所以必须
+  - [ ] 仅 TypeScript
+  - 解析: 复用错组件状态。
+
+
+---
+
+# 表单与受控组件
+
+- slug: `forms`
+- track: 基础
+- level: 入门
+- minutes: 10
+
+### 受控输入
+
+```tsx
+const [name, setName] = useState('')
+<input value={name} onChange={(e) => setName(e.target.value)} />
+```
+
+
+### 受控组件
+
+value + onChange 让 React 成为唯一数据源。便于校验、禁用提交、即时预览。
+
+
+**交互 Demo：** 动手：受控表单（kind: `form`）
+
+
+**测验：**
+- Q: 受控组件？
+  - [ ] DOM 自己管
+  - [✓] React state 为唯一数据源
+  - [ ] 仅 class
+  - [ ] 无 onChange
+  - 解析: state 驱动 value。
+
+
+---
+
+# 自定义 Hooks
+
+- slug: `hooks-custom`
+- track: 基础
+- level: 进阶
+- minutes: 11
+
+### useCounter
+
+```ts
+function useCounter(initial = 0) {
+  const [n, setN] = useState(initial)
+  const inc = () => setN((x) => x + 1)
+  return { n, inc }
+}
+```
+
+
+### 自定义 Hook
+
+useXxx 抽取可复用状态逻辑。Hook 只能在组件或其他 Hook 顶层调用。
+
+
+**交互 Demo：** 复习：抽成 Hook 的计数器（kind: `counter`）
+
+
+> **提示：** Hook 只能在组件或其它 Hook 顶层调用；命名 use 开头。
+
+
+**测验：**
+- Q: 自定义 Hook 命名？
+  - [ ] getXxx
+  - [✓] useXxx
+  - [ ] makeXxx
+  - [ ] XxxService
+  - 解析: use 前缀。
+- Q: Hook 规则？
+  - [ ] 可在 if 里随意
+  - [✓] 顶层调用
+  - [ ] 仅 class
+  - [ ] 仅 SSR
+  - 解析: Rules of Hooks。
+
+
+---
+
+# Context 跨层传递
+
+- slug: `context`
+- track: 进阶
+- level: 进阶
+- minutes: 12
+
+### createContext
+
+```tsx
+const ThemeCtx = createContext<'dark' | 'light'>('dark')
+function App() {
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark')
+  return (
+    <ThemeCtx.Provider value={theme}>
+      <Toolbar />
+    </ThemeCtx.Provider>
+  )
+}
+function Child() {
+  const theme = useContext(ThemeCtx)
+  return <span>{theme}</span>
+}
+```
+
+
+### Context
+
+跨层传值避免 props 钻透。高频变化的值放 Context 要小心重渲染；可用拆分/memo。
+
+
+**交互 Demo：** 动手：主题 Context（kind: `context`）
+
+
+**测验：**
+- Q: Context 适合？
+  - [ ] 每个按钮本地状态
+  - [✓] 主题/当前用户等跨层
+  - [ ] 替代全部 state
+  - [ ] 仅 CSS
+  - 解析: 树内共享。
+- Q: 频繁变的大数据？
+  - [ ] 全塞 Context 最好
+  - [✓] 拆分或状态库，避免整树重渲
+  - [ ] 禁止 Context
+  - [ ] 只用 ref
+  - 解析: 注意性能。
+
+
+---
+
+# memo / useMemo / useCallback
+
+- slug: `memo`
+- track: 进阶
+- level: 进阶
+- minutes: 11
+
+### 先正确再优化
+
+memo 跳过 props 浅比较相同的重渲；useMemo 缓存计算；useCallback 稳定函数引用。不要过早到处包。
+
+
+### 对应源码 · memo / useMemo
+
+```tsx
+const Child = memo(function Child({ label }: { label: string }) {
+  return <div>{label}</div>
+})
+
+function Parent() {
+  const [n, setN] = useState(0)
+  const [label, setLabel] = useState('固定 props')
+  const doubled = useMemo(() => n * 2, [n])
+  return (
+    <>
+      <p>{n} / {doubled}</p>
+      <Child label={label} />
+    </>
+  )
+}
+```
+
+
+**交互 Demo：** 动手：感受渲染次数（kind: `memo`）
+
+
+**测验：**
+- Q: React.memo？
+  - [ ] 服务端缓存
+  - [✓] props 浅相等则跳过重渲
+  - [ ] 替代 useState
+  - [ ] 路由
+  - 解析: 纯展示优化。
+- Q: useMemo 用于？
+  - [ ] 必须每个变量
+  - [✓] 昂贵计算/稳定引用
+  - [ ] 替代 effect
+  - [ ] CSS
+  - 解析: 按需缓存。
+
+
+---
+
+# React Router 入门
+
+- slug: `router`
+- track: 进阶
+- level: 进阶
+- minutes: 12
+
+### 概念
+
+```tsx
+<BrowserRouter>
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/lesson/:slug" element={<Lesson />} />
+  </Routes>
+</BrowserRouter>
+```
+
+
+### 路由
+
+Link / useNavigate 导航，Outlet 渲染子路由，useParams 读动态段。
+
+
+**交互 Demo：** 动手：迷你路由（kind: `router`）
+
+
+**测验：**
+- Q: Link 相对 a？
+  - [ ] 强制刷新
+  - [✓] 客户端导航
+  - [ ] 不能用
+  - [ ] 仅外链
+  - 解析: SPA 导航。
+- Q: 读参数？
+  - [ ] useState
+  - [✓] useParams
+  - [ ] useMemo
+  - [ ] localStorage
+  - 解析: useParams。
+
+
+---
+
+# Zustand 状态管理
+
+- slug: `zustand`
+- track: 进阶
+- level: 进阶
+- minutes: 11
+
+### define store
+
+```ts
+import { create } from 'zustand'
+const useCart = create((set) => ({
+  items: [] as string[],
+  add: (name: string) =>
+    set((s) => ({ items: [...s.items, name] })),
+}))
+```
+
+
+### Zustand
+
+极简全局 store：create + selector。比 Context 更适合高频更新的客户端状态。
+
+
+**交互 Demo：** 动手：共享购物车（kind: `zustand`）
+
+
+**测验：**
+- Q: Zustand 特点？
+  - [ ] 必须 Redux 样板
+  - [✓] 轻量 hooks API
+  - [ ] 仅 class
+  - [ ] 仅 Vue
+  - 解析: 简洁全局状态。
+- Q: 何时用全局 store？
+  - [ ] 每个 input
+  - [✓] 跨页共享业务状态
+  - [ ] 替代 CSS
+  - [ ] 仅动画
+  - 解析: 跨组件共享。
+
+
+---
+
+# 异步数据与请求态
+
+- slug: `async-data`
+- track: 全栈准备
+- level: 实战
+- minutes: 13
+
+### useEffect + fetch
+
+```tsx
+useEffect(() => {
+  const c = new AbortController()
+  setLoading(true)
+  fetch(url, { signal: c.signal })
+    .then((r) => r.json())
+    .then(setData)
+    .catch((e) => { if (e.name !== 'AbortError') setError(e.message) })
+    .finally(() => setLoading(false))
+  return () => c.abort()
+}, [url])
+```
+
+
+### 异步三态
+
+idle/loading/ok/error 分支渲染。现代项目更推荐 TanStack Query 管理缓存与重试。
+
+
+**交互 Demo：** 动手：请求三态（kind: `async`）
+
+
+**测验：**
+- Q: 离开页面请求？
+  - [ ] 忽略
+  - [✓] AbortController
+  - [ ] 只锁 UI
+  - [ ] window
+  - 解析: 取消竞态。
+- Q: 最少 UI 状态？
+  - [ ] 仅成功
+  - [✓] loading/error/成功
+  - [ ] 仅 spinner
+  - [ ] 仅 toast
+  - 解析: 三态。
+
+
+---
+
+# 路由守卫心智
+
+- slug: `route-guards`
+- track: 全栈准备
+- level: 实战
+- minutes: 11
+
+> **提示：** 前端守卫可被绕过；API 必须鉴权。工坊里试 401。
+
+
+### 路由守卫心智
+
+未登录跳转登录并带 redirect。前端 Protected 只是 UX；API 必须鉴权。
+
+
+### 对应源码 · 路由守卫心智
+
+```tsx
+function Protected({ children }: { children: React.ReactNode }) {
+  const token = localStorage.getItem('token')
+  const loc = useLocation()
+  if (!token) {
+    return <Navigate to={`/login?redirect=${loc.pathname}`} replace />
+  }
+  return children
+}
+
+// <Route path="/dashboard" element={<Protected><Dash /></Protected>} />
+// 前端守卫 ≠ 安全：API 仍要验 token
+```
+
+
+**交互 Demo：** 动手：门禁模拟（kind: `guard`）
+
+
+**测验：**
+- Q: 前端守卫=安全？
+  - [ ] 是
+  - [✓] 否，服务端必验
+  - [ ] 仅 HTTPS
+  - [ ] 仅 CORS
+  - 解析: 可被绕过。
+- Q: 登录回跳？
+  - [ ] 写死
+  - [✓] redirect 查询参数
+  - [ ] reload
+  - [ ] 仅 back
+  - 解析: 常见模式。
+
+
+---
+
+# 表单校验
+
+- slug: `form-validate`
+- track: 全栈准备
+- level: 实战
+- minutes: 11
+
+### 表单校验
+
+字段错误映射到具体输入。可用手写或 React Hook Form + Zod。
+
+
+### 对应源码 · 字段级校验
+
+```tsx
+const [email, setEmail] = useState('')
+const [password, setPassword] = useState('')
+const [errors, setErrors] = useState<{ email?: string; password?: string }>({})
+
+function submit() {
+  const e: typeof errors = {}
+  if (!/@/.test(email)) e.email = '邮箱格式不对'
+  if (password.length < 6) e.password = '至少 6 位'
+  setErrors(e)
+  if (Object.keys(e).length === 0) { /* 提交 */ }
+}
+```
+
+
+**交互 Demo：** 动手：登录校验（kind: `validate`）
+
+
+**测验：**
+- Q: 前端校验=安全？
+  - [ ] 是
+  - [✓] 否
+  - [ ] HTTPS 即可
+  - [ ] Zod 即可
+  - 解析: 后端也要。
+- Q: 字段错误好处？
+  - [ ] 酷
+  - [✓] 知道哪错
+  - [ ] 少代码
+  - [ ] 无 label
+  - 解析: 可修正。
+
+
+---
+
+# REST 与 CRUD
+
+- slug: `rest-api`
+- track: 全栈实训
+- level: 实战
+- minutes: 12
+
+### 约定
+
+```text
+GET/POST /api/notes
+PUT/DELETE /api/notes/:id
+401 未登录 · 201 创建成功
+```
+
+
+> **提示：** 打开「全栈工坊」完成闯关，看请求日志。
+
+
+### REST
+
+围绕资源设计 URL 与方法；用状态码驱动客户端分支（401 清会话等）。
+
+
+**交互 Demo：** 复习：请求态（kind: `async`）
+
+
+**测验：**
+- Q: 创建资源？
+  - [ ] GET
+  - [✓] POST
+  - [ ] DELETE
+  - [ ] HEAD
+  - 解析: POST。
+- Q: 401？
+  - [ ] 成功
+  - [✓] 未认证
+  - [ ] 永久跳转
+  - [ ] 缓存
+  - 解析: Unauthorized。
+
+
+---
+
+# Token 登录
+
+- slug: `auth-token`
+- track: 全栈实训
+- level: 实战
+- minutes: 11
+
+### Token
+
+登录拿 token → 请求头携带 → 401 统一处理。优先 HttpOnly Cookie 方案时注意 CSRF。
+
+
+### 对应源码 · 路由守卫心智
+
+```tsx
+function Protected({ children }: { children: React.ReactNode }) {
+  const token = localStorage.getItem('token')
+  const loc = useLocation()
+  if (!token) {
+    return <Navigate to={`/login?redirect=${loc.pathname}`} replace />
+  }
+  return children
+}
+
+// <Route path="/dashboard" element={<Protected><Dash /></Protected>} />
+// 前端守卫 ≠ 安全：API 仍要验 token
+```
+
+
+**交互 Demo：** 复习：登录门禁（kind: `guard`）
+
+
+**测验：**
+- Q: Bearer 放？
+  - [ ] URL
+  - [✓] Authorization 头
+  - [ ] CSS
+  - [ ] 不发
+  - 解析: 请求头。
+- Q: HttpOnly Cookie？
+  - [ ] 更快
+  - [✓] JS 难读，降 XSS 偷 token
+  - [ ] 免 HTTPS
+  - [ ] 免 CSRF 全自动
+  - 解析: 更安全存储。
+
+
+---
+
+# 毕业作品清单
+
+- slug: `capstone`
+- track: 全栈实训
+- level: 实战
+- minutes: 9
+
+### 验收
+
+```text
+[ ] 登录退出
+[ ] CRUD + 空状态
+[ ] loading/error
+[ ] 校验
+[ ] 部署 + README 演示账号
+```
+
+
+### 毕业作品
+
+鉴权 + CRUD + 校验 + 部署 + 演示账号，构成可评审作品最小集。
+
+
+**交互 Demo：** 热身：修状态更新（kind: `challenge`）
+
+
+**测验：**
+- Q: 作品最少？
+  - [ ] 静态页
+  - [✓] 鉴权+CRUD
+  - [ ] 仅 CSS
+  - [ ] 仅动画
+  - 解析: 证明全栈协作。
+- Q: 演示账号？
+  - [ ] 不写
+  - [✓] README
+  - [ ] 口口
+  - [ ] CSS
+  - 解析: 方便评审。
+
+
+---
+
+# React 与 TypeScript
+
+- slug: `typescript-react`
+- track: 工程化
+- level: 实战
+- minutes: 12
+
+### Props 类型
+
+```tsx
+type Props = {
+  title: string
+  onSave: (id: string) => void
+  children?: React.ReactNode
+}
+export function Panel({ title, onSave, children }: Props) {
+  return <section>...</section>
+}
+```
+
+
+### React + TS
+
+为 props、state、事件对象建模。事件用 React.ChangeEvent<HTMLInputElement> 等。
+
+
+**交互 Demo：** 想象 props 都有类型（kind: `props`）
+
+
+**测验：**
+- Q: 事件类型常用？
+  - [ ] any
+  - [✓] React.ChangeEvent<HTMLInputElement>
+  - [ ] string
+  - [ ] EventTarget only
+  - 解析: 具体 DOM 事件泛型。
+- Q: useState 泛型？
+  - [ ] 禁止
+  - [✓] useState<User | null>(null)
+  - [ ] 仅 class
+  - [ ] 仅 Vue
+  - 解析: 显式状态类型。
+
+
+---
+
+# 测试入门
+
+- slug: `testing-react`
+- track: 工程化
+- level: 实战
+- minutes: 10
+
+### 测试
+
+React Testing Library 主张按用户行为测；E2E 覆盖关键路径。
+
+
+### 组件测试骨架
+
+```tsx
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { Counter } from './Counter'
+
+it('increments', async () => {
+  render(<Counter />)
+  await userEvent.click(screen.getByRole('button'))
+  expect(screen.getByText(/1/)).toBeInTheDocument()
+})
+```
+
+
+> **提示：** 工坊 6 关 ≈ E2E 用例：login / 401 / CRUD / logout。
+
+
+**测验：**
+- Q: RTL 强调？
+  - [ ] 测实现细节
+  - [✓] 像用户一样测
+  - [ ] 仅快照
+  - [ ] 仅 CSS
+  - 解析: 可访问角色与行为。
+- Q: E2E 适合？
+  - [ ] 每个私有函数
+  - [✓] 主用户路径
+  - [ ] 替代全部单测
+  - [ ] 像素对比必须
+  - 解析: 关键路径。
+
+
+---
+
+# 生产部署清单
+
+- slug: `deploy`
+- track: 工程化
+- level: 实战
+- minutes: 9
+
+### 部署
+
+build 产物为静态资源；SPA 需配置 fallback 到 index.html；环境变量勿把密钥打进前端。
+
+
+### 检查表
+
+```text
+[ ] VITE_API_BASE
+[ ] CORS
+[ ] history fallback → index.html
+[ ] 密钥不进前端包
+[ ] 错误可观测
+```
+
+
+**测验：**
+- Q: 刷新 /dashboard 404？
+  - [ ] React 坏了
+  - [✓] 服务器未 fallback
+  - [ ] 必须 hash
+  - [ ] Zustand 问题
+  - 解析: SPA 需服务器配合。
+- Q: 密钥放？
+  - [ ] git 明文
+  - [✓] 服务端环境变量
+  - [ ] 前端常量
+  - [ ] CSS
+  - 解析: 服务端。
+
+
+---
+
+# useReducer
+
+- slug: `use-reducer`
+- track: 进阶模式
+- level: 进阶
+- minutes: 12
+
+### 何时用
+
+多字段联动、下一步依赖上一步规则时，useReducer 比多个 useState 更清晰：dispatch(action) 描述「发生了什么」。
+
+
+### 计数器
+
+```tsx
+type Action = { type: 'inc' } | { type: 'dec' } | { type: 'set'; n: number }
+function reducer(state: number, action: Action) {
+  switch (action.type) {
+    case 'inc': return state + 1
+    case 'dec': return state - 1
+    case 'set': return action.n
+  }
+}
+const [n, dispatch] = useReducer(reducer, 0)
+```
+
+
+**交互 Demo：** 动手：dispatch（kind: `reducer`）
+
+
+**测验：**
+- Q: useReducer 适合？
+  - [ ] 仅字符串
+  - [✓] 规则清晰的复杂状态
+  - [ ] 替代 CSS
+  - [ ] 禁止 TypeScript
+  - 解析: action 驱动状态机式更新。
+- Q: 更新方式？
+  - [ ] 直接 mutate state
+  - [✓] dispatch(action)
+  - [ ] 仅 setState 对象
+  - [ ] document.write
+  - 解析: dispatch。
+
+
+---
+
+# useRef 与 DOM
+
+- slug: `use-ref`
+- track: 进阶模式
+- level: 进阶
+- minutes: 11
+
+### 聚焦输入
+
+```tsx
+const inputRef = useRef<HTMLInputElement>(null)
+function focus() {
+  inputRef.current?.focus()
+}
+return <input ref={inputRef} />
+```
+
+
+### useRef
+
+拿到 DOM 或保存可变值且不触发渲染。聚焦输入、存 timer id 常用。
+
+
+**交互 Demo：** 动手：ref 聚焦（kind: `ref`）
+
+
+**测验：**
+- Q: 改 ref.current？
+  - [ ] 一定重渲
+  - [✓] 不触发重渲
+  - [ ] 卸载组件
+  - [ ] 发请求
+  - 解析: 可变但不调度渲染。
+- Q: ref 常见用途？
+  - [ ] 全局 CSS
+  - [✓] DOM/保存上次值
+  - [ ] 替代 Router
+  - [ ] 仅服务端
+  - 解析: DOM 与持久值。
+
+
+---
+
+# Portal 传送门
+
+- slug: `portal`
+- track: 进阶模式
+- level: 进阶
+- minutes: 10
+
+### Modal
+
+```tsx
+import { createPortal } from 'react-dom'
+{open && createPortal(
+  <div className="mask"><dialog>…</dialog></div>,
+  document.body,
+)}
+```
+
+
+### Portal
+
+createPortal 把节点挂到 body，做模态框/浮层，脱离父级层叠上下文限制。
+
+
+**交互 Demo：** 动手：遮罩弹层（kind: `portal`）
+
+
+**测验：**
+- Q: Portal 解决？
+  - [ ] 鉴权
+  - [✓] DOM 挂载位置与组件树解耦
+  - [ ] 替代 useState
+  - [ ] CSS Modules
+  - 解析: 弹层挂 body。
+- Q: 事件冒泡？
+  - [ ] 不冒泡
+  - [✓] 仍按 React 树冒泡
+  - [ ] 仅 window
+  - [ ] 被禁用
+  - 解析: React 事件按组件树。
+
+
+---
+
+# 错误边界心智
+
+- slug: `error-boundary`
+- track: 进阶模式
+- level: 实战
+- minutes: 10
+
+### 为什么需要
+
+子组件 throw 时，没有边界会导致整页白屏。Error Boundary 捕获渲染期错误并展示降级 UI。事件处理器里的错误要用 try/catch。
+
+
+### 概念
+
+```tsx
+// 经典为 class：getDerivedStateFromError / componentDidCatch
+// 或使用 react-error-boundary 等库
+<ErrorBoundary fallback={<p>出错了</p>}>
+  <RiskyWidget />
+</ErrorBoundary>
+```
+
+
+**交互 Demo：** 类比：失败态 UI（kind: `async`）
+
+
+**测验：**
+- Q: Error Boundary 捕获？
+  - [ ] 所有 Promise
+  - [✓] 子树渲染错误
+  - [ ] 仅 CSS
+  - [ ] 网络层全部
+  - 解析: 渲染期错误。
+- Q: onClick 里 throw？
+  - [ ] 边界一定抓住
+  - [✓] 需 try/catch 或自己处理
+  - [ ] 自动 retry
+  - [ ] 忽略
+  - 解析: 事件不在渲染路径。
+
+
+---
+
+# 面试高频串讲
+
+- slug: `interview-react`
+- track: 进阶模式
+- level: 实战
+- minutes: 14
+
+### 渲染流程
+
+state/props 变 → 函数组件再执行 → 产出新 React 元素树 → 协调对比 → 提交 DOM。默认批处理更新。
+
+
+### Hooks 规则
+
+只在顶层调用，保证每次渲染顺序一致；自定义 Hook 以 use 开头复用逻辑。
+
+
+### key
+
+列表协调用 key 识别身份；稳定业务 id 优于 index。
+
+
+### 对应源码 · 不可变更新
+
+```tsx
+const [user, setUser] = useState({ name: 'Ada', score: 1 })
+
+// ✅ 新对象
+setUser({ ...user, score: user.score + 1 })
+setUser((u) => ({ ...u, name: u.name + '!' }))
+
+// ❌ 不要 mutate
+// user.score++
+```
+
+
+**交互 Demo：** 口述时配合此 Demo（kind: `state`）
+
+
+**测验：**
+- Q: Hooks 不能？
+  - [ ] 在顶层
+  - [✓] 在条件分支里随意调用
+  - [ ] 在自定义 Hook
+  - [ ] 在函数组件
+  - 解析: 保持调用顺序。
+- Q: 列表 key？
+  - [ ] 每次随机
+  - [✓] 稳定 id
+  - [ ] 永远 index
+  - [ ] 不要
+  - 解析: 稳定身份。
+
+
+---
+
+# Suspense 与懒加载
+
+- slug: `suspense`
+- track: 现代 React
+- level: 进阶
+- minutes: 12
+
+### 做什么
+
+React.lazy + Suspense 在加载代码时显示 fallback。数据 Suspense 需框架或库配合；先掌握「拆代码 + 占位 UI」。
+
+
+### lazy
+
+```tsx
+const Admin = lazy(() => import('./Admin'))
+function App() {
+  return (
+    <Suspense fallback={<p>加载中…</p>}>
+      <Admin />
+    </Suspense>
+  )
+}
+```
+
+
+**交互 Demo：** 类比：loading 边界（kind: `async`）
+
+
+**测验：**
+- Q: React.lazy 用于？
+  - [ ] CSS
+  - [✓] 动态 import 组件代码拆包
+  - [ ] 替代 useState
+  - [ ] 服务端鉴权
+  - 解析: 代码分割。
+- Q: Suspense fallback？
+  - [ ] 错误页
+  - [✓] 子内容未就绪时的占位
+  - [ ] 路由守卫
+  - [ ] Pinia
+  - 解析: 加载占位。
+
+
+---
+
+# useTransition 并发更新
+
+- slug: `use-transition`
+- track: 现代 React
+- level: 进阶
+- minutes: 11
+
+### 紧急 vs 过渡
+
+输入框应立即响应；过滤大列表可标为 transition，避免卡顿。isPending 可显示「更新中」。
+
+
+### 示例
+
+```tsx
+const [isPending, startTransition] = useTransition()
+const [q, setQ] = useState('')
+const [list, setList] = useState(items)
+function onChange(e) {
+  const v = e.target.value
+  setQ(v) // 紧急
+  startTransition(() => {
+    setList(filterHuge(v)) // 可延迟
+  })
+}
+```
+
+
+**交互 Demo：** 感受：重渲染与响应（kind: `memo`）
+
+
+**测验：**
+- Q: startTransition 适合？
+  - [ ] 密码输入每个字符加密到服务器
+  - [✓] 非紧急 UI 更新（大列表过滤）
+  - [ ] 替代 fetch
+  - [ ] 仅 class
+  - 解析: 保持输入流畅。
+- Q: isPending？
+  - [ ] 错误码
+  - [✓] 过渡更新进行中
+  - [ ] 路由参数
+  - [ ] CSS 变量
+  - 解析: pending 标志。
+
+
+---
+
+# 无障碍基础
+
+- slug: `a11y-react`
+- track: 现代 React
+- level: 实战
+- minutes: 11
+
+### 清单
+
+用 button/a 别用 div 冒充；可聚焦控件；图标按钮要 aria-label；对话框管焦点与 Esc；对比度达标。
+
+
+### 示例
+
+```tsx
+<button type="button" aria-label="关闭" onClick={onClose}>
+  <X aria-hidden />
+</button>
+<dialog open={open} aria-labelledby="t">
+  <h2 id="t">标题</h2>
+</dialog>
+```
+
+
+**交互 Demo：** 弹层也要可键盘关闭（kind: `portal`）
+
+
+**测验：**
+- Q: 图标按钮？
+  - [ ] 不用文字即可
+  - [✓] 需要可访问名称（aria-label 等）
+  - [ ] 禁止 button
+  - [ ] 仅 title 足够永远
+  - 解析: 屏幕阅读器要名称。
+- Q: 交互首选？
+  - [ ] div+onClick
+  - [✓] 语义化 button/a
+  - [ ] span
+  - [ ] canvas
+  - 解析: 原生语义。
+
+
+---
+
+# Next.js 全栈地图
+
+- slug: `nextjs-map`
+- track: 现代 React
+- level: 实战
+- minutes: 14
+
+### 对应工坊
+
+工坊的 mock API 在 Next 里常是 app/api/notes/route.ts；页面可用 Server Component 直接 await 数据，交互岛用 'use client'。
+
+
+### 结构
+
+```text
+app/
+  page.tsx              # Server Component
+  notes/page.tsx
+  api/notes/route.ts    # GET/POST
+  components/NoteForm.tsx  # 'use client'
+```
+
+
+### Route Handler
+
+```ts
+// app/api/notes/route.ts
+export async function GET() {
+  const notes = await db.note.findMany()
+  return Response.json(notes)
+}
+```
+
+
+**交互 Demo：** 复习：请求态（客户端岛）（kind: `async`）
+
+
+**测验：**
+- Q: 默认 Server Component？
+  - [✓] App Router 页面默认可在服务端
+  - [ ] 全部必须 use client
+  - [ ] 仅 Pages Router
+  - [ ] 禁止 async
+  - 解析: App Router 默认服务端。
+- Q: useState 组件？
+  - [ ] 随便放服务端
+  - [✓] 标 'use client'
+  - [ ] 只能写 CSS
+  - [ ] 禁止
+  - 解析: 客户端组件。
+
+
+---
+
+# 表单库心智（RHF）
+
+- slug: `rhf-forms`
+- track: 现代 React
+- level: 实战
+- minutes: 11
+
+### 为什么
+
+大表单全受控会频繁重渲。react-hook-form 用 ref 收集字段，校验可接 Zod，提交时一次拿到 values。
+
+
+### 骨架
+
+```tsx
+const { register, handleSubmit, formState: { errors } } = useForm()
+<form onSubmit={handleSubmit(onSubmit)}>
+  <input {...register('email', { required: true })} />
+  {errors.email && <span>必填</span>}
+</form>
+```
+
+
+**交互 Demo：** 校验 UI 仍重要（kind: `validate`）
+
+
+**测验：**
+- Q: RHF 优势之一？
+  - [ ] 必须 class
+  - [✓] 减少大表单重渲、统一校验
+  - [ ] 替代路由
+  - [ ] 仅 Vue
+  - 解析: 性能与 DX。
+- Q: register？
+  - [ ] 路由注册
+  - [✓] 注册字段到表单
+  - [ ] Service Worker
+  - [ ] CSS
+  - 解析: 字段注册。
+
+
+---
+
+# TanStack Query 心智
+
+- slug: `tanstack-query`
+- track: 数据层
+- level: 实战
+- minutes: 13
+
+### 客户端 state vs 服务端 state
+
+表单输入、弹层开关是客户端状态（useState）。列表/用户资料来自 API，适合 Query：queryKey + queryFn，自动缓存与后台刷新。
+
+
+### useQuery
+
+```tsx
+const { data, isPending, isError, error, refetch, isFetching } = useQuery({
+  queryKey: ['notes'],
+  queryFn: () => fetch('/api/notes').then(r => r.json()),
+})
+```
+
+
+**交互 Demo：** 动手：缓存与刷新（kind: `query`）
+
+
+**测验：**
+- Q: queryKey 作用？
+  - [ ] CSS 类名
+  - [✓] 标识缓存条目
+  - [ ] 路由 path 必须
+  - [ ] 仅调试
+  - 解析: 缓存与失效的钥匙。
+- Q: 适合放 Query 的？
+  - [ ] input 瞬时值
+  - [✓] API 列表/详情
+  - [ ] 仅动画 frame
+  - [ ] window 尺寸永远不用 state
+  - 解析: 服务端状态。
+
+
+---
+
+# Mutation 与乐观更新
+
+- slug: `mutations`
+- track: 数据层
+- level: 实战
+- minutes: 12
+
+### 流程
+
+useMutation 发 POST/PUT/DELETE；成功后 invalidateQueries 让列表重新拉。乐观更新：先改缓存，失败再回滚。
+
+
+### 骨架
+
+```tsx
+const qc = useQueryClient()
+const mut = useMutation({
+  mutationFn: (body) => api.createNote(body),
+  onSuccess: () => qc.invalidateQueries({ queryKey: ['notes'] }),
+})
+```
+
+
+**交互 Demo：** 结合工坊理解写路径（kind: `query`）
+
+
+> **提示：** 全栈工坊的创建/编辑/删除就是 mutation；真实项目里用 Query 接管缓存。
+
+
+**测验：**
+- Q: invalidateQueries？
+  - [ ] 删数据库
+  - [✓] 标记查询过期并重拉
+  - [ ] 清 localStorage
+  - [ ] 登出
+  - 解析: 刷新缓存。
+- Q: 乐观更新风险？
+  - [ ] 无
+  - [✓] 失败需回滚，注意一致性
+  - [ ] 只能 GET
+  - [ ] 禁止 loading
+  - 解析: 要处理失败回滚。
+
+
+---
+
+# Query Key 设计
+
+- slug: `query-keys`
+- track: 数据层
+- level: 实战
+- minutes: 10
+
+### 约定
+
+```ts
+['notes'] // 全部
+['notes', { status: 'open' }] // 过滤
+['notes', id] // 详情
+// 失效全部 notes：
+invalidateQueries({ queryKey: ['notes'] })
+```
+
+
+### Query Key
+
+queryKey 是缓存身份证。['notes', filters] 结构清晰；mutation 后 invalidate 对应 key。
+
+
+**交互 Demo：** 不同参数 = 不同缓存（kind: `async`）
+
+
+**测验：**
+- Q: 详情 key 常见？
+  - [ ] ['notes'] 仅
+  - [✓] ['notes', id]
+  - [ ] 随机数
+  - [ ] 仅 URL
+  - 解析: 含 id 区分。
+- Q: 过滤列表？
+  - [ ] 忽略 filter
+  - [✓] key 中带 filter 对象
+  - [ ] 禁止过滤
+  - [ ] 只用 index
+  - 解析: 参数进 key。
+
+
+---
+
+# 组合模式复盘
+
+- slug: `composition-patterns`
+- track: 数据层
+- level: 进阶
+- minutes: 11
+
+### 为什么放这里
+
+数据层组件常要拆：List + Item + Empty + Error。用组合而不是巨型 if，便于复用与测试。
+
+
+### 复合组件
+
+```tsx
+<Notes>
+  <Notes.Toolbar />
+  <Notes.List />
+  <Notes.Empty />
+</Notes>
+```
+
+
+**交互 Demo：** props/children 组合（kind: `props`）
+
+
+**测验：**
+- Q: 组合优于巨型组件？
+  - [ ] 否
+  - [✓] 职责清晰、易测易换
+  - [ ] 更慢必须
+  - [ ] 仅 class
+  - 解析: 可维护性。
+- Q: children？
+  - [ ] 非法
+  - [✓] 插槽式组合
+  - [ ] 仅字符串
+  - [ ] 生命周期
+  - 解析: 组合点。
+
+
+---
+
+# 工坊 × Query 对照
+
+- slug: `studio-query`
+- track: 数据层
+- level: 实战
+- minutes: 12
+
+### 对照表
+
+登录 = mutation；会话用户 = useQuery(['me'])；笔记列表 = useQuery(['notes'])；创建/改/删 = mutation + invalidateQueries(['notes'])。打开全栈工坊看顶部 fetchStatus。
+
+
+### 关键
+
+```tsx
+const notes = useQuery({
+  queryKey: ['studio','notes', token],
+  enabled: !!token,
+  queryFn: () => apiListNotes(token),
+})
+const create = useMutation({
+  mutationFn: (body) => apiCreateNote(token, body),
+  onSuccess: () => qc.invalidateQueries({ queryKey: ['studio','notes'] }),
+})
+```
+
+
+**交互 Demo：** 缓存心智复习（kind: `query`）
+
+
+> **提示：** 工坊已用 QueryClientProvider 包住本页，不影响全站其它路由。
+
+
+**测验：**
+- Q: 写成功后？
+  - [ ] 什么都不做
+  - [✓] invalidate 相关 query
+  - [ ] 必须整页刷新
+  - [ ] 删 QueryClient
+  - 解析: 让列表重拉。
+- Q: enabled: !!token？
+  - [ ] 无意义
+  - [✓] 无 token 不发 me/notes 请求
+  - [ ] 强制 SSR
+  - [ ] 仅 CSS
+  - 解析: 条件查询。
+
+
+---
+
+# useDeferredValue
+
+- slug: `deferred-value`
+- track: 现代 React
+- level: 进阶
+- minutes: 10
+
+### 与 transition
+
+useDeferredValue(value) 让基于 value 的昂贵渲染可延后；输入仍即时。适合搜索框 + 大结果列表。
+
+
+### 示例
+
+```tsx
+const [q, setQ] = useState('')
+const deferred = useDeferredValue(q)
+const results = useMemo(() => filterHuge(deferred), [deferred])
+```
+
+
+**交互 Demo：** 昂贵列表与输入（kind: `memo`）
+
+
+**测验：**
+- Q: useDeferredValue 适合？
+  - [ ] 替代服务端鉴权
+  - [✓] 延迟昂贵派生渲染
+  - [ ] 禁止 state
+  - [ ] 仅 class
+  - 解析: 保持输入流畅。
+- Q: 和 startTransition？
+  - [ ] 完全无关
+  - [✓] 都标记非紧急更新
+  - [ ] 只能二选一永远
+  - [ ] 仅 Vue
+  - 解析: 并发特性家族。
+
+
+---
+
+# React 哲学（Thinking in React）
+
+- slug: `thinking-in-react`
+- track: 官方对齐
+- level: 入门
+- minutes: 12
+
+### 官方心智
+
+官方教程要求：① 拆分组件层级 ② 构建静态版本 ③ 找出最小 state ④ 确定 state 放哪 ⑤ 反向数据流。这比「先写接口再堆 JSX」更稳。
+
+
+### 五步法
+
+1. 画组件树（产品表 → 搜索栏 + 结果表 → 行）。2. 先静态 props。3. 标出会变的数据。4. state 放公共祖先。5. 子组件用回调通知父组件。
+
+
+### 最小可搜索列表
+
+```tsx
+function ProductTable({ products, filter }) {
+  const rows = products.filter(p => p.name.includes(filter))
+  return (
+    <ul>
+      {rows.map(p => <li key={p.id}>{p.name}</li>)}
+    </ul>
+  )
+}
+```
+
+
+> **提示：** 对照：https://zh-hans.react.dev/learn/thinking-in-react
+
+
+**测验：**
+- Q: Thinking in React 建议先做什么？
+  - [ ] 先接全部 API
+  - [✓] 先拆组件并做静态版本
+  - [ ] 先写全局 store
+  - [ ] 先加动画
+  - 解析: 静态组件树先成立，再逐步引入 state。
+- Q: state 应放在哪里？
+  - [ ] 随便放
+  - [✓] 能读到它的公共祖先
+  - [ ] 必须全局
+  - [ ] 只能根组件
+  - 解析: 提升到需要共享的最近公共祖先。
+
+
+---
+
+# 保持组件纯粹
+
+- slug: `pure-components`
+- track: 官方对齐
+- level: 入门
+- minutes: 10
+
+### 纯函数规则
+
+组件在渲染时应像公式：不修改已有对象、不写外部变量、不发请求。副作用放事件处理或 Effect。
+
+
+### 不纯 vs 纯
+
+```tsx
+// 不纯：渲染时改外部
+let count = 0
+function Bad() {
+  count += 1
+  return <p>{count}</p>
+}
+
+// 纯：用 props / state
+function Good({ n }: { n: number }) {
+  return <p>{n}</p>
+}
+```
+
+
+> **提示：** StrictMode 会双调用渲染以暴露不纯逻辑。
+
+
+**交互 Demo：** 动手：纯渲染（kind: `jsx`）
+
+
+**测验：**
+- Q: 渲染阶段可以做什么？
+  - [ ] 直接改 DOM
+  - [ ] 发 fetch
+  - [✓] 根据 props 计算 UI
+  - [ ] 写 localStorage
+  - 解析: 渲染应可预测；副作用放别处。
+- Q: 发现不纯的工具？
+  - [ ] 只有 console
+  - [✓] StrictMode
+  - [ ] 必须 Redux
+  - [ ] CSS
+  - 解析: StrictMode 帮助暴露不纯渲染。
+
+
+---
+
+# 条件渲染
+
+- slug: `conditional-render`
+- track: 官方对齐
+- level: 入门
+- minutes: 8
+
+### 三种写法
+
+`cond && <A/>`、`cond ? <A/> : <B/>`、函数内提前 `return null`。
+
+
+### 注意 0
+
+```tsx
+// 坑：count 为 0 时会渲染 0
+{count && <Badge />}
+
+// 更稳
+{count > 0 ? <Badge /> : null}
+{!!count && <Badge />}
+```
+
+
+**交互 Demo：** 动手：条件展示（kind: `props`）
+
+
+**测验：**
+- Q: {0 && <X/>} 会？
+  - [ ] 什么都不显示
+  - [✓] 显示 0
+  - [ ] 报错
+  - [ ] 显示 X
+  - 解析: JS 的 && 返回左侧假值 0。
+
+
+---
+
+# state 如同一张快照
+
+- slug: `state-snapshot`
+- track: 官方对齐
+- level: 入门
+- minutes: 10
+
+### 核心
+
+每次渲染的 state 是固定快照。调用 setState 请求下一次渲染，不会改当前这次渲染里的常量。
+
+
+### 连点三次
+
+```tsx
+function Counter() {
+  const [n, setN] = useState(0)
+  return (
+    <button onClick={() => {
+      setN(n + 1)
+      setN(n + 1)
+      setN(n + 1)
+      // 仍只 +1，三次都读到同一快照 n
+    }}>+3?</button>
+  )
+}
+
+// 需要基于前值：
+setN(v => v + 1) // ×3
+```
+
+
+**交互 Demo：** 动手：快照直觉（kind: `state`）
+
+
+**测验：**
+- Q: 同一次点击里三次 setN(n+1) 结果？
+  - [ ] +3
+  - [✓] +1
+  - [ ] 报错
+  - [ ] 随机
+  - 解析: 三次都基于同一快照 n。
+- Q: 如何基于最新值连续更新？
+  - [ ] setN(n+1) 三次
+  - [✓] 函数式更新 setN(v=>v+1)
+  - [ ] 必须 useRef
+  - [ ] setTimeout
+  - 解析: 函数式更新链式应用。
+
+
+---
+
+# 不可变更新对象与数组
+
+- slug: `immutable-update`
+- track: 官方对齐
+- level: 入门
+- minutes: 10
+
+### 为什么
+
+React 用 Object.is 比较；原地修改常检测不到变化，UI 不更新且难调试。
+
+
+### 对象与数组
+
+```tsx
+// 对象
+setUser({ ...user, name: "Ada" })
+
+// 数组新增 / 替换 / 删除
+setItems([...items, item])
+setItems(items.map(x => x.id === id ? { ...x, done: true } : x))
+setItems(items.filter(x => x.id !== id))
+```
+
+
+> **提示：** 嵌套深时考虑结构化共享库，或扁平化 state。
+
+
+**交互 Demo：** 动手：列表不可变更新（kind: `list`）
+
+
+**测验：**
+- Q: items.push(x); setItems(items) 问题？
+  - [ ] 没问题
+  - [✓] 可能不触发更新且难追踪
+  - [ ] 语法错
+  - [ ] 只能 class
+  - 解析: 同一引用，React 可能跳过更新。
+
+
+---
+
+# 状态提升与共享
+
+- slug: `lift-state`
+- track: 官方对齐
+- level: 进阶
+- minutes: 10
+
+### 何时提升
+
+两个子组件要显示同一数据时，state 上移到父，经 props 下发，用回调上抛变更。
+
+
+### 模式
+
+```tsx
+function Parent() {
+  const [temp, setTemp] = useState(20)
+  return (
+    <>
+      <Celsius value={temp} onChange={setTemp} />
+      <Fahrenheit value={temp} onChange={setTemp} />
+    </>
+  )
+}
+```
+
+
+**交互 Demo：** 对照：深层再考虑 Context（kind: `context`）
+
+
+**测验：**
+- Q: 两输入要同步，state 放？
+  - [ ] 各自一份
+  - [✓] 公共父组件
+  - [ ] 必须 Redux
+  - [ ] window
+  - 解析: 单一数据源在公共祖先。
+
+
+---
+
+# 用 key 重置 state
+
+- slug: `reset-state-key`
+- track: 官方对齐
+- level: 进阶
+- minutes: 8
+
+### 心智
+
+同一位置同类型组件会保留 state。换用户却不换 key 会串数据。
+
+
+### 关键写法
+
+```tsx
+<Chat key={contact.id} contact={contact} />
+// 换联系人 → 新实例 → 草稿清空
+```
+
+
+> **提示：** 对照官方：保留和重置 state。
+
+
+**测验：**
+- Q: 切换用户后输入框仍留旧字，因？
+  - [ ] bug 无解
+  - [✓] 组件被复用保留了 state
+  - [ ] 必须 Context
+  - [ ] CSS
+  - 解析: 加 key={userId} 强制重置。
+
+
+---
+
+# 你可能不需要 Effect
+
+- slug: `no-need-effect`
+- track: 官方对齐
+- level: 进阶
+- minutes: 12
+
+### 常见滥用
+
+① 用 Effect 把 props 同步到 state ② 用 Effect 做纯计算 ③ 用 Effect 响应点击。应：渲染中计算、事件里处理、受控 props。
+
+
+### 派生而非 Effect
+
+```tsx
+// 差
+useEffect(() => {
+  setFull(first + " " + last)
+}, [first, last])
+
+// 好
+const full = first + " " + last
+```
+
+
+> **提示：** Effect 用于同步外部系统：网络、DOM、第三方 widget。
+
+
+**交互 Demo：** 对照：真正的同步场景（kind: `effect`）
+
+
+**测验：**
+- Q: 根据 first+last 显示全名，应？
+  - [ ] useEffect 写入 state
+  - [✓] 渲染时直接拼接
+  - [ ] 必须 memo
+  - [ ] 用 ref
+  - 解析: 派生值在渲染中计算。
+- Q: 点击按钮发请求应放？
+  - [ ] useEffect 监听 flag
+  - [✓] onClick 事件处理
+  - [ ] componentDidMount 仅 class
+  - [ ] CSS
+  - 解析: 用户事件在事件处理函数中处理。
+
+
+---
+
+# useEffectEvent
+
+- slug: `use-effect-event`
+- track: 官方对齐
+- level: 进阶
+- minutes: 10
+
+### 动机
+
+Effect 需要最新 props/state 做逻辑，但不希望它们进入依赖导致重连。useEffectEvent 提供稳定「事件」函数。
+
+
+### 示意
+
+```tsx
+const onConnected = useEffectEvent(() => {
+  showNotification("已连接 " + roomId)
+})
+
+useEffect(() => {
+  const conn = connect(roomId)
+  conn.on("connected", onConnected)
+  return () => conn.disconnect()
+}, [roomId]) // 不必把通知逻辑塞进依赖
+```
+
+
+> **提示：** 官方文档：https://zh-hans.react.dev/reference/react/useEffectEvent
+
+
+**测验：**
+- Q: useEffectEvent 主要解决？
+  - [ ] 替代 useState
+  - [✓] Effect 中读最新值却不想当依赖
+  - [ ] CSS 动画
+  - [ ] 路由
+  - 解析: 分离事件与响应式依赖。
+
+
+---
+
+# useId
+
+- slug: `use-id-a11y`
+- track: 官方对齐
+- level: 进阶
+- minutes: 6
+
+### 场景
+
+无障碍关联、多实例表单。不要用 useId 当列表 key。
+
+
+### 示例
+
+```tsx
+function Field({ label }) {
+  const id = useId()
+  return (
+    <>
+      <label htmlFor={id}>{label}</label>
+      <input id={id} />
+    </>
+  )
+}
+```
+
+
+**测验：**
+- Q: useId 不适合？
+  - [ ] label htmlFor
+  - [✓] 列表 key
+  - [ ] aria 关联
+  - [ ] SSR 一致 id
+  - 解析: key 应用业务 id。
+
+
+---
+
+# useOptimistic
+
+- slug: `use-optimistic`
+- track: 官方对齐
+- level: 进阶
+- minutes: 10
+
+### 心智
+
+在 transition/action 中更新乐观状态，真正数据到达后以服务端为准。
+
+
+### 示意
+
+```tsx
+const [optimistic, addOptimistic] = useOptimistic(messages)
+async function send(formData) {
+  const text = formData.get("text")
+  addOptimistic(m => [...m, { text, pending: true }])
+  await postMessage(text)
+}
+```
+
+
+**交互 Demo：** 对照：请求态机（kind: `async`）
+
+
+**测验：**
+- Q: 乐观更新的风险？
+  - [ ] 没有风险
+  - [✓] 失败需回滚/对齐真实数据
+  - [ ] 必须 class
+  - [ ] 不能表单
+  - 解析: 失败时要恢复一致状态。
+
+
+---
+
+# useActionState
+
+- slug: `use-action-state`
+- track: 官方对齐
+- level: 进阶
+- minutes: 10
+
+### 角色
+
+管理 form action 的返回值与 isPending，常与 Server Functions 搭配。
+
+
+### 示意
+
+```tsx
+const [state, formAction, pending] = useActionState(login, null)
+return (
+  <form action={formAction}>
+    <button disabled={pending}>登录</button>
+    {state?.error}
+  </form>
+)
+```
+
+
+**测验：**
+- Q: useActionState 第三项通常是？
+  - [ ] ref
+  - [✓] isPending
+  - [ ] router
+  - [ ] key
+  - 解析: pending 标志。
+
+
+---
+
+# 服务器组件与指令
+
+- slug: `server-components-rsc`
+- track: 官方对齐
+- level: 进阶
+- minutes: 14
+
+### 默认服务端
+
+在 Next App Router 中，页面默认 Server Components：可 await 数据、不进浏览器包。需要交互时才 'use client'。
+
+
+### 边界
+
+```tsx
+// app/page.tsx — Server Component
+export default async function Page() {
+  const data = await db.list()
+  return <ClientTable rows={data} />
+}
+
+// ClientTable.tsx
+"use client"
+export function ClientTable({ rows }) { /* onClick 等 */ }
+```
+
+
+> **提示：** Server Functions：'use server' 标记可从客户端调用的服务端函数。
+
+
+**测验：**
+- Q: 默认 App Router 页面是？
+  - [ ] 必须 client
+  - [✓] Server Component
+  - [ ] 只能静态
+  - [ ] Web Component
+  - 解析: 默认可在服务端渲染与取数。
+- Q: 何时 use client？
+  - [ ] 永远
+  - [✓] 需要 state/effect/浏览器 API
+  - [ ] 禁止
+  - [ ] 仅 CSS
+  - 解析: 交互与浏览器能力才下沉客户端。
+
+
+---
+
+# React Compiler
+
+- slug: `react-compiler`
+- track: 官方对齐
+- level: 进阶
+- minutes: 8
+
+### 定位
+
+编译器在构建期分析组件，自动插入等价 memo，减少手写 useMemo/useCallback。仍需保持组件纯粹。
+
+
+> **提示：** 官方：https://zh-hans.react.dev/learn/react-compiler
+
+
+**测验：**
+- Q: Compiler 主要优化？
+  - [ ] 网络协议
+  - [✓] 自动记忆化减少无效重渲染
+  - [ ] 替换 TypeScript
+  - [ ] 数据库
+  - 解析: 构建期优化重渲染。
+
+
+---
+
+# Hook 规则
+
+- slug: `rules-of-hooks`
+- track: 官方对齐
+- level: 入门
+- minutes: 6
+
+### 两条
+
+1. 不在循环/条件/嵌套函数里调用 Hook。2. 只在函数组件或自定义 Hook 中调用。
+
+
+### 错误示范
+
+```tsx
+if (ok) {
+  const [x, setX] = useState(0) // 禁止：条件调用
+}
+```
+
+
+> **提示：** eslint-plugin-react-hooks 的 rules-of-hooks / exhaustive-deps。
+
+
+**测验：**
+- Q: 可以在 if 里 useState 吗？
+  - [ ] 可以
+  - [✓] 不可以
+  - [ ] 仅生产
+  - [ ] 仅 StrictMode
+  - 解析: Hook 顺序必须稳定。
+
+
+---
+
+# App Router：布局与页面
+
+- slug: `next-app-router`
+- track: Next.js
+- level: 入门
+- minutes: 12
+
+### 约定
+
+`app/page.tsx` 路由 `/`；`app/blog/page.tsx` → `/blog`。`layout.tsx` 共享 UI 且保持状态。
+
+
+### 结构
+
+```tsx
+app/
+  layout.tsx      // 根布局
+  page.tsx        // /
+  dashboard/
+    layout.tsx    // 嵌套布局
+    page.tsx      // /dashboard
+    settings/page.tsx
+```
+
+
+> **提示：** 官方 Getting Started → Layouts and Pages。
+
+
+**测验：**
+- Q: layout 与 page 区别？
+  - [ ] 无区别
+  - [✓] layout 包裹子路由并保留状态
+  - [ ] page 不能导出
+  - [ ] layout 仅 client
+  - 解析: 布局跨导航保留。
+
+
+---
+
+# 链接与导航
+
+- slug: `next-linking`
+- track: Next.js
+- level: 入门
+- minutes: 8
+
+### 优化
+
+Link 默认预取视口内路由；客户端导航无整页刷新。
+
+
+### 示例
+
+```tsx
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+
+<Link href="/lesson/intro">课程</Link>
+router.push("/studio")
+```
+
+
+**测验：**
+- Q: App Router 的 useRouter 来自？
+  - [ ] next/router
+  - [✓] next/navigation
+  - [ ] react-router
+  - [ ] window
+  - 解析: App Router 用 next/navigation。
+
+
+---
+
+# Server 与 Client Components
+
+- slug: `next-server-client`
+- track: Next.js
+- level: 入门
+- minutes: 12
+
+### 能力差
+
+Server：可密钥、直连 DB、减小包体。Client：state、effects、浏览器 API。通过 props 把序列化数据传入 Client。
+
+
+### 组合
+
+```tsx
+// Server
+async function Page() {
+  const post = await getPost()
+  return <LikeButton id={post.id} initial={post.likes} />
+}
+// Client LikeButton 处理点击
+```
+
+
+**交互 Demo：** 对照：客户端请求态（kind: `async`）
+
+
+**测验：**
+- Q: 密钥 API Key 应放？
+  - [ ] Client 组件
+  - [✓] 仅服务端环境
+  - [ ] localStorage
+  - [ ] CSS 变量
+  - 解析: 服务端不暴露给浏览器。
+
+
+---
+
+# 数据获取与 Streaming
+
+- slug: `next-fetching`
+- track: Next.js
+- level: 进阶
+- minutes: 12
+
+### 模式
+
+在 Server Component `await fetch`/`db`；用 `loading.tsx` 或 `<Suspense>` 流式展示 fallback。
+
+
+### 示例
+
+```tsx
+export default async function Page() {
+  const res = await fetch("https://api.example.com/items", {
+    next: { revalidate: 60 },
+  })
+  const items = await res.json()
+  return <List items={items} />
+}
+```
+
+
+**测验：**
+- Q: streaming 的 UI 占位常用？
+  - [ ] 只有 alert
+  - [✓] loading.tsx / Suspense fallback
+  - [ ] 必须 SPA
+  - [ ] iframe
+  - 解析: 官方推荐 Suspense 边界。
+
+
+---
+
+# 变更数据与 Server Actions
+
+- slug: `next-mutations`
+- track: Next.js
+- level: 进阶
+- minutes: 12
+
+### Server Actions
+
+用 async 函数 + 'use server' 处理变更，可从 form action 调用，无需手写 API 路由。
+
+
+### 示例
+
+```tsx
+"use server"
+export async function createPost(formData: FormData) {
+  await db.post.create({ title: formData.get("title") })
+  revalidatePath("/posts")
+}
+```
+
+
+> **提示：** 官方：Mutating Data / Forms guides。
+
+
+**测验：**
+- Q: 变更后刷新缓存数据常用？
+  - [ ] location.reload 必须
+  - [✓] revalidatePath / revalidateTag
+  - [ ] 只能等一天
+  - [ ] 删除 node_modules
+  - 解析: 按需 revalidate。
+
+
+---
+
+# 缓存与再验证
+
+- slug: `next-caching`
+- track: Next.js
+- level: 进阶
+- minutes: 12
+
+### 层次
+
+静态生成结果、fetch 缓存、Router Cache 等层级不同。用 revalidate 秒数或 tag 做失效。
+
+
+### 标签失效
+
+```tsx
+await fetch(url, { next: { tags: ["products"] } })
+// 变更后
+revalidateTag("products")
+```
+
+
+> **提示：** Next 16 还有 Cache Components 等演进；先掌握 revalidate 与标签。
+
+
+**测验：**
+- Q: on-demand 失效用？
+  - [ ] 只有 CSS
+  - [✓] revalidateTag / revalidatePath
+  - [ ] 必须重启服务器
+  - [ ] client setState
+  - 解析: 按路径或标签失效。
+
+
+---
+
+# Route Handlers
+
+- slug: `next-route-handlers`
+- track: Next.js
+- level: 进阶
+- minutes: 10
+
+### 用途
+
+Webhooks、公开 JSON API、非表单客户端。很多 CRUD 可用 Server Actions 替代。
+
+
+### 示例
+
+```tsx
+// app/api/hello/route.ts
+export async function GET() {
+  return Response.json({ ok: true })
+}
+```
+
+
+**测验：**
+- Q: App Router API 文件惯例？
+  - [ ] pages/api only
+  - [✓] route.ts 导出 HTTP 方法
+  - [ ] 必须 express
+  - [ ] .jsx 即可
+  - 解析: route.ts 中导出 GET/POST…
+
+
+---
+
+# Metadata 与 SEO
+
+- slug: `next-metadata`
+- track: Next.js
+- level: 进阶
+- minutes: 8
+
+### API
+
+静态 `export const metadata`；动态 `generateMetadata`。利于标题、描述、社交卡片。
+
+
+### 示例
+
+```tsx
+export const metadata = {
+  title: "React 实战学习",
+  description: "交互式中文教程",
+}
+```
+
+
+> **提示：** 还可配合 JSON-LD guide 做结构化数据。
+
+
+**测验：**
+- Q: 动态标题用？
+  - [ ] document.title 仅 client
+  - [✓] generateMetadata
+  - [ ] 必须 Helmet 老库
+  - [ ] CSS content
+  - 解析: 服务端生成元数据。
+
+
+---
+
+# Image 与 Font 优化
+
+- slug: `next-images-fonts`
+- track: Next.js
+- level: 入门
+- minutes: 8
+
+### 收益
+
+自动尺寸、懒加载、现代格式；字体子集与去 CLS。
+
+
+### 示例
+
+```tsx
+import Image from "next/image"
+import { Inter } from "next/font/google"
+const inter = Inter({ subsets: ["latin"] })
+<Image src="/hero.png" alt="" width={800} height={400} />
+```
+
+
+**测验：**
+- Q: next/image 帮助？
+  - [ ] 只换语法
+  - [✓] 优化图片加载与布局稳定性
+  - [ ] 替代 CDN 必须
+  - [ ] 禁用缓存
+  - 解析: 性能与 CLS。
+
+
+---
+
+# 错误处理
+
+- slug: `next-error-handling`
+- track: Next.js
+- level: 进阶
+- minutes: 8
+
+### 文件约定
+
+`error.tsx` 捕获段错误；`not-found.tsx` 处理 404；可 `notFound()` 抛出。
+
+
+**测验：**
+- Q: 段错误 UI 文件？
+  - [ ] bug.tsx
+  - [✓] error.tsx
+  - [ ] fail.js
+  - [ ] 404 only root
+  - 解析: error.tsx 错误边界。
+
+
+---
+
+# AI 友好文档与 llms.txt
+
+- slug: `next-ai-llms`
+- track: Next.js
+- level: 入门
+- minutes: 8
+
+### 官方入口
+
+React：https://react.dev/llms.txt（中文 https://zh-hans.react.dev/llms.txt）。Next：https://nextjs.org/llms.txt 与 /docs/llms.txt、/docs/llms-full.txt。
+
+
+### 本站
+
+本项目在 /llms.txt 提供课程索引，在「官方文档」页对照 react.dev / nextjs.org 目录。
+
+
+> **提示：** 写文档时提供 Markdown 纯文本，利于 LLM 与人类检索。
+
+
+**测验：**
+- Q: Next 完整文档 LLM 索引？
+  - [ ] /favicon.ico
+  - [✓] /docs/llms.txt
+  - [ ] 仅 Discord
+  - [ ] package.json
+  - 解析: 官方文档页也写明了该索引。
+
+
+---
+
+# 教程：井字棋游戏
+
+- slug: `tic-tac-toe`
+- track: 官方 Learn
+- level: 入门
+- minutes: 20
+
+### 要点（对齐官方）
+
+• 跟着官方教程做完井字棋，串联 props、state、不可变更新与组件拆分。\n\n• 重点是 UI = f(state) 与提升 state。\n\n• 做完后对照本站「React 哲学」复盘。
+
+
+### 方格组件
+
+```tsx
+function Square({ value, onSquareClick }: { value: string; onSquareClick: () => void }) {
+  return <button onClick={onSquareClick}>{value}</button>
+}
+```
+
+
+> **提示：** 完整步骤见官方教程。
+
+
+**测验：**
+- Q: 井字棋教程核心训练？
+  - [ ] CSS 动画
+  - [✓] 组件 + state 数据流
+  - [ ] GraphQL
+  - [ ] SSR only
+  - 解析: 交互与状态是主线。
+
+
+---
+
+# 安装 React
+
+- slug: `install-react`
+- track: 官方 Learn
+- level: 入门
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 现代推荐：用框架（Next.js 等）创建应用。\n\n• 需要 Node.js LTS。\n\n• 生产项目优先框架而非手写打包配置入门。
+
+
+> **提示：** 见官方 Installation。
+
+
+**测验：**
+- Q: 官方更推荐新人？
+  - [ ] 手写 babel 入门
+  - [✓] 用框架/脚手架创建应用
+  - [ ] 必须 CDN
+  - [ ] 禁用 TS
+  - 解析: 框架提供约定与工具。
+
+
+---
+
+# 创建一个 React 应用
+
+- slug: `create-react-app-guide`
+- track: 官方 Learn
+- level: 入门
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 官方引导使用完整能力框架（如 Next.js）。\n\n• 本仓库是 Next.js App Router 示例。\n\n• 创建后关注目录约定、dev、类型检查。
+
+
+### 创建
+
+```tsx
+// npx create-next-app@latest
+// npm run dev
+```
+
+
+**测验：**
+- Q: 本站技术栈？
+  - [ ] jQuery
+  - [✓] Next.js 上的 React
+  - [ ] 仅 CDN
+  - [ ] Angular
+  - 解析: App Router + React。
+
+
+---
+
+# 从零构建一个 React 应用
+
+- slug: `build-from-scratch`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 12
+
+### 要点（对齐官方）
+
+• createRoot(domNode).render(<App />)。\n\n• 需要打包 JSX。\n\n• 从零为了理解工具链，业务仍建议框架。
+
+
+### 挂载
+
+```tsx
+import { createRoot } from "react-dom/client"
+import App from "./App"
+createRoot(document.getElementById("root")!).render(<App />)
+```
+
+
+**测验：**
+- Q: 现代挂载 API？
+  - [ ] ReactDOM.render 旧版
+  - [✓] createRoot
+  - [ ] document.write
+  - [ ] innerHTML
+  - 解析: createRoot。
+
+
+---
+
+# 将 React 添加到现有项目
+
+- slug: `add-react-existing`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 可在非 React 站点局部挂载组件。\n\n• 注意样式隔离与构建。\n\n• 逐步迁移页面。
+
+
+**测验：**
+- Q: 存量引入策略？
+  - [ ] 只能全站重写
+  - [✓] 局部挂载逐步迁移
+  - [ ] 禁止混用
+  - [ ] 删后端
+  - 解析: 渐进。
+
+
+---
+
+# 编辑器设置
+
+- slug: `editor-setup`
+- track: 官方 Learn
+- level: 入门
+- minutes: 6
+
+### 要点（对齐官方）
+
+• ESLint + eslint-plugin-react-hooks。\n\n• TypeScript 跳转。\n\n• 安装 React DevTools。
+
+
+**测验：**
+- Q: Hooks 规则静态检查？
+  - [ ] 感觉
+  - [✓] eslint-plugin-react-hooks
+  - [ ] CSS lint
+  - [ ] DNS
+  - 解析: 官方插件。
+
+
+---
+
+# React 开发者工具
+
+- slug: `react-devtools`
+- track: 官方 Learn
+- level: 入门
+- minutes: 8
+
+### 要点（对齐官方）
+
+• Components 面板看树与 hooks。\n\n• Profiler 分析提交耗时。\n\n• 配合 Elements 定位 DOM。
+
+
+> **提示：** 浏览器扩展：React Developer Tools。
+
+
+**测验：**
+- Q: 分析为何重渲染？
+  - [ ] 只看 Network
+  - [✓] Profiler
+  - [ ] DNS
+  - [ ] FTP
+  - 解析: Profiler。
+
+
+---
+
+# 描述 UI
+
+- slug: `describing-the-ui`
+- track: 官方 Learn
+- level: 入门
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 界面拆组件、props 配置、JSX 描述。\n\n• 先静态 UI，再交互。\n\n• 串联组件/JSX/props/条件/列表/纯粹/UI 树。
+
+
+**测验：**
+- Q: 描述 UI 的基础单位？
+  - [ ] 数据库行
+  - [✓] 组件
+  - [ ] 端口
+  - [ ] CSS 文件
+  - 解析: 组件。
+
+
+---
+
+# 你的第一个组件
+
+- slug: `first-component`
+- track: 官方 Learn
+- level: 入门
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 返回标签的函数；大写开头。\n\n• 嵌套组合形成树。\n\n• 常用 default 导出页面级组件。
+
+
+### 组合
+
+```tsx
+function Profile() {
+  return <img src="avatar.png" alt="A" />
+}
+export default function Gallery() {
+  return (
+    <section>
+      <Profile />
+      <Profile />
+    </section>
+  )
+}
+```
+
+
+**交互 Demo：** 动手：组件（kind: `props`）
+
+
+**测验：**
+- Q: 组件名必须？
+  - [ ] 小写 html
+  - [✓] 大写开头
+  - [ ] 数字开头
+  - [ ] 强制下划线
+  - 解析: 大写区分原生标签。
+
+
+---
+
+# 组件的导入与导出
+
+- slug: `import-export`
+- track: 官方 Learn
+- level: 入门
+- minutes: 8
+
+### 要点（对齐官方）
+
+• default：import X from './X'。\n\n• named：import { X } from './X'。\n\n• 按功能拆文件。
+
+
+### 导入导出
+
+```tsx
+export function Avatar() { return <img alt="" /> }
+// import { Avatar } from "./Avatar"
+```
+
+
+**测验：**
+- Q: named export 导入？
+  - [ ] import X from
+  - [✓] import { X } from
+  - [ ] require.only
+  - [ ] include
+  - 解析: 花括号。
+
+
+---
+
+# JSX 中的 JavaScript 大括号
+
+- slug: `jsx-curly-braces`
+- track: 官方 Learn
+- level: 入门
+- minutes: 8
+
+### 要点（对齐官方）
+
+• {} 内写表达式。\n\n• style 接受对象 style={{ color: 'red' }}。\n\n• 不能直接写 if 语句，用三元或提前计算。
+
+
+### 表达式
+
+```tsx
+const name = "Ada"
+return <h1 style={{ color: "#61dafb" }}>Hello {name}</h1>
+```
+
+
+**交互 Demo：** 动手：JSX 表达式（kind: `jsx`）
+
+
+**测验：**
+- Q: JSX 表达式用？
+  - [ ] <% %>
+  - [✓] {}
+  - [ ] [[ ]]
+  - [ ] ##
+  - 解析: 花括号。
+
+
+---
+
+# 将 UI 视为树
+
+- slug: `ui-as-tree`
+- track: 官方 Learn
+- level: 入门
+- minutes: 10
+
+### 要点（对齐官方）
+
+• React 遍历组件树渲染。\n\n• 父到子 props 单向流。\n\n• 帮助定位 state 与性能边界。
+
+
+**测验：**
+- Q: 数据默认流向？
+  - [ ] 子到父自动
+  - [✓] 父到子 props
+  - [ ] 双向强制
+  - [ ] 全局 only
+  - 解析: 单向。
+
+
+---
+
+# 添加交互
+
+- slug: `adding-interactivity`
+- track: 官方 Learn
+- level: 入门
+- minutes: 6
+
+### 要点（对齐官方）
+
+• 交互 = 事件 + state + 重渲染。\n\n• 先事件再快照/队列。\n\n• 官方本章覆盖事件到数组更新。
+
+
+**测验：**
+- Q: 交互闭环？
+  - [ ] 只改 CSS
+  - [✓] 事件→setState→渲染
+  - [ ] 整页刷新
+  - [ ] 改 HTML 文件
+  - 解析: 状态驱动。
+
+
+---
+
+# 响应事件
+
+- slug: `responding-to-events`
+- track: 官方 Learn
+- level: 入门
+- minutes: 8
+
+### 要点（对齐官方）
+
+• onClick={handler} 不要 onClick={handler()}。\n\n• 处理函数内更新 state。\n\n• e.preventDefault() 阻止默认。
+
+
+### 事件
+
+```tsx
+function Button({ onSmash, children }: { onSmash: () => void; children: React.ReactNode }) {
+  return <button onClick={onSmash}>{children}</button>
+}
+```
+
+
+**交互 Demo：** 动手：点击（kind: `counter`）
+
+
+**测验：**
+- Q: onClick={fn()} 会？
+  - [ ] 正确绑定
+  - [✓] 渲染时立刻调用
+  - [ ] 编译失败
+  - [ ] 仅 SSR
+  - 解析: 应传引用。
+
+
+---
+
+# state：组件的记忆
+
+- slug: `state-memory`
+- track: 官方 Learn
+- level: 入门
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 普通变量重渲染丢失。\n\n• 每实例独立 state。\n\n• 更新触发重渲染。
+
+
+### 记忆
+
+```tsx
+const [index, setIndex] = useState(0)
+```
+
+
+**交互 Demo：** 动手：useState（kind: `state`）
+
+
+**测验：**
+- Q: 为何不用 let 计数？
+  - [ ] 可以用且推荐
+  - [✓] 重新渲染会丢失
+  - [ ] 禁止 let
+  - [ ] 仅 TS
+  - 解析: 函数会重跑。
+
+
+---
+
+# 渲染和提交
+
+- slug: `render-and-commit`
+- track: 官方 Learn
+- level: 入门
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 三步：触发、渲染算 JSX、提交改 DOM。\n\n• 渲染必须纯。\n\n• 帮助理解双调用与批处理。
+
+
+**测验：**
+- Q: 提交阶段？
+  - [ ] 只算 props
+  - [✓] 把变更应用到 DOM
+  - [ ] 编译 TS
+  - [ ] 拉 Git
+  - 解析: commit。
+
+
+---
+
+# 把一系列 state 更新加入队列
+
+- slug: `queue-state-updates`
+- track: 官方 Learn
+- level: 入门
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 同事件多更新可批处理。\n\n• 基于前值：setX(x => x+1)。\n\n• 配合 state 快照理解。
+
+
+### 队列
+
+```tsx
+setAge(a => a + 1)
+setAge(a => a + 1)
+setAge(a => a + 1) // +3
+```
+
+
+**交互 Demo：** 动手：队列（kind: `state`）
+
+
+**测验：**
+- Q: 三次函数式 +1？
+  - [ ] +1
+  - [✓] +3
+  - [ ] 0
+  - [ ] 报错
+  - 解析: 链式。
+
+
+---
+
+# 更新 state 中的对象
+
+- slug: `update-objects`
+- track: 官方 Learn
+- level: 入门
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 禁止 user.name = x 后 set(user)。\n\n• setUser({ ...user, name })。\n\n• 嵌套需多层展开或扁平化。
+
+
+### 对象
+
+```tsx
+setPlayer({ ...player, score: player.score + 1 })
+```
+
+
+**测验：**
+- Q: 正确更新？
+  - [ ] obj.x=1; set(obj)
+  - [✓] set({...obj,x:1})
+  - [ ] delete obj
+  - [ ] freeze 后 mutate
+  - 解析: 新对象。
+
+
+---
+
+# 更新 state 中的数组
+
+- slug: `update-arrays`
+- track: 官方 Learn
+- level: 入门
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 新增 [...arr, x]。\n\n• 删除 filter。\n\n• 替换 map。
+
+
+### 数组
+
+```tsx
+setArtists(artists.filter(a => a.id !== id))
+```
+
+
+**交互 Demo：** 动手：列表（kind: `list`）
+
+
+**测验：**
+- Q: 删除一项？
+  - [ ] splice 原地 set 原数组
+  - [✓] filter 新数组
+  - [ ] length=0
+  - [ ] eval
+  - 解析: 不可变。
+
+
+---
+
+# 状态管理（导读）
+
+- slug: `managing-state`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 输入驱动、结构、共享、重置、reducer、context。\n\n• 先本地再提升。\n\n• 避免一上来全局 store。
+
+
+**测验：**
+- Q: 升级顺序？
+  - [ ] 先 Redux
+  - [✓] 本地→提升→context/reducer
+  - [ ] 先事件总线
+  - [ ] 只用 URL
+  - 解析: 渐进。
+
+
+---
+
+# 用 State 响应输入
+
+- slug: `reacting-to-input`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 用 state 描述界面模式。\n\n• 如 typing/sending/sent。\n\n• 每状态对应 UI。
+
+
+### 状态机
+
+```tsx
+if (status === 'sent') return <h1>Done</h1>
+```
+
+
+**测验：**
+- Q: 声明式？
+  - [ ] $('#x').hide()
+  - [✓] state 描述模式再渲染
+  - [ ] document.write
+  - [ ] alert 流程
+  - 解析: UI=f(state)。
+
+
+---
+
+# 选择 State 结构
+
+- slug: `state-structure`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 12
+
+### 要点（对齐官方）
+
+• 能派生的不存。\n\n• 避免矛盾字段。\n\n• 深嵌套可扁平。
+
+
+### 派生
+
+```tsx
+const full = first + ' ' + last
+```
+
+
+**测验：**
+- Q: fullName 应？
+  - [ ] state+effect 同步
+  - [✓] first/last 派生
+  - [ ] 必须 context
+  - [ ] 存 DOM
+  - 解析: 派生。
+
+
+---
+
+# 用 Reducer + Context 拓展
+
+- slug: `reducer-context-scale`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 12
+
+### 要点（对齐官方）
+
+• reducer 收敛逻辑。\n\n• 分拆 state/dispatch context。\n\n• 仍渐进引入。
+
+
+### 规模化
+
+```tsx
+const dispatch = useContext(TasksDispatchContext)
+dispatch({ type: "added", text })
+```
+
+
+**交互 Demo：** 动手：reducer（kind: `reducer`）
+
+
+**测验：**
+- Q: 规模化组合？
+  - [ ] 仅 CSS 变量
+  - [✓] useReducer + Context
+  - [ ] jQuery
+  - [ ] localStorage only
+  - 解析: 官方模式。
+
+
+---
+
+# 脱围机制（导读）
+
+- slug: `escape-hatches`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 多数功能不必脱围。\n\n• ref：DOM/定时器。\n\n• Effect：外部系统。
+
+
+**测验：**
+- Q: 脱围用于？
+  - [ ] 所有业务
+  - [✓] 外部系统/DOM
+  - [ ] 替代 props
+  - [ ] 写 SQL
+  - 解析: 逃逸口。
+
+
+---
+
+# 使用 ref 引用值
+
+- slug: `ref-values`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 改 current 不重渲染。\n\n• 适合 interval id。\n\n• 展示数据用 state。
+
+
+### ref
+
+```tsx
+const countRef = useRef(0)
+countRef.current += 1
+```
+
+
+**交互 Demo：** 动手：ref（kind: `ref`）
+
+
+**测验：**
+- Q: 改 ref.current 重渲染？
+  - [ ] 会
+  - [✓] 不会
+  - [ ] 仅 StrictMode
+  - [ ] 仅生产
+  - 解析: 不会。
+
+
+---
+
+# 使用 ref 操作 DOM
+
+- slug: `ref-dom`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• ref 挂宿主元素。\n\n• 事件或 Effect 中操作。\n\n• 渲染期勿读写 DOM。
+
+
+### DOM
+
+```tsx
+const inputRef = useRef<HTMLInputElement>(null)
+inputRef.current?.focus()
+```
+
+
+**交互 Demo：** 动手：DOM ref（kind: `ref`）
+
+
+**测验：**
+- Q: 聚焦？
+  - [ ] 仅 CSS
+  - [✓] ref.current.focus()
+  - [ ] document.all
+  - [ ] alert
+  - 解析: 命令式。
+
+
+---
+
+# 使用 Effect 进行同步
+
+- slug: `sync-effects`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 12
+
+### 要点（对齐官方）
+
+• 渲染后同步外部。\n\n• 返回清理函数。\n\n• 依赖控制重跑。
+
+
+### Effect
+
+```tsx
+useEffect(() => {
+  const id = setInterval(() => {}, 1000)
+  return () => clearInterval(id)
+}, [])
+```
+
+
+**交互 Demo：** 动手：Effect（kind: `effect`）
+
+
+**测验：**
+- Q: 清理何时跑？
+  - [ ] 永不
+  - [✓] 下次 effect 前与卸载
+  - [ ] 仅构建
+  - [ ] 仅 hydrate
+  - 解析: 防泄漏。
+
+
+---
+
+# 响应式 Effect 的生命周期
+
+- slug: `effect-lifecycle`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 12
+
+### 要点（对齐官方）
+
+• 不是简单 mount/unmount 类比。\n\n• 依赖变：清旧跑新。\n\n• 正确设计订阅。
+
+
+**测验：**
+- Q: roomId 变化？
+  - [ ] 旧订阅残留
+  - [✓] 清理后重订阅
+  - [ ] 崩溃
+  - [ ] 忽略
+  - 解析: 清理。
+
+
+---
+
+# 将事件从 Effect 中分开
+
+- slug: `separate-events-effects`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 事件不应无故进依赖。\n\n• 现代用 useEffectEvent。\n\n• 区分反应依赖与读取最新值。
+
+
+**测验：**
+- Q: 与 useEffectEvent？
+  - [ ] 无关
+  - [✓] 同一问题的 API 解法
+  - [ ] 取代 useState
+  - [ ] CSS
+  - 解析: 分离事件。
+
+
+---
+
+# 移除 Effect 依赖
+
+- slug: `remove-effect-deps`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 12
+
+### 要点（对齐官方）
+
+• 勿乱删依赖。\n\n• 下移函数、拆 Effect、事件分离。\n\n• 目标是正确性。
+
+
+> **提示：** 配合 eslint exhaustive-deps。
+
+
+**测验：**
+- Q: 乱删依赖？
+  - [ ] 最佳实践
+  - [✓] 易陈旧闭包
+  - [ ] 加速 10 倍
+  - [ ] 官方推荐
+  - 解析: 闭包过期。
+
+
+---
+
+# 使用自定义 Hook 复用逻辑
+
+- slug: `custom-hooks-official`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• useX 命名。\n\n• 共享逻辑非 UI。\n\n• 每调用独立 state。
+
+
+### 自定义 Hook
+
+```tsx
+function useOnlineStatus() {
+  const [online, setOnline] = useState(true)
+  useEffect(() => { /* subscribe */ }, [])
+  return online
+}
+```
+
+
+**测验：**
+- Q: 两组件同 hook？
+  - [ ] 共享同一 state
+  - [✓] 各自独立 state
+  - [ ] 报错
+  - [ ] 必须 memo
+  - 解析: 独立。
+
+
+---
+
+# React Compiler 介绍
+
+- slug: `compiler-intro`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 构建期优化重渲染。\n\n• 仍需组件纯粹。\n\n• 减少手写 memo。
+
+
+**测验：**
+- Q: Compiler 做什么？
+  - [ ] 写数据库
+  - [✓] 自动记忆化
+  - [ ] 替代路由
+  - [ ] 生成 CSS
+  - 解析: 优化。
+
+
+---
+
+# React Compiler 安装
+
+- slug: `compiler-install`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 6
+
+### 要点（对齐官方）
+
+• 按官方安装步骤接入构建。\n\n• Next 等框架有集成说明。
+
+
+**测验：**
+- Q: Compiler 运行时机？
+  - [ ] 仅浏览器运行时手写
+  - [✓] 构建期
+  - [ ] DNS
+  - [ ] 仅测试
+  - 解析: 编译期。
+
+
+---
+
+# Compiler 逐步采用
+
+- slug: `compiler-incremental`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 可 gating 渐进。\n\n• 先目录后全量。\n\n• 观察兼容性。
+
+
+**测验：**
+- Q: 推荐策略？
+  - [ ] 无监控全开永远
+  - [✓] 增量/门控
+  - [ ] 删掉 hooks
+  - [ ] 禁用 TS
+  - 解析: 渐进。
+
+
+---
+
+# Compiler 调试
+
+- slug: `compiler-debug`
+- track: 官方 Learn
+- level: 进阶
+- minutes: 6
+
+### 要点（对齐官方）
+
+• 查看编译失败原因。\n\n• 不纯组件需先修好。
+
+
+**测验：**
+- Q: 编译异常优先查？
+  - [ ] DNS
+  - [✓] 不纯/不兼容模式
+  - [ ] 改端口
+  - [ ] 关 ESLint
+  - 解析: 纯度。
+
+
+---
+
+# useDebugValue
+
+- slug: `api-use-debug-value`
+- track: API 参考
+- level: 进阶
+- minutes: 5
+
+### 要点（对齐官方）
+
+• 开发工具展示。\n\n• 可延迟格式化。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/useDebugValue
+
+
+**测验：**
+- Q: useDebugValue 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# useImperativeHandle
+
+- slug: `api-use-imperative-handle`
+- track: API 参考
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 配合 forwardRef。\n\n• 只暴露必要方法。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/useImperativeHandle
+
+
+**测验：**
+- Q: useImperativeHandle 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# useLayoutEffect
+
+- slug: `api-use-layout-effect`
+- track: API 参考
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 测布局防闪烁。\n\n• 多数情况 useEffect。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/useLayoutEffect
+
+
+**测验：**
+- Q: useLayoutEffect 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# useInsertionEffect
+
+- slug: `api-use-insertion-effect`
+- track: API 参考
+- level: 进阶
+- minutes: 5
+
+### 要点（对齐官方）
+
+• 布局 effect 前。\n\n• 应用代码少用。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/useInsertionEffect
+
+
+**测验：**
+- Q: useInsertionEffect 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# useSyncExternalStore
+
+- slug: `api-use-sync-external-store`
+- track: API 参考
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 并发安全。\n\n• 状态库底层常用。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/useSyncExternalStore
+
+
+**测验：**
+- Q: useSyncExternalStore 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# use API
+
+- slug: `api-use-hook`
+- track: API 参考
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 可条件调用。\n\n• 与 Suspense 集成。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/use
+
+
+**测验：**
+- Q: use API 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# Fragment
+
+- slug: `api-fragment`
+- track: API 参考
+- level: 入门
+- minutes: 5
+
+### 要点（对齐官方）
+
+• <>...</>。\n\n• 需 key 用 Fragment。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/Fragment
+
+
+**测验：**
+- Q: Fragment 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# StrictMode
+
+- slug: `api-strict-mode`
+- track: API 参考
+- level: 入门
+- minutes: 6
+
+### 要点（对齐官方）
+
+• 无 UI。\n\n• 双调用渲染。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/StrictMode
+
+
+**测验：**
+- Q: StrictMode 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# Profiler
+
+- slug: `api-profiler`
+- track: API 参考
+- level: 进阶
+- minutes: 6
+
+### 要点（对齐官方）
+
+• onRender 回调。\n\n• 或 DevTools。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/Profiler
+
+
+**测验：**
+- Q: Profiler 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# Activity
+
+- slug: `api-activity`
+- track: API 参考
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 保活与隐藏模式。\n\n• 复杂导航场景。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/Activity
+
+
+**测验：**
+- Q: Activity 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# ViewTransition
+
+- slug: `api-view-transition`
+- track: API 参考
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 声明式过渡。\n\n• 渐进增强。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/ViewTransition
+
+
+**测验：**
+- Q: ViewTransition 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# startTransition
+
+- slug: `api-start-transition`
+- track: API 参考
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 与 useTransition 同族。\n\n• 保输入流畅。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/startTransition
+
+
+**测验：**
+- Q: startTransition 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# lazy
+
+- slug: `api-lazy`
+- track: API 参考
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 配 Suspense。\n\n• 代码分割。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/lazy
+
+
+**测验：**
+- Q: lazy 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# memo
+
+- slug: `api-memo-ref`
+- track: API 参考
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 纯展示列表项常用。\n\n• Compiler 可能减少手写。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/memo
+
+
+**测验：**
+- Q: memo 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# cache (React)
+
+- slug: `api-cache`
+- track: API 参考
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• RSC 去重请求。\n\n• 不同于 Next fetch 配置。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/cache
+
+
+**测验：**
+- Q: cache (React) 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# createContext
+
+- slug: `api-create-context`
+- track: API 参考
+- level: 入门
+- minutes: 6
+
+### 要点（对齐官方）
+
+• Provider value。\n\n• useContext/use 读取。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/createContext
+
+
+**测验：**
+- Q: createContext 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# useFormStatus
+
+- slug: `api-use-form-status`
+- track: API 参考
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 在子组件调用。\n\n• 配 Server Actions。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react-dom/hooks/useFormStatus
+
+
+**测验：**
+- Q: useFormStatus 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# createPortal 参考
+
+- slug: `api-create-portal-ref`
+- track: API 参考
+- level: 进阶
+- minutes: 6
+
+### 要点（对齐官方）
+
+• Modal 到 body。\n\n• 事件仍走 React 树。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react-dom/createPortal
+
+
+**测验：**
+- Q: createPortal 参考 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# Server Functions
+
+- slug: `api-server-functions`
+- track: API 参考
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 客户端可调。\n\n• 须鉴权与校验。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/rsc/server-functions
+
+
+**测验：**
+- Q: Server Functions 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# 'use client' 指令
+
+- slug: `api-use-client-directive`
+- track: API 参考
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 文件顶层。\n\n• 导入链客户端化。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/rsc/use-client
+
+
+**测验：**
+- Q: 'use client' 指令 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# 'use server' 指令
+
+- slug: `api-use-server-directive`
+- track: API 参考
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 文件或函数级。\n\n• 防未授权调用。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/rsc/use-server
+
+
+**测验：**
+- Q: 'use server' 指令 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# React 规则总览
+
+- slug: `api-react-rules`
+- track: API 参考
+- level: 入门
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 组件/Hook 须纯。\n\n• React 调用你。\n\n• Hook 顶层。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/rules
+
+
+**测验：**
+- Q: React 规则总览 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# 过时 API 一览
+
+- slug: `api-legacy`
+- track: API 参考
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 新代码用函数组件。\n\n• 维护老代码查阅。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/legacy
+
+
+**测验：**
+- Q: 过时 API 一览 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# forwardRef
+
+- slug: `api-forward-ref`
+- track: API 参考
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 库常见。\n\n• 配 useImperativeHandle。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/forwardRef
+
+
+**测验：**
+- Q: forwardRef 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# act 测试工具
+
+- slug: `api-act`
+- track: API 参考
+- level: 进阶
+- minutes: 6
+
+### 要点（对齐官方）
+
+• RTL 已封装。\n\n• 断言前更新完成。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react/act
+
+
+**测验：**
+- Q: act 测试工具 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# React DOM <form>
+
+- slug: `api-form-component`
+- track: API 参考
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• action 可接 Server Function。\n\n• 渐进增强。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/react-dom/components/form
+
+
+**测验：**
+- Q: React DOM <form> 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# React Performance tracks
+
+- slug: `api-devtools-perf`
+- track: API 参考
+- level: 进阶
+- minutes: 5
+
+### 要点（对齐官方）
+
+• DevTools 性能能力。\n\n• 配合 Profiler。
+
+
+> **提示：** 官方原文：https://zh-hans.react.dev/reference/dev-tools/react-performance-tracks
+
+
+**测验：**
+- Q: React Performance tracks 属于？
+  - [✓] 官方 API/参考能力
+  - [ ] 仅 Vue
+  - [ ] 删除 React
+  - [ ] 操作系统调用
+  - 解析: 见官方。
+
+
+---
+
+# Next.js 安装
+
+- slug: `next-install`
+- track: Next 指南
+- level: 入门
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 初始化项目。\n\n• App Router 默认。\n\n• 路径别名。
+
+
+### 示例
+
+```tsx
+// npx create-next-app@latest
+```
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/getting-started/installation
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] Next.js 安装
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# 项目结构
+
+- slug: `next-project-structure`
+- track: Next 指南
+- level: 入门
+- minutes: 10
+
+### 要点（对齐官方）
+
+• app 即路由。\n\n• layout/page/loading/error/route。\n\n• public 静态资源。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/getting-started/project-structure
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] 项目结构
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# CSS 方案
+
+- slug: `next-css`
+- track: Next 指南
+- level: 入门
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 官方友好 Tailwind。\n\n• Modules 局部作用域。\n\n• 全局样式进根 layout。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/getting-started/css
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] CSS 方案
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# Proxy
+
+- slug: `next-proxy`
+- track: Next 指南
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 请求层拦截。\n\n• i18n/鉴权/A-B。\n\n• 见当前版本文档。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/getting-started/proxy
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] Proxy
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# 部署 Next.js
+
+- slug: `next-deploying`
+- track: Next 指南
+- level: 入门
+- minutes: 8
+
+### 要点（对齐官方）
+
+• Vercel 或自托管。\n\n• 环境变量。\n\n• Pages 可用静态导出。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/getting-started/deploying
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] 部署 Next.js
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# 升级 Next.js
+
+- slug: `next-upgrading`
+- track: Next 指南
+- level: 进阶
+- minutes: 6
+
+### 要点（对齐官方）
+
+• 跟 upgrading 指南。\n\n• 读 breaking changes。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/getting-started/upgrading
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] 升级 Next.js
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# Authentication 指南
+
+- slug: `next-auth-guide`
+- track: Next 指南
+- level: 进阶
+- minutes: 12
+
+### 要点（对齐官方）
+
+• Server 读 session。\n\n• 保护 Actions/Handlers。\n\n• 可配 Auth.js。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/authentication
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] Authentication 指南
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# 环境变量
+
+- slug: `next-env`
+- track: Next 指南
+- level: 入门
+- minutes: 8
+
+### 要点（对齐官方）
+
+• .env.local。\n\n• PUBLIC 才进浏览器。\n\n• 生产平台配置。
+
+
+### 示例
+
+```tsx
+process.env.DATABASE_URL
+process.env.NEXT_PUBLIC_APP_URL
+```
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/environment-variables
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] 环境变量
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# Forms 指南
+
+- slug: `next-forms-guide`
+- track: Next 指南
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• action={serverFn}。\n\n• useFormStatus。\n\n• 渐进增强。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/forms
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] Forms 指南
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# ISR
+
+- slug: `next-isr`
+- track: Next 指南
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 时间/按需 revalidate。\n\n• 内容站友好。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/incremental-static-regeneration
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] ISR
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# Streaming 指南
+
+- slug: `next-streaming-guide`
+- track: Next 指南
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 外壳先到。\n\n• loading.tsx。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/streaming
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] Streaming 指南
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# 静态导出
+
+- slug: `next-static-exports`
+- track: Next 指南
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 适合 GitHub Pages。\n\n• 无 Node 特性限制。\n\n• 本站 build:pages。
+
+
+### 示例
+
+```tsx
+output: 'export'
+```
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/static-exports
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] 静态导出
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# 国际化 i18n
+
+- slug: `next-i18n`
+- track: Next 指南
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 前缀/域名。\n\n• 字典内容。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/internationalization
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] 国际化 i18n
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# 数据安全
+
+- slug: `next-data-security`
+- track: Next 指南
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 密钥仅服务端。\n\n• 校验输入。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/data-security
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] 数据安全
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# 重定向
+
+- slug: `next-redirects`
+- track: Next 指南
+- level: 入门
+- minutes: 6
+
+### 要点（对齐官方）
+
+• Server/Action 调用。\n\n• 与 next.config 互补。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/redirecting
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] 重定向
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# 生产清单
+
+- slug: `next-production`
+- track: Next 指南
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 性能安全 SEO。\n\n• 上线打勾。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/production-checklist
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] 生产清单
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# 预取 Prefetching
+
+- slug: `next-prefetching`
+- track: Next 指南
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 视口预取。\n\n• 可控策略。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/prefetching
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] 预取 Prefetching
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# 懒加载
+
+- slug: `next-lazy-loading`
+- track: Next 指南
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 减首包。\n\n• ssr:false 选项。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/lazy-loading
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] 懒加载
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# Scripts
+
+- slug: `next-scripts`
+- track: Next 指南
+- level: 进阶
+- minutes: 6
+
+### 要点（对齐官方）
+
+• 加载策略。\n\n• 第三方脚本。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/scripts
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] Scripts
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# 自托管
+
+- slug: `next-self-hosting`
+- track: Next 指南
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• standalone。\n\n• 自管缓存 CDN。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/self-hosting
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] 自托管
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# SPA 模式指南
+
+- slug: `next-spa-guide`
+- track: Next 指南
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• Client 为主。\n\n• 可混 Server 壳。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/single-page-applications
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] SPA 模式指南
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# MDX
+
+- slug: `next-mdx`
+- track: Next 指南
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 文档/博客。\n\n• 嵌 React 组件。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/mdx
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] MDX
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# Backend for Frontend
+
+- slug: `next-backend-ff`
+- track: Next 指南
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• Route Handlers。\n\n• 隐藏多服务。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/backend-for-frontend
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] Backend for Frontend
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# 调试
+
+- slug: `next-debugging`
+- track: Next 指南
+- level: 入门
+- minutes: 6
+
+### 要点（对齐官方）
+
+• server/client 日志。\n\n• DevTools。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/debugging
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] 调试
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# CSP 内容安全策略
+
+- slug: `next-csp`
+- track: Next 指南
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 防 XSS。\n\n• nonce。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/content-security-policy
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] CSP 内容安全策略
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# JSON-LD
+
+- slug: `next-json-ld`
+- track: Next 指南
+- level: 进阶
+- minutes: 6
+
+### 要点（对齐官方）
+
+• ld+json。\n\n• SEO/AI。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/json-ld
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] JSON-LD
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# Draft Mode
+
+- slug: `next-draft-mode`
+- track: Next 指南
+- level: 进阶
+- minutes: 6
+
+### 要点（对齐官方）
+
+• 绕过静态缓存。\n\n• 编辑流。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/draft-mode
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] Draft Mode
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# CI 构建缓存
+
+- slug: `next-ci-cache`
+- track: Next 指南
+- level: 进阶
+- minutes: 5
+
+### 要点（对齐官方）
+
+• 缓存 .next/cache。\n\n• Actions 配置。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/ci-build-caching
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] CI 构建缓存
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# 包打包优化
+
+- slug: `next-package-bundling`
+- track: Next 指南
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• analyzer。\n\n• 避免坏 barrel。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/package-bundling
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] 包打包优化
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# 渲染哲学
+
+- slug: `next-rendering-philosophy`
+- track: Next 指南
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 默认 Server。\n\n• 交互下沉 Client。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/rendering-philosophy
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] 渲染哲学
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# Server Actions 指南
+
+- slug: `next-server-actions-guide`
+- track: Next 指南
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 'use server'。\n\n• revalidate。\n\n• 安全校验。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/server-actions
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] Server Actions 指南
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# Instant navigation
+
+- slug: `next-instant-nav`
+- track: Next 指南
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 预取与预渲染策略。\n\n• 16.x 演进能力。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/instant-navigation
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] Instant navigation
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# Preserving UI state
+
+- slug: `next-preserving-ui`
+- track: Next 指南
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• 布局保活。\n\n• 避免丢失输入。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/preserving-ui-state
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] Preserving UI state
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# OpenTelemetry
+
+- slug: `next-open-telemetry`
+- track: Next 指南
+- level: 进阶
+- minutes: 6
+
+### 要点（对齐官方）
+
+• 链路追踪。\n\n• 生产监控。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/open-telemetry
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] OpenTelemetry
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# Analytics
+
+- slug: `next-analytics`
+- track: Next 指南
+- level: 入门
+- minutes: 5
+
+### 要点（对齐官方）
+
+• 性能指标。\n\n• 真实用户监控。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/analytics
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] Analytics
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# 本地开发环境
+
+- slug: `next-local-dev`
+- track: Next 指南
+- level: 入门
+- minutes: 6
+
+### 要点（对齐官方）
+
+• Turbopack 等。\n\n• 环境优化。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/local-development
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] 本地开发环境
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# Next.js MCP Server
+
+- slug: `next-mcp`
+- track: Next 指南
+- level: 进阶
+- minutes: 6
+
+### 要点（对齐官方）
+
+• AI 编码代理集成。\n\n• 配合 llms.txt。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/mcp
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] Next.js MCP Server
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# 迁移到 Next.js
+
+- slug: `next-migrating`
+- track: Next 指南
+- level: 进阶
+- minutes: 10
+
+### 要点（对齐官方）
+
+• 官方 migrating 指南。\n\n• 路由与数据层映射。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/migrating
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] 迁移到 Next.js
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# PWA
+
+- slug: `next-pwa`
+- track: Next 指南
+- level: 进阶
+- minutes: 8
+
+### 要点（对齐官方）
+
+• Service Worker 策略。\n\n• 渐进增强。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/progressive-web-apps
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] PWA
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# Sass
+
+- slug: `next-sass`
+- track: Next 指南
+- level: 入门
+- minutes: 5
+
+### 要点（对齐官方）
+
+• 内置支持。\n\n• 模块化样式。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/sass
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] Sass
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+
+
+---
+
+# Public 静态页
+
+- slug: `next-public-static`
+- track: Next 指南
+- level: 进阶
+- minutes: 6
+
+### 要点（对齐官方）
+
+• 营销页。\n\n• 缓存友好。
+
+
+> **提示：** 官方文档：https://nextjs.org/docs/app/guides/public-static-pages
+
+
+**测验：**
+- Q: 本课主题？
+  - [✓] Public 静态页
+  - [ ] 仅 Angular
+  - [ ] 操作系统
+  - [ ] Photoshop
+  - 解析: 见官方。
+

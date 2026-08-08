@@ -1,3 +1,12 @@
+# learning-nextjs
+
+交互式中文 **React / Next.js** 教程（Next.js App Router 静态导出）。
+
+- 对齐 [react.dev/llms.txt](https://react.dev/llms.txt) · [nextjs.org/docs/llms.txt](https://nextjs.org/docs/llms.txt)（官方有！）
+- 本站：[`/llms.txt`](https://xiaoqianran.github.io/learning-nextjs/llms.txt) · [`/llms-full.txt`](https://xiaoqianran.github.io/learning-nextjs/llms-full.txt)
+- UI：Catppuccin + 学/查/练/我 导航（与 learning-vue3 同构）
+- 部署：GitHub Actions → GitHub Pages
+
 # React 实战学习 · Next.js 版
 
 **在线：** https://xiaoqianran.github.io/learning-nextjs/  
