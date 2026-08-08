@@ -55,7 +55,8 @@ export function AppShell({ children }: { children: ReactNode }) {
   const progress = Math.round((completed.length / LESSONS.length) * 100);
 
   useEffect(() => {
-    void useProgress.persist.rehydrate().then(() => {
+    const result = useProgress.persist.rehydrate();
+    Promise.resolve(result).then(() => {
       checkInToday();
       syncAchievements();
     });
