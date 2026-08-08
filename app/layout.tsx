@@ -4,9 +4,9 @@ import { AppShell } from "@/components/AppShell";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "React 实战学习 · Next.js v6 · 对齐官方",
+  title: "React 实战学习 · Next.js v7 · 对齐官方",
   description:
-    "对齐 react.dev / nextjs.org llms.txt 的交互式中文教程：63 课、测验、工坊、官方文档中枢。",
+    "对齐 react.dev / nextjs.org llms.txt 的交互式中文教程：160+ 课、测验、工坊、官方文档中枢。",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

@@ -20,7 +20,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useMemo, useState } from "react";
 
-type TrackFilter = "全部" | "基础" | "进阶" | "全栈准备" | "全栈实训" | "工程化" | "进阶模式" | "现代 React" | "数据层" | "官方对齐" | "Next.js";
+type TrackFilter = "全部" | "基础" | "进阶" | "全栈准备" | "全栈实训" | "工程化" | "进阶模式" | "现代 React" | "数据层" | "官方对齐" | "Next.js" | "官方 Learn" | "API 参考" | "Next 指南";
 
 function HomePage() {
   const completed = useProgress((s) => s.completed);
@@ -63,7 +63,7 @@ function HomePage() {
           <div className="flex flex-wrap items-center gap-2">
             <p className="inline-flex items-center gap-1.5 rounded-full border border-border bg-bg/60 px-2.5 py-1 text-xs font-medium text-primary">
               <Sparkles className="h-3.5 w-3.5" />
-              learning-nextjs · v6 · 对齐官方
+              learning-nextjs · v7 · 官网迁移
             </p>
             {streak > 0 ? (
               <span className="rounded-full bg-surface-3 px-2.5 py-1 font-mono text-xs text-muted">
@@ -75,7 +75,7 @@ function HomePage() {
             带你系统学 React
           </h1>
           <p className="mt-3 max-w-xl text-base leading-relaxed text-muted">
-            v6：对齐 react.dev / nextjs.org 官方 llms.txt 目录，补齐哲学、纯组件、RSC、App Router 等课程。
+            v7：按官方 llms.txt 迁移 React Learn 全路径、API 参考与 Next Guides，课程覆盖官网主干。
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <Link

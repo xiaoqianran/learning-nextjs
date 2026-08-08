@@ -47,3 +47,11 @@ npm run dev
 - 官方文档中枢: https://xiaoqianran.github.io/learning-nextjs/official/
 
 v6 新增「官方对齐」「Next.js」轨道课程（Thinking in React、纯组件、state 快照、少用 Effect、RSC、App Router、Server Actions、缓存、llms.txt 等）。
+
+
+## v7 官网迁移
+
+- 按 [React llms.txt](https://zh-hans.react.dev/llms.txt) 迁移 Learn 全路径
+- 按 API 参考迁移 Hooks/组件/RSC 指令等
+- 按 [Next docs llms.txt](https://nextjs.org/docs/llms.txt) 迁移 Getting Started 与主要 Guides
+- 源码：`data/lessons-migrated.ts`

@@ -38,7 +38,7 @@ export default function OfficialPage() {
           >
             Next.js /docs/llms.txt
           </a>
-          ，把学习路径、API 与本站课程一一对照。目标：交互练习不输官网，目录覆盖不输官网索引。
+          ，已按官方 llms.txt 迁移 React Learn 全路径、核心 API 参考、Next Getting Started 与主要 Guides。目标：目录覆盖对齐官网，交互/测验超出纯文档。
         </p>
       </header>
 

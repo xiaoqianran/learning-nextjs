@@ -1,3 +1,5 @@
+import { MIGRATED_LESSONS } from "./lessons-migrated";
+
 export type QuizQuestion = {
   id: string;
   question: string;
@@ -49,14 +51,17 @@ export type Lesson = {
     | "现代 React"
     | "数据层"
     | "官方对齐"
-    | "Next.js";
+    | "Next.js"
+    | "官方 Learn"
+    | "API 参考"
+    | "Next 指南";
   /** 官方文档对照链接（react.dev / nextjs.org） */
   official?: { title: string; url: string }[];
   minutes: number;
   blocks: LessonBlock[];
 };
 
-export const LESSONS: Lesson[] = [
+const BASE_LESSONS: Lesson[] = [
   {
     slug: "intro",
     title: "React 是什么",
@@ -3075,6 +3080,8 @@ const inter = Inter({ subsets: ["latin"] })
   }
 ];
 
+export const LESSONS: Lesson[] = [...BASE_LESSONS, ...MIGRATED_LESSONS];
+
 export const TRACKS = [
   "基础",
   "进阶",
@@ -3086,6 +3093,9 @@ export const TRACKS = [
   "数据层",
   "官方对齐",
   "Next.js",
+  "官方 Learn",
+  "API 参考",
+  "Next 指南",
 ] as const;
 
 export function getLesson(slug: string): Lesson | undefined {
