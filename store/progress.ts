@@ -15,7 +15,9 @@ export type WrongItem = {
 };
 
 type ProgressState = {
+  visited: string[];
   completed: string[];
+  mastered: string[];
   quizScores: Record<string, number>;
   bookmarks: string[];
   notes: Record<string, string>;
@@ -24,7 +26,9 @@ type ProgressState = {
   streak: number;
   achievements: AchievementId[];
   theme: "dark" | "light";
+  markVisited: (slug: string) => void;
   markComplete: (slug: string) => void;
+  markMastered: (slug: string) => void;
   setQuizScore: (slug: string, score: number) => void;
   toggleBookmark: (slug: string) => void;
   setNote: (slug: string, text: string) => void;
@@ -92,7 +96,9 @@ function deriveAchievements(s: {
 export const useProgress = create<ProgressState>()(
   persist(
     (set, get) => ({
+      visited: [],
       completed: [],
+      mastered: [],
       quizScores: {},
       bookmarks: [],
       notes: {},
@@ -101,14 +107,42 @@ export const useProgress = create<ProgressState>()(
       streak: 0,
       achievements: [],
       theme: "dark",
+      markVisited: (slug) =>
+        set((s) => ({
+          visited: s.visited.includes(slug) ? s.visited : [...s.visited, slug],
+        })),
       markComplete: (slug) => {
         set((s) => {
           const completed = s.completed.includes(slug)
             ? s.completed
             : [...s.completed, slug];
-          const next = { ...s, completed };
+          const visited = s.visited.includes(slug)
+            ? s.visited
+            : [...s.visited, slug];
+          const next = { ...s, completed, visited };
           return {
+            visited,
             completed,
+            achievements: deriveAchievements(next),
+          };
+        });
+      },
+      markMastered: (slug) => {
+        set((s) => {
+          const completed = s.completed.includes(slug)
+            ? s.completed
+            : [...s.completed, slug];
+          const visited = s.visited.includes(slug)
+            ? s.visited
+            : [...s.visited, slug];
+          const mastered = s.mastered.includes(slug)
+            ? s.mastered
+            : [...s.mastered, slug];
+          const next = { ...s, completed, visited, mastered };
+          return {
+            visited,
+            completed,
+            mastered,
             achievements: deriveAchievements(next),
           };
         });
@@ -175,7 +209,7 @@ export const useProgress = create<ProgressState>()(
       exportSnapshot: () => {
         const s = get();
         return {
-          version: 3,
+          version: 4,
           exportedAt: new Date().toISOString(),
           completed: s.completed,
           quizScores: s.quizScores,
@@ -193,7 +227,9 @@ export const useProgress = create<ProgressState>()(
         const p = data as Partial<ProgressState>;
         if (!Array.isArray(p.completed)) return false;
         set({
+          visited: p.visited ?? p.completed ?? [],
           completed: p.completed ?? [],
+          mastered: p.mastered ?? [],
           quizScores: p.quizScores ?? {},
           bookmarks: p.bookmarks ?? [],
           notes: p.notes ?? {},
@@ -208,7 +244,9 @@ export const useProgress = create<ProgressState>()(
       },
       reset: () =>
         set({
+          visited: [],
           completed: [],
+          mastered: [],
           quizScores: {},
           bookmarks: [],
           notes: {},
@@ -220,13 +258,15 @@ export const useProgress = create<ProgressState>()(
         }),
     }),
     {
-      name: "learning-nextjs-progress-v1",
-      version: 3,
+      name: "next-learn-progress-v8",
+      version: 4,
       skipHydration: true,
       migrate: (persisted) => {
         const p = (persisted ?? {}) as Partial<ProgressState>;
         return {
+          visited: p.visited ?? p.completed ?? [],
           completed: p.completed ?? [],
+          mastered: p.mastered ?? [],
           quizScores: p.quizScores ?? {},
           bookmarks: p.bookmarks ?? [],
           notes: p.notes ?? {},

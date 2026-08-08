@@ -10,7 +10,9 @@ function CertificatePage() {
   const completed = useProgress((s) => s.completed);
   const quizScores = useProgress((s) => s.quizScores);
   const streak = useProgress((s) => s.streak);
-  const unlocked = completed.length >= LESSONS.length;
+  const mastered = useProgress((s) => s.mastered);
+  const unlocked =
+    mastered.length >= LESSONS.length || completed.length >= LESSONS.length;
   const avg =
     Object.keys(quizScores).length === 0
       ? 0

@@ -38,6 +38,11 @@ export function LessonClient() {
   const { prev, next } = getAdjacent(slug);
   const completed = useProgress((s) => s.completed);
   const markComplete = useProgress((s) => s.markComplete);
+  const markVisited = useProgress((s) => s.markVisited);
+
+  useEffect(() => {
+    markVisited(slug);
+  }, [slug, markVisited]);
   const bookmarks = useProgress((s) => s.bookmarks);
   const toggleBookmark = useProgress((s) => s.toggleBookmark);
   const notes = useProgress((s) => s.notes);

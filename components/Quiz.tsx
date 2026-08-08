@@ -20,6 +20,7 @@ export function Quiz({
   const [submitted, setSubmitted] = useState(false);
   const setQuizScore = useProgress((s) => s.setQuizScore);
   const markComplete = useProgress((s) => s.markComplete);
+  const markMastered = useProgress((s) => s.markMastered);
   const addWrong = useProgress((s) => s.addWrong);
   const checkInToday = useProgress((s) => s.checkInToday);
 
@@ -58,7 +59,8 @@ export function Quiz({
       }
     }
 
-    if (real === questions.length) markComplete(slug);
+    if (realPct >= 80) markMastered(slug);
+    else markComplete(slug);
   }
 
   function reset() {

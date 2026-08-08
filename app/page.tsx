@@ -63,7 +63,7 @@ function HomePage() {
           <div className="flex flex-wrap items-center gap-2">
             <p className="inline-flex items-center gap-1.5 rounded-full border border-border bg-bg/60 px-2.5 py-1 text-xs font-medium text-primary">
               <Sparkles className="h-3.5 w-3.5" />
-              learning-nextjs · v7 · 官网迁移
+              learning-nextjs · v8 · 系统路径
             </p>
             {streak > 0 ? (
               <span className="rounded-full bg-surface-3 px-2.5 py-1 font-mono text-xs text-muted">
@@ -75,7 +75,7 @@ function HomePage() {
             带你系统学 React
           </h1>
           <p className="mt-3 max-w-xl text-base leading-relaxed text-muted">
-            v7：按官方 llms.txt 迁移 React Learn 全路径、API 参考与 Next Guides，课程覆盖官网主干。
+            对齐 react.dev / nextjs.org 官方 llms.txt：清晰路径、文档中枢、Live Demo、测验与全栈工坊。
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <Link
@@ -87,14 +87,14 @@ function HomePage() {
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
-            <Link href="/roadmap" className="no-underline">
+            <Link href="/docs" className="no-underline">
               <Button size="lg" variant="secondary">
-                路线图
+                文档地图
               </Button>
             </Link>
             <Link href="/official" className="no-underline">
               <Button variant="secondary" size="sm" className="gap-1">
-                官方文档
+                官方中枢
               </Button>
             </Link>
             <Link href="/studio" className="no-underline">
