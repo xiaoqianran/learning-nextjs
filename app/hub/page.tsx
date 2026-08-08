@@ -1,0 +1,346 @@
+"use client";
+
+import Link from "next/link";
+import { useMemo, useState } from "react";
+import { LESSONS, TRACKS, getLessonsByTrack } from "@/data/lessons";
+import { ACHIEVEMENTS } from "@/data/achievements";
+import { useProgress, todayKey } from "@/store/progress";
+import { Button } from "@/components/ui/button";
+import {
+  Award,
+  BookMarked,
+  BookX,
+  Flame,
+  StickyNote,
+  Target,
+} from "lucide-react";
+
+function HubPage() {
+  const completed = useProgress((s) => s.completed);
+  const quizScores = useProgress((s) => s.quizScores);
+  const bookmarks = useProgress((s) => s.bookmarks);
+  const notes = useProgress((s) => s.notes);
+  const wrongBook = useProgress((s) => s.wrongBook);
+  const streak = useProgress((s) => s.streak);
+  const checkIns = useProgress((s) => s.checkIns);
+  const checkInToday = useProgress((s) => s.checkInToday);
+  const achievements = useProgress((s) => s.achievements);
+  const calendarDays = useMemo(() => {
+    const days: { key: string; label: string; on: boolean }[] = [];
+    const d = new Date();
+    for (let i = 13; i >= 0; i--) {
+      const x = new Date(d);
+      x.setDate(d.getDate() - i);
+      const key = `${x.getFullYear()}-${String(x.getMonth() + 1).padStart(2, "0")}-${String(x.getDate()).padStart(2, "0")}`;
+      days.push({
+        key,
+        label: `${x.getMonth() + 1}/${x.getDate()}`,
+        on: checkIns.includes(key),
+      });
+    }
+    return days;
+  }, [checkIns]);
+  const exportSnapshot = useProgress((s) => s.exportSnapshot);
+  const importSnapshot = useProgress((s) => s.importSnapshot);
+  const [importMsg, setImportMsg] = useState<string | null>(null);
+
+  const noteEntries = Object.entries(notes).filter(([, v]) => v.trim());
+  const avgScore =
+    Object.keys(quizScores).length === 0
+      ? null
+      : Math.round(
+          Object.values(quizScores).reduce((a, b) => a + b, 0) /
+            Object.keys(quizScores).length,
+        );
+  const checkedIn = checkIns.includes(todayKey());
+
+  return (
+    <div className="mx-auto max-w-3xl pb-16">
+      <header className="mb-6">
+        <p className="text-xs font-medium uppercase tracking-wider text-primary">
+          v5
+        </p>
+        <h1 className="mt-1 font-display text-2xl font-semibold text-fg">
+          学习中心
+        </h1>
+        <p className="mt-1 text-sm text-muted">
+          进度、打卡、收藏与笔记一览
+        </p>
+      </header>
+
+
+
+      <section className="mt-6 rounded-xl border border-border bg-surface p-5">
+        <h2 className="font-display text-base font-semibold">进度备份</h2>
+        <p className="mt-1 text-xs text-muted">
+          导出 JSON 到本机，或导入恢复（覆盖当前进度）
+        </p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={() => {
+              const blob = new Blob(
+                [JSON.stringify(exportSnapshot(), null, 2)],
+                { type: "application/json" },
+              );
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = `learning-react-progress-${new Date().toISOString().slice(0, 10)}.json`;
+              a.click();
+              URL.revokeObjectURL(url);
+            }}
+          >
+            导出进度
+          </Button>
+          <label className="inline-flex h-9 cursor-pointer items-center rounded-md border border-border bg-surface-2 px-3 text-sm text-fg hover:bg-surface-3">
+            导入进度
+            <input
+              type="file"
+              accept="application/json,.json"
+              className="hidden"
+              onChange={async (e) => {
+                const file = e.target.files?.[0];
+                e.target.value = "";
+                if (!file) return;
+                try {
+                  const text = await file.text();
+                  const ok = importSnapshot(JSON.parse(text));
+                  setImportMsg(ok ? "导入成功" : "文件格式不正确");
+                } catch {
+                  setImportMsg("解析失败");
+                }
+              }}
+            />
+          </label>
+        </div>
+        {importMsg ? (
+          <p className="mt-2 text-xs text-primary">{importMsg}</p>
+        ) : null}
+      </section>
+
+      <section className="mt-6 rounded-xl border border-border bg-surface p-5">
+        <h2 className="font-display text-base font-semibold">成就</h2>
+        <p className="mt-1 text-xs text-muted">
+          已解锁 {achievements.length}/{ACHIEVEMENTS.length}
+        </p>
+        <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+          {ACHIEVEMENTS.map((a) => {
+            const on = achievements.includes(a.id);
+            return (
+              <li
+                key={a.id}
+                className={
+                  "rounded-lg border px-3 py-2 text-sm " +
+                  (on
+                    ? "border-primary/30 bg-primary-soft text-primary"
+                    : "border-border bg-surface-2 text-muted")
+                }
+              >
+                <span className="font-medium">{a.title}</span>
+                <span className="mt-0.5 block text-xs opacity-80">{a.desc}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <Stat
+          icon={Target}
+          label="完成课程"
+          value={`${completed.length}/${LESSONS.length}`}
+        />
+        <Stat
+          icon={Flame}
+          label="连续打卡"
+          value={`${streak} 天`}
+        />
+        <Stat
+          icon={BookMarked}
+          label="收藏"
+          value={String(bookmarks.length)}
+        />
+        <Stat
+          icon={BookX}
+          label="错题"
+          value={String(wrongBook.length)}
+        />
+      </div>
+
+      <section className="mt-6 rounded-xl border border-border bg-surface p-5">
+        <h2 className="font-display text-base font-semibold">路径进度</h2>
+        <ul className="mt-3 space-y-2">
+          {TRACKS.map((t) => {
+            const list = getLessonsByTrack(t);
+            const done = list.filter((l) => completed.includes(l.slug)).length;
+            const pct = list.length ? Math.round((done / list.length) * 100) : 0;
+            return (
+              <li key={t}>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-fg">{t}</span>
+                  <span className="font-mono text-xs text-muted">
+                    {done}/{list.length}
+                  </span>
+                </div>
+                <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-surface-3">
+                  <div
+                    className="h-full rounded-full bg-primary"
+                    style={{ width: pct + "%" }}
+                  />
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+
+      <section className="mt-6 rounded-xl border border-border bg-surface p-5">
+        <h2 className="font-display text-base font-semibold">近 14 天打卡</h2>
+        <div className="mt-3 grid grid-cols-7 gap-1.5 sm:grid-cols-14">
+          {calendarDays.map((d) => (
+            <div
+              key={d.key}
+              title={d.key}
+              className={
+                "flex aspect-square items-center justify-center rounded-md text-[10px] " +
+                (d.on
+                  ? "bg-primary text-primary-fg"
+                  : "bg-surface-3 text-subtle")
+              }
+            >
+              {d.label.split("/")[1]}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-6 rounded-xl border border-border bg-surface p-5">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 className="font-display text-base font-semibold">每日打卡</h2>
+            <p className="mt-0.5 text-sm text-muted">
+              {checkedIn
+                ? "今天已打卡，保持节奏"
+                : "完成测验或标记完成会自动打卡"}
+            </p>
+          </div>
+          <Button
+            variant={checkedIn ? "secondary" : "default"}
+            onClick={() => checkInToday()}
+          >
+            {checkedIn ? "已打卡" : "立即打卡"}
+          </Button>
+        </div>
+        {avgScore !== null ? (
+          <p className="mt-3 font-mono text-xs text-muted">
+            平均测验分 {avgScore}%
+          </p>
+        ) : null}
+      </section>
+
+      <section className="mt-6 grid gap-3 sm:grid-cols-2">
+        <Link
+          href="/mistakes"
+          className="rounded-xl border border-border bg-surface p-4 no-underline transition-colors hover:border-border-strong"
+        >
+          <BookX className="h-5 w-5 text-primary" />
+          <h3 className="mt-2 font-medium text-fg">错题本</h3>
+          <p className="mt-1 text-sm text-muted">
+            {wrongBook.length
+              ? `${wrongBook.length} 道待复习`
+              : "暂无错题，保持全对"}
+          </p>
+        </Link>
+        <Link
+          href="/certificate"
+          className="rounded-xl border border-border bg-surface p-4 no-underline transition-colors hover:border-border-strong"
+        >
+          <Award className="h-5 w-5 text-primary" />
+          <h3 className="mt-2 font-medium text-fg">结业证明</h3>
+          <p className="mt-1 text-sm text-muted">
+            完成全部 {LESSONS.length} 课后解锁
+          </p>
+        </Link>
+      </section>
+
+      <section className="mt-8">
+        <h2 className="font-display text-base font-semibold flex items-center gap-2">
+          <StickyNote className="h-4 w-4 text-primary" />
+          我的笔记
+        </h2>
+        {noteEntries.length === 0 ? (
+          <p className="mt-3 text-sm text-muted">
+            在课程页底部写笔记，会显示在这里
+          </p>
+        ) : (
+          <ul className="mt-3 space-y-2">
+            {noteEntries.map(([slug, text]) => {
+              const lesson = LESSONS.find((l) => l.slug === slug);
+              return (
+                <li key={slug}>
+                  <Link
+                    href={`/lesson/${slug}`}
+                    className="block rounded-lg border border-border bg-surface p-3 no-underline hover:border-border-strong"
+                  >
+                    <p className="text-sm font-medium text-fg">
+                      {lesson?.title ?? slug}
+                    </p>
+                    <p className="mt-1 line-clamp-2 text-xs text-muted">
+                      {text}
+                    </p>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </section>
+
+      {bookmarks.length > 0 ? (
+        <section className="mt-8">
+          <h2 className="font-display text-base font-semibold">收藏课程</h2>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {bookmarks.map((slug) => {
+              const l = LESSONS.find((x) => x.slug === slug);
+              if (!l) return null;
+              return (
+                <Link
+                  key={slug}
+                  href={`/lesson/${slug}`}
+                  className="rounded-full border border-border bg-surface-2 px-3 py-1.5 text-xs text-fg no-underline hover:border-primary/40"
+                >
+                  {l.title}
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
+    </div>
+  );
+}
+
+function Stat({
+  icon: Icon,
+  label,
+  value,
+}: {
+  icon: typeof Target;
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="rounded-xl border border-border bg-surface p-4">
+      <Icon className="h-4 w-4 text-primary" />
+      <p className="mt-3 font-mono text-xl font-semibold tabular-nums text-fg">
+        {value}
+      </p>
+      <p className="mt-0.5 text-xs text-muted">{label}</p>
+    </div>
+  );
+}
+
+export default HubPage;

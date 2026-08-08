@@ -1,0 +1,245 @@
+"use client";
+
+import type { ReactNode } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  BookOpen,
+  Check,
+  Menu,
+  X,
+  FlaskConical,
+  LayoutDashboard,
+  BookX,
+  Award,
+  Code2,
+  Server,
+  BookMarked,
+  Map as MapIcon,
+  Sun,
+  Moon,
+  Keyboard,
+} from "lucide-react";
+import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
+import { useProgress } from "@/store/progress";
+import { LESSONS } from "@/data/lessons";
+import { CommandPalette } from "@/components/CommandPalette";
+
+const NAV_EXTRA = [
+  { href: "/studio", label: "全栈工坊", icon: Server },
+  { href: "/cheatsheet", label: "速查表", icon: BookMarked },
+  { href: "/playground", label: "沙箱", icon: Code2 },
+  { href: "/roadmap", label: "路线图", icon: MapIcon },
+  { href: "/hub", label: "学习中心", icon: LayoutDashboard },
+  { href: "/lab", label: "练习场", icon: FlaskConical },
+  { href: "/mistakes", label: "错题本", icon: BookX },
+  { href: "/shortcuts", label: "快捷键", icon: Keyboard },
+  { href: "/certificate", label: "结业", icon: Award },
+] as const;
+
+function navActive(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(href + "/");
+}
+
+export function AppShell({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const completed = useProgress((s) => s.completed);
+  const streak = useProgress((s) => s.streak);
+  const checkInToday = useProgress((s) => s.checkInToday);
+  const theme = useProgress((s) => s.theme);
+  const setTheme = useProgress((s) => s.setTheme);
+  const syncAchievements = useProgress((s) => s.syncAchievements);
+  const progress = Math.round((completed.length / LESSONS.length) * 100);
+
+  useEffect(() => {
+    void useProgress.persist.rehydrate().then(() => {
+      checkInToday();
+      syncAchievements();
+    });
+  }, [checkInToday, syncAchievements]);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("theme-light", theme === "light");
+  }, [theme]);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  return (
+    <div className="min-h-dvh bg-bg text-fg">
+      <header className="sticky top-0 z-40 border-b border-border bg-bg/90 backdrop-blur-md">
+        <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4 sm:px-6">
+          <button
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-surface text-fg lg:hidden"
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? "关闭目录" : "打开目录"}
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+
+          <Link
+            href="/"
+            className="flex min-w-0 items-center gap-2.5 no-underline"
+            onClick={() => setOpen(false)}
+          >
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary-soft text-primary">
+              <BookOpen className="h-4 w-4" />
+            </span>
+            <span className="truncate font-display text-sm font-semibold tracking-tight text-fg">
+              React 实战学习
+            </span>
+            <span className="hidden rounded-full bg-surface-3 px-1.5 py-0.5 font-mono text-[10px] text-primary sm:inline">
+              Next
+            </span>
+          </Link>
+
+          <nav className="ml-2 hidden items-center gap-0.5 xl:flex">
+            {NAV_EXTRA.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "rounded-md px-2 py-1.5 text-xs text-muted no-underline transition-colors hover:bg-surface-2 hover:text-fg",
+                  navActive(pathname, item.href) &&
+                    "bg-primary-soft text-primary",
+                )}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="ml-auto flex items-center gap-3">
+            {streak > 0 ? (
+              <span className="hidden font-mono text-xs tabular-nums text-muted sm:inline">
+                连续 {streak} 天
+              </span>
+            ) : null}
+            <span className="hidden font-mono text-[10px] text-subtle lg:inline">
+              Ctrl/⌘ K
+            </span>
+            <button
+              type="button"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-surface text-muted hover:text-fg"
+              aria-label="切换主题"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            >
+              {theme === "dark" ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
+            </button>
+            <div className="hidden items-center gap-2 sm:flex">
+              <div className="h-1.5 w-24 overflow-hidden rounded-full bg-surface-3">
+                <div
+                  className="h-full rounded-full bg-primary transition-[width] duration-300 ease-out"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+              <span className="font-mono text-xs tabular-nums text-muted">
+                {progress}%
+              </span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="mx-auto flex max-w-6xl">
+        <aside
+          className={cn(
+            "fixed inset-y-0 left-0 z-30 w-[min(18rem,88vw)] border-r border-border bg-surface pt-14 transition-transform duration-200 ease-out lg:static lg:z-0 lg:w-64 lg:shrink-0 lg:translate-x-0 lg:border-r lg:bg-transparent lg:pt-0",
+            open ? "translate-x-0" : "-translate-x-full",
+          )}
+        >
+          <nav className="scrollbar-thin h-[calc(100dvh-3.5rem)] overflow-y-auto p-3 lg:sticky lg:top-14 lg:h-[calc(100dvh-3.5rem)] lg:py-6">
+            <p className="mb-2 px-2 text-xs font-medium uppercase tracking-wider text-subtle">
+              快捷入口
+            </p>
+            <ul className="mb-4 flex flex-col gap-0.5">
+              {NAV_EXTRA.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-fg no-underline transition-colors hover:bg-surface-2",
+                        navActive(pathname, item.href) &&
+                          "bg-primary-soft text-primary",
+                      )}
+                    >
+                      <Icon className="h-4 w-4 shrink-0 opacity-70" />
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <p className="mb-2 px-2 text-xs font-medium uppercase tracking-wider text-subtle">
+              课程目录
+            </p>
+            <ul className="flex flex-col gap-0.5">
+              {LESSONS.map((lesson, i) => {
+                const done = completed.includes(lesson.slug);
+                const active = pathname === `/lesson/${lesson.slug}`;
+                return (
+                  <li key={lesson.slug}>
+                    <Link
+                      href={`/lesson/${lesson.slug}`}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "flex items-start gap-2.5 rounded-md px-2.5 py-2 text-sm text-fg no-underline transition-colors duration-150 hover:bg-surface-2",
+                        active && "bg-primary-soft text-primary",
+                      )}
+                    >
+                      <span
+                        className={cn(
+                          "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full font-mono text-[10px] font-medium",
+                          done
+                            ? "bg-primary text-primary-fg"
+                            : "bg-surface-3 text-muted",
+                        )}
+                      >
+                        {done ? <Check className="h-3 w-3" /> : i + 1}
+                      </span>
+                      <span className="min-w-0 leading-snug">
+                        <span className="block">{lesson.title}</span>
+                        {lesson.track !== "基础" ? (
+                          <span className="text-[10px] text-muted">
+                            {lesson.track}
+                          </span>
+                        ) : null}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        </aside>
+
+        {open ? (
+          <button
+            type="button"
+            className="fixed inset-0 z-20 bg-bg/60 lg:hidden"
+            aria-label="关闭遮罩"
+            onClick={() => setOpen(false)}
+          />
+        ) : null}
+
+        <main className="min-w-0 flex-1 px-4 py-6 sm:px-6 lg:py-8">
+          {children}
+        </main>
+      </div>
+      <CommandPalette />
+    </div>
+  );
+}
