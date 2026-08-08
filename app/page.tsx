@@ -20,7 +20,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useMemo, useState } from "react";
 
-type TrackFilter = "全部" | "基础" | "进阶" | "全栈准备" | "全栈实训" | "工程化" | "进阶模式" | "现代 React" | "数据层";
+type TrackFilter = "全部" | "基础" | "进阶" | "全栈准备" | "全栈实训" | "工程化" | "进阶模式" | "现代 React" | "数据层" | "官方对齐" | "Next.js";
 
 function HomePage() {
   const completed = useProgress((s) => s.completed);
@@ -63,7 +63,7 @@ function HomePage() {
           <div className="flex flex-wrap items-center gap-2">
             <p className="inline-flex items-center gap-1.5 rounded-full border border-border bg-bg/60 px-2.5 py-1 text-xs font-medium text-primary">
               <Sparkles className="h-3.5 w-3.5" />
-              learning-react · v5
+              learning-nextjs · v6 · 对齐官方
             </p>
             {streak > 0 ? (
               <span className="rounded-full bg-surface-3 px-2.5 py-1 font-mono text-xs text-muted">
@@ -75,7 +75,7 @@ function HomePage() {
             带你系统学 React
           </h1>
           <p className="mt-3 max-w-xl text-base leading-relaxed text-muted">
-            v5：工坊接入 TanStack Query，打卡日历与快捷键说明。
+            v6：对齐 react.dev / nextjs.org 官方 llms.txt 目录，补齐哲学、纯组件、RSC、App Router 等课程。
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <Link
@@ -90,6 +90,11 @@ function HomePage() {
             <Link href="/roadmap" className="no-underline">
               <Button size="lg" variant="secondary">
                 路线图
+              </Button>
+            </Link>
+            <Link href="/official" className="no-underline">
+              <Button variant="secondary" size="sm" className="gap-1">
+                官方文档
               </Button>
             </Link>
             <Link href="/studio" className="no-underline">

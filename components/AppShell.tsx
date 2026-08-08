@@ -19,6 +19,7 @@ import {
   Sun,
   Moon,
   Keyboard,
+  Library,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -27,6 +28,7 @@ import { LESSONS } from "@/data/lessons";
 import { CommandPalette } from "@/components/CommandPalette";
 
 const NAV_EXTRA = [
+  { href: "/official", label: "官方文档", icon: Library },
   { href: "/studio", label: "全栈工坊", icon: Server },
   { href: "/cheatsheet", label: "速查表", icon: BookMarked },
   { href: "/playground", label: "沙箱", icon: Code2 },

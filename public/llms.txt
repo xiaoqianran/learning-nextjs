@@ -1,0 +1,126 @@
+# learning-nextjs
+
+> React 实战学习 · Next.js 版：交互式中文教程（讲解 → 源码 → Demo → 测验）。
+> 对齐官方文档索引：React llms.txt、Next.js /docs/llms.txt。
+
+## Site
+
+- Home: https://xiaoqianran.github.io/learning-nextjs/
+- Repo: https://github.com/xiaoqianran/learning-nextjs
+- Official map: https://xiaoqianran.github.io/learning-nextjs/official/
+- This index: https://xiaoqianran.github.io/learning-nextjs/llms.txt
+
+## Official documentation indexes (upstream)
+
+- React (zh-CN): https://zh-hans.react.dev/llms.txt
+- React (EN): https://react.dev/llms.txt
+- Next.js: https://nextjs.org/llms.txt
+- Next.js docs: https://nextjs.org/docs/llms.txt
+- Next.js full: https://nextjs.org/docs/llms-full.txt
+
+## Pages
+
+- [Home](https://xiaoqianran.github.io/learning-nextjs/)
+- [Official docs hub](https://xiaoqianran.github.io/learning-nextjs/official/)
+- [Studio workshop](https://xiaoqianran.github.io/learning-nextjs/studio/)
+- [Learning hub](https://xiaoqianran.github.io/learning-nextjs/hub/)
+- [Cheatsheet](https://xiaoqianran.github.io/learning-nextjs/cheatsheet/)
+- [Roadmap](https://xiaoqianran.github.io/learning-nextjs/roadmap/)
+- [Lab](https://xiaoqianran.github.io/learning-nextjs/lab/)
+- [Playground](https://xiaoqianran.github.io/learning-nextjs/playground/)
+
+## Lessons (63)
+
+### 基础
+
+- [React 是什么](https://xiaoqianran.github.io/learning-nextjs/lesson/intro/): 组件化 UI 库、声明式渲染与生态定位。 (入门)
+- [JSX 与渲染](https://xiaoqianran.github.io/learning-nextjs/lesson/jsx/): 表达式、属性、条件渲染与列表。 (入门)
+- [组件与 Props](https://xiaoqianran.github.io/learning-nextjs/lesson/components-props/): 拆分 UI、单向数据流、children。 (入门)
+- [useState 状态](https://xiaoqianran.github.io/learning-nextjs/lesson/state/): 本地状态、不可变更新、批量更新。 (入门)
+- [useEffect 副作用](https://xiaoqianran.github.io/learning-nextjs/lesson/effects/): 同步外部系统、依赖数组与清理。 (入门)
+- [列表与 Key](https://xiaoqianran.github.io/learning-nextjs/lesson/lists-keys/): map 渲染、key 与重排陷阱。 (入门)
+- [表单与受控组件](https://xiaoqianran.github.io/learning-nextjs/lesson/forms/): value + onChange 受控模式。 (入门)
+- [自定义 Hooks](https://xiaoqianran.github.io/learning-nextjs/lesson/hooks-custom/): 复用状态逻辑：useXxx。 (进阶)
+
+### 进阶
+
+- [Context 跨层传递](https://xiaoqianran.github.io/learning-nextjs/lesson/context/): 避免 props 钻取；适合主题/会话。 (进阶)
+- [memo / useMemo / useCallback](https://xiaoqianran.github.io/learning-nextjs/lesson/memo/): 何时优化重渲染。 (进阶)
+- [React Router 入门](https://xiaoqianran.github.io/learning-nextjs/lesson/router/): SPA 路由、Link、动态参数。 (进阶)
+- [Zustand 状态管理](https://xiaoqianran.github.io/learning-nextjs/lesson/zustand/): 轻量全局 store（本站进度也在用）。 (进阶)
+
+### 全栈准备
+
+- [异步数据与请求态](https://xiaoqianran.github.io/learning-nextjs/lesson/async-data/): loading / error / empty 与取消。 (实战)
+- [路由守卫心智](https://xiaoqianran.github.io/learning-nextjs/lesson/route-guards/): 登录拦截与 redirect（体验层）。 (实战)
+- [表单校验](https://xiaoqianran.github.io/learning-nextjs/lesson/form-validate/): 字段错误与提交门禁。 (实战)
+
+### 全栈实训
+
+- [REST 与 CRUD](https://xiaoqianran.github.io/learning-nextjs/lesson/rest-api/): HTTP 方法、状态码、资源路径。 (实战)
+- [Token 登录](https://xiaoqianran.github.io/learning-nextjs/lesson/auth-token/): Bearer、会话与 401 清理。 (实战)
+- [毕业作品清单](https://xiaoqianran.github.io/learning-nextjs/lesson/capstone/): 可演示的 React 全栈小产品。 (实战)
+
+### 工程化
+
+- [React 与 TypeScript](https://xiaoqianran.github.io/learning-nextjs/lesson/typescript-react/): 类型化 props、事件与 hooks。 (实战)
+- [测试入门](https://xiaoqianran.github.io/learning-nextjs/lesson/testing-react/): Vitest + Testing Library 思路。 (实战)
+- [生产部署清单](https://xiaoqianran.github.io/learning-nextjs/lesson/deploy/): 环境变量、SPA fallback、密钥。 (实战)
+
+### 进阶模式
+
+- [useReducer](https://xiaoqianran.github.io/learning-nextjs/lesson/use-reducer/): 复杂状态迁移：action → next state。 (进阶)
+- [useRef 与 DOM](https://xiaoqianran.github.io/learning-nextjs/lesson/use-ref/): 可变盒子：DOM 句柄与不触发重渲的值。 (进阶)
+- [Portal 传送门](https://xiaoqianran.github.io/learning-nextjs/lesson/portal/): createPortal 把弹层挂到 body。 (进阶)
+- [错误边界心智](https://xiaoqianran.github.io/learning-nextjs/lesson/error-boundary/): 子树渲染错误兜底（class 边界 / 库）。 (实战)
+- [面试高频串讲](https://xiaoqianran.github.io/learning-nextjs/lesson/interview-react/): 渲染、Hooks 规则、key、协调一句话答法。 (实战)
+
+### 现代 React
+
+- [Suspense 与懒加载](https://xiaoqianran.github.io/learning-nextjs/lesson/suspense/): 按需拆包与 loading 边界。 (进阶)
+- [useTransition 并发更新](https://xiaoqianran.github.io/learning-nextjs/lesson/use-transition/): 把非紧急更新标为可中断。 (进阶)
+- [无障碍基础](https://xiaoqianran.github.io/learning-nextjs/lesson/a11y-react/): 语义、键盘、焦点与 ARIA。 (实战)
+- [Next.js 全栈地图](https://xiaoqianran.github.io/learning-nextjs/lesson/nextjs-map/): App Router、Server Components、Route Handlers。 (实战)
+- [表单库心智（RHF）](https://xiaoqianran.github.io/learning-nextjs/lesson/rhf-forms/): 非受控性能、校验与提交。 (实战)
+- [useDeferredValue](https://xiaoqianran.github.io/learning-nextjs/lesson/deferred-value/): 延迟非紧急派生 UI。 (进阶)
+
+### 数据层
+
+- [TanStack Query 心智](https://xiaoqianran.github.io/learning-nextjs/lesson/tanstack-query/): 服务端状态：缓存、stale、refetch。 (实战)
+- [Mutation 与乐观更新](https://xiaoqianran.github.io/learning-nextjs/lesson/mutations/): 写操作、invalidate、乐观 UI。 (实战)
+- [Query Key 设计](https://xiaoqianran.github.io/learning-nextjs/lesson/query-keys/): 层级 key、过滤参数与失效范围。 (实战)
+- [组合模式复盘](https://xiaoqianran.github.io/learning-nextjs/lesson/composition-patterns/): children、render props 思维、复合组件。 (进阶)
+- [工坊 × Query 对照](https://xiaoqianran.github.io/learning-nextjs/lesson/studio-query/): 把 CRUD 映射到 useQuery / useMutation。 (实战)
+
+### 官方对齐
+
+- [React 哲学（Thinking in React）](https://xiaoqianran.github.io/learning-nextjs/lesson/thinking-in-react/): 把 UI 拆成组件树、设计数据流、从原型到可交互——对齐官方教程。 (入门)
+- [保持组件纯粹](https://xiaoqianran.github.io/learning-nextjs/lesson/pure-components/): 相同输入相同输出；渲染阶段不要副作用——对齐官方「纯函数组件」。 (入门)
+- [条件渲染](https://xiaoqianran.github.io/learning-nextjs/lesson/conditional-render/): &&、三元、提前 return；注意 0 被渲染的坑。 (入门)
+- [state 如同一张快照](https://xiaoqianran.github.io/learning-nextjs/lesson/state-snapshot/): setState 不立刻改当前变量；事件看到的是渲染快照。 (入门)
+- [不可变更新对象与数组](https://xiaoqianran.github.io/learning-nextjs/lesson/immutable-update/): 展开拷贝、map/filter；不要直接 mutate state。 (入门)
+- [状态提升与共享](https://xiaoqianran.github.io/learning-nextjs/lesson/lift-state/): 需要同步的 UI 把 state 放到公共父组件。 (进阶)
+- [用 key 重置 state](https://xiaoqianran.github.io/learning-nextjs/lesson/reset-state-key/): 切换身份/表单时，改变 key 让 React 卸载并重建。 (进阶)
+- [你可能不需要 Effect](https://xiaoqianran.github.io/learning-nextjs/lesson/no-need-effect/): 派生数据、用户事件、通知父组件——多数不该用 Effect。 (进阶)
+- [useEffectEvent](https://xiaoqianran.github.io/learning-nextjs/lesson/use-effect-event/): 把「事件逻辑」从 Effect 依赖中分离，避免无谓重订阅。 (进阶)
+- [useId](https://xiaoqianran.github.io/learning-nextjs/lesson/use-id-a11y/): 稳定的唯一 ID，给 label/input 与 SSR 水合对齐。 (进阶)
+- [useOptimistic](https://xiaoqianran.github.io/learning-nextjs/lesson/use-optimistic/): 乐观 UI：先显示预期结果，请求失败再回滚。 (进阶)
+- [useActionState](https://xiaoqianran.github.io/learning-nextjs/lesson/use-action-state/): Action 结果 + pending 状态，适合表单渐进增强。 (进阶)
+- [服务器组件与指令](https://xiaoqianran.github.io/learning-nextjs/lesson/server-components-rsc/): 'use client' / 'use server'、RSC 数据边界——对齐官方 RSC。 (进阶)
+- [React Compiler](https://xiaoqianran.github.io/learning-nextjs/lesson/react-compiler/): 自动记忆化；理解编译器能做什么、何时仍需手动优化。 (进阶)
+- [Hook 规则](https://xiaoqianran.github.io/learning-nextjs/lesson/rules-of-hooks/): 只在顶层调用；只在 React 函数中调用——官方铁律。 (入门)
+
+### Next.js
+
+- [App Router：布局与页面](https://xiaoqianran.github.io/learning-nextjs/lesson/next-app-router/): app/ 目录、layout.tsx、page.tsx、嵌套布局与模板。 (入门)
+- [链接与导航](https://xiaoqianran.github.io/learning-nextjs/lesson/next-linking/): next/link、useRouter、预取与软导航。 (入门)
+- [Server 与 Client Components](https://xiaoqianran.github.io/learning-nextjs/lesson/next-server-client/): 何时服务端取数，何时下沉交互——Next 官方核心课。 (入门)
+- [数据获取与 Streaming](https://xiaoqianran.github.io/learning-nextjs/lesson/next-fetching/): Server Component 中 async/await、loading.tsx、Suspense。 (进阶)
+- [变更数据与 Server Actions](https://xiaoqianran.github.io/learning-nextjs/lesson/next-mutations/): 表单 action、revalidatePath/Tag、渐进增强。 (进阶)
+- [缓存与再验证](https://xiaoqianran.github.io/learning-nextjs/lesson/next-caching/): Full Route Cache、Data Cache、时间/标签失效——建立正确模型。 (进阶)
+- [Route Handlers](https://xiaoqianran.github.io/learning-nextjs/lesson/next-route-handlers/): app/api 下 GET/POST，返回 Response/JSON。 (进阶)
+- [Metadata 与 SEO](https://xiaoqianran.github.io/learning-nextjs/lesson/next-metadata/): export metadata / generateMetadata、OG 图、JSON-LD。 (进阶)
+- [Image 与 Font 优化](https://xiaoqianran.github.io/learning-nextjs/lesson/next-images-fonts/): next/image、next/font：布局稳定与性能。 (入门)
+- [错误处理](https://xiaoqianran.github.io/learning-nextjs/lesson/next-error-handling/): error.tsx、not-found、边界与预期错误。 (进阶)
+- [AI 友好文档与 llms.txt](https://xiaoqianran.github.io/learning-nextjs/lesson/next-ai-llms/): 官方提供 llms.txt 索引；让人与 Agent 都能读到结构化文档。 (入门)
+

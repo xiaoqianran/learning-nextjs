@@ -35,3 +35,15 @@ npm run dev
 - cmdk
 
 工坊演示账号：`demo@react.dev` / `password123`
+
+
+## 对齐官方文档
+
+本站对照官方 LLM 索引构建课程与导航：
+
+- React: https://zh-hans.react.dev/llms.txt
+- Next.js: https://nextjs.org/docs/llms.txt
+- 本站索引: https://xiaoqianran.github.io/learning-nextjs/llms.txt
+- 官方文档中枢: https://xiaoqianran.github.io/learning-nextjs/official/
+
+v6 新增「官方对齐」「Next.js」轨道课程（Thinking in React、纯组件、state 快照、少用 Effect、RSC、App Router、Server Actions、缓存、llms.txt 等）。

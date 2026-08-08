@@ -40,7 +40,18 @@ export type Lesson = {
   summary: string;
   level: "入门" | "进阶" | "实战";
   track:
-    "基础" | "进阶" | "全栈准备" | "全栈实训" | "工程化" | "进阶模式" | "现代 React" | "数据层";
+    | "基础"
+    | "进阶"
+    | "全栈准备"
+    | "全栈实训"
+    | "工程化"
+    | "进阶模式"
+    | "现代 React"
+    | "数据层"
+    | "官方对齐"
+    | "Next.js";
+  /** 官方文档对照链接（react.dev / nextjs.org） */
+  official?: { title: string; url: string }[];
   minutes: number;
   blocks: LessonBlock[];
 };
@@ -1855,6 +1866,1213 @@ const results = useMemo(() => filterHuge(deferred), [deferred])`,
       },
     ],
   },
+  {
+    slug: "thinking-in-react",
+    title: "React 哲学（Thinking in React）",
+    summary: "把 UI 拆成组件树、设计数据流、从原型到可交互——对齐官方教程。",
+    level: "入门",
+    track: "官方对齐",
+    minutes: 12,
+    official: [
+      { title: "React 哲学", url: "https://zh-hans.react.dev/learn/thinking-in-react" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "官方心智",
+        body: `官方教程要求：① 拆分组件层级 ② 构建静态版本 ③ 找出最小 state ④ 确定 state 放哪 ⑤ 反向数据流。这比「先写接口再堆 JSX」更稳。`,
+      },
+      {
+        type: "text",
+        title: "五步法",
+        body: `1. 画组件树（产品表 → 搜索栏 + 结果表 → 行）。2. 先静态 props。3. 标出会变的数据。4. state 放公共祖先。5. 子组件用回调通知父组件。`,
+      },
+      {
+        type: "code",
+        title: "最小可搜索列表",
+        lang: "tsx",
+        code: `function ProductTable({ products, filter }) {
+  const rows = products.filter(p => p.name.includes(filter))
+  return (
+    <ul>
+      {rows.map(p => <li key={p.id}>{p.name}</li>)}
+    </ul>
+  )
+}`,
+      },
+      {
+        type: "tip",
+        body: `对照：https://zh-hans.react.dev/learn/thinking-in-react`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "tr1",
+            question: "Thinking in React 建议先做什么？",
+            options: ["先接全部 API", "先拆组件并做静态版本", "先写全局 store", "先加动画"],
+            answer: 1,
+            explain: "静态组件树先成立，再逐步引入 state。",
+          },
+          {
+            id: "tr2",
+            question: "state 应放在哪里？",
+            options: ["随便放", "能读到它的公共祖先", "必须全局", "只能根组件"],
+            answer: 1,
+            explain: "提升到需要共享的最近公共祖先。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "pure-components",
+    title: "保持组件纯粹",
+    summary: "相同输入相同输出；渲染阶段不要副作用——对齐官方「纯函数组件」。",
+    level: "入门",
+    track: "官方对齐",
+    minutes: 10,
+    official: [
+      { title: "保持组件纯粹", url: "https://zh-hans.react.dev/learn/keeping-components-pure" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "纯函数规则",
+        body: `组件在渲染时应像公式：不修改已有对象、不写外部变量、不发请求。副作用放事件处理或 Effect。`,
+      },
+      {
+        type: "code",
+        title: "不纯 vs 纯",
+        lang: "tsx",
+        code: `// 不纯：渲染时改外部
+let count = 0
+function Bad() {
+  count += 1
+  return <p>{count}</p>
+}
+
+// 纯：用 props / state
+function Good({ n }: { n: number }) {
+  return <p>{n}</p>
+}`,
+      },
+      {
+        type: "tip",
+        body: `StrictMode 会双调用渲染以暴露不纯逻辑。`,
+      },
+      {
+        type: "demo",
+        kind: "jsx",
+        title: "动手：纯渲染",
+        hint: "同一 props 多次渲染应得到相同 UI。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "pc1",
+            question: "渲染阶段可以做什么？",
+            options: ["直接改 DOM", "发 fetch", "根据 props 计算 UI", "写 localStorage"],
+            answer: 2,
+            explain: "渲染应可预测；副作用放别处。",
+          },
+          {
+            id: "pc2",
+            question: "发现不纯的工具？",
+            options: ["只有 console", "StrictMode", "必须 Redux", "CSS"],
+            answer: 1,
+            explain: "StrictMode 帮助暴露不纯渲染。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "conditional-render",
+    title: "条件渲染",
+    summary: "&&、三元、提前 return；注意 0 被渲染的坑。",
+    level: "入门",
+    track: "官方对齐",
+    minutes: 8,
+    official: [
+      { title: "条件渲染", url: "https://zh-hans.react.dev/learn/conditional-rendering" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "三种写法",
+        body: `\`cond && <A/>\`、\`cond ? <A/> : <B/>\`、函数内提前 \`return null\`。`,
+      },
+      {
+        type: "code",
+        title: "注意 0",
+        lang: "tsx",
+        code: `// 坑：count 为 0 时会渲染 0
+{count && <Badge />}
+
+// 更稳
+{count > 0 ? <Badge /> : null}
+{!!count && <Badge />}`,
+      },
+      {
+        type: "demo",
+        kind: "props",
+        title: "动手：条件展示",
+        hint: "用 props 切换显示分支。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "cr1",
+            question: "{0 && <X/>} 会？",
+            options: ["什么都不显示", "显示 0", "报错", "显示 X"],
+            answer: 1,
+            explain: "JS 的 && 返回左侧假值 0。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "state-snapshot",
+    title: "state 如同一张快照",
+    summary: "setState 不立刻改当前变量；事件看到的是渲染快照。",
+    level: "入门",
+    track: "官方对齐",
+    minutes: 10,
+    official: [
+      { title: "state 如同一张快照", url: "https://zh-hans.react.dev/learn/state-as-a-snapshot" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "核心",
+        body: `每次渲染的 state 是固定快照。调用 setState 请求下一次渲染，不会改当前这次渲染里的常量。`,
+      },
+      {
+        type: "code",
+        title: "连点三次",
+        lang: "tsx",
+        code: `function Counter() {
+  const [n, setN] = useState(0)
+  return (
+    <button onClick={() => {
+      setN(n + 1)
+      setN(n + 1)
+      setN(n + 1)
+      // 仍只 +1，三次都读到同一快照 n
+    }}>+3?</button>
+  )
+}
+
+// 需要基于前值：
+setN(v => v + 1) // ×3`,
+      },
+      {
+        type: "demo",
+        kind: "state",
+        title: "动手：快照直觉",
+        hint: "观察连续 setState 的结果。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "ss1",
+            question: "同一次点击里三次 setN(n+1) 结果？",
+            options: ["+3", "+1", "报错", "随机"],
+            answer: 1,
+            explain: "三次都基于同一快照 n。",
+          },
+          {
+            id: "ss2",
+            question: "如何基于最新值连续更新？",
+            options: ["setN(n+1) 三次", "函数式更新 setN(v=>v+1)", "必须 useRef", "setTimeout"],
+            answer: 1,
+            explain: "函数式更新链式应用。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "immutable-update",
+    title: "不可变更新对象与数组",
+    summary: "展开拷贝、map/filter；不要直接 mutate state。",
+    level: "入门",
+    track: "官方对齐",
+    minutes: 10,
+    official: [
+      { title: "更新对象", url: "https://zh-hans.react.dev/learn/updating-objects-in-state" },
+      { title: "更新数组", url: "https://zh-hans.react.dev/learn/updating-arrays-in-state" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "为什么",
+        body: `React 用 Object.is 比较；原地修改常检测不到变化，UI 不更新且难调试。`,
+      },
+      {
+        type: "code",
+        title: "对象与数组",
+        lang: "tsx",
+        code: `// 对象
+setUser({ ...user, name: "Ada" })
+
+// 数组新增 / 替换 / 删除
+setItems([...items, item])
+setItems(items.map(x => x.id === id ? { ...x, done: true } : x))
+setItems(items.filter(x => x.id !== id))`,
+      },
+      {
+        type: "tip",
+        body: `嵌套深时考虑结构化共享库，或扁平化 state。`,
+      },
+      {
+        type: "demo",
+        kind: "list",
+        title: "动手：列表不可变更新",
+        hint: "增删改都返回新数组。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "iu1",
+            question: "items.push(x); setItems(items) 问题？",
+            options: ["没问题", "可能不触发更新且难追踪", "语法错", "只能 class"],
+            answer: 1,
+            explain: "同一引用，React 可能跳过更新。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "lift-state",
+    title: "状态提升与共享",
+    summary: "需要同步的 UI 把 state 放到公共父组件。",
+    level: "进阶",
+    track: "官方对齐",
+    minutes: 10,
+    official: [
+      { title: "在组件间共享状态", url: "https://zh-hans.react.dev/learn/sharing-state-between-components" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "何时提升",
+        body: `两个子组件要显示同一数据时，state 上移到父，经 props 下发，用回调上抛变更。`,
+      },
+      {
+        type: "code",
+        title: "模式",
+        lang: "tsx",
+        code: `function Parent() {
+  const [temp, setTemp] = useState(20)
+  return (
+    <>
+      <Celsius value={temp} onChange={setTemp} />
+      <Fahrenheit value={temp} onChange={setTemp} />
+    </>
+  )
+}`,
+      },
+      {
+        type: "demo",
+        kind: "context",
+        title: "对照：深层再考虑 Context",
+        hint: "仅跨很多层才引入 Context。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "ls1",
+            question: "两输入要同步，state 放？",
+            options: ["各自一份", "公共父组件", "必须 Redux", "window"],
+            answer: 1,
+            explain: "单一数据源在公共祖先。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "reset-state-key",
+    title: "用 key 重置 state",
+    summary: "切换身份/表单时，改变 key 让 React 卸载并重建。",
+    level: "进阶",
+    track: "官方对齐",
+    minutes: 8,
+    official: [
+      { title: "对 state 进行保留和重置", url: "https://zh-hans.react.dev/learn/preserving-and-resetting-state" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "心智",
+        body: `同一位置同类型组件会保留 state。换用户却不换 key 会串数据。`,
+      },
+      {
+        type: "code",
+        title: "关键写法",
+        lang: "tsx",
+        code: `<Chat key={contact.id} contact={contact} />
+// 换联系人 → 新实例 → 草稿清空`,
+      },
+      {
+        type: "tip",
+        body: `对照官方：保留和重置 state。`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "rk1",
+            question: "切换用户后输入框仍留旧字，因？",
+            options: ["bug 无解", "组件被复用保留了 state", "必须 Context", "CSS"],
+            answer: 1,
+            explain: "加 key={userId} 强制重置。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "no-need-effect",
+    title: "你可能不需要 Effect",
+    summary: "派生数据、用户事件、通知父组件——多数不该用 Effect。",
+    level: "进阶",
+    track: "官方对齐",
+    minutes: 12,
+    official: [
+      { title: "你可能不需要 Effect", url: "https://zh-hans.react.dev/learn/you-might-not-need-an-effect" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "常见滥用",
+        body: `① 用 Effect 把 props 同步到 state ② 用 Effect 做纯计算 ③ 用 Effect 响应点击。应：渲染中计算、事件里处理、受控 props。`,
+      },
+      {
+        type: "code",
+        title: "派生而非 Effect",
+        lang: "tsx",
+        code: `// 差
+useEffect(() => {
+  setFull(first + " " + last)
+}, [first, last])
+
+// 好
+const full = first + " " + last`,
+      },
+      {
+        type: "tip",
+        body: `Effect 用于同步外部系统：网络、DOM、第三方 widget。`,
+      },
+      {
+        type: "demo",
+        kind: "effect",
+        title: "对照：真正的同步场景",
+        hint: "订阅/定时器才是 Effect 主场。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "ne1",
+            question: "根据 first+last 显示全名，应？",
+            options: ["useEffect 写入 state", "渲染时直接拼接", "必须 memo", "用 ref"],
+            answer: 1,
+            explain: "派生值在渲染中计算。",
+          },
+          {
+            id: "ne2",
+            question: "点击按钮发请求应放？",
+            options: ["useEffect 监听 flag", "onClick 事件处理", "componentDidMount 仅 class", "CSS"],
+            answer: 1,
+            explain: "用户事件在事件处理函数中处理。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "use-effect-event",
+    title: "useEffectEvent",
+    summary: "把「事件逻辑」从 Effect 依赖中分离，避免无谓重订阅。",
+    level: "进阶",
+    track: "官方对齐",
+    minutes: 10,
+    official: [
+      { title: "useEffectEvent", url: "https://zh-hans.react.dev/reference/react/useEffectEvent" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "动机",
+        body: `Effect 需要最新 props/state 做逻辑，但不希望它们进入依赖导致重连。useEffectEvent 提供稳定「事件」函数。`,
+      },
+      {
+        type: "code",
+        title: "示意",
+        lang: "tsx",
+        code: `const onConnected = useEffectEvent(() => {
+  showNotification("已连接 " + roomId)
+})
+
+useEffect(() => {
+  const conn = connect(roomId)
+  conn.on("connected", onConnected)
+  return () => conn.disconnect()
+}, [roomId]) // 不必把通知逻辑塞进依赖`,
+      },
+      {
+        type: "tip",
+        body: `官方文档：https://zh-hans.react.dev/reference/react/useEffectEvent`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "ee1",
+            question: "useEffectEvent 主要解决？",
+            options: ["替代 useState", "Effect 中读最新值却不想当依赖", "CSS 动画", "路由"],
+            answer: 1,
+            explain: "分离事件与响应式依赖。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "use-id-a11y",
+    title: "useId",
+    summary: "稳定的唯一 ID，给 label/input 与 SSR 水合对齐。",
+    level: "进阶",
+    track: "官方对齐",
+    minutes: 6,
+    official: [
+      { title: "useId", url: "https://zh-hans.react.dev/reference/react/useId" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "场景",
+        body: `无障碍关联、多实例表单。不要用 useId 当列表 key。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `function Field({ label }) {
+  const id = useId()
+  return (
+    <>
+      <label htmlFor={id}>{label}</label>
+      <input id={id} />
+    </>
+  )
+}`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "ui1",
+            question: "useId 不适合？",
+            options: ["label htmlFor", "列表 key", "aria 关联", "SSR 一致 id"],
+            answer: 1,
+            explain: "key 应用业务 id。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "use-optimistic",
+    title: "useOptimistic",
+    summary: "乐观 UI：先显示预期结果，请求失败再回滚。",
+    level: "进阶",
+    track: "官方对齐",
+    minutes: 10,
+    official: [
+      { title: "useOptimistic", url: "https://zh-hans.react.dev/reference/react/useOptimistic" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "心智",
+        body: `在 transition/action 中更新乐观状态，真正数据到达后以服务端为准。`,
+      },
+      {
+        type: "code",
+        title: "示意",
+        lang: "tsx",
+        code: `const [optimistic, addOptimistic] = useOptimistic(messages)
+async function send(formData) {
+  const text = formData.get("text")
+  addOptimistic(m => [...m, { text, pending: true }])
+  await postMessage(text)
+}`,
+      },
+      {
+        type: "demo",
+        kind: "async",
+        title: "对照：请求态机",
+        hint: "乐观更新是进阶请求 UX。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "uo1",
+            question: "乐观更新的风险？",
+            options: ["没有风险", "失败需回滚/对齐真实数据", "必须 class", "不能表单"],
+            answer: 1,
+            explain: "失败时要恢复一致状态。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "use-action-state",
+    title: "useActionState",
+    summary: "Action 结果 + pending 状态，适合表单渐进增强。",
+    level: "进阶",
+    track: "官方对齐",
+    minutes: 10,
+    official: [
+      { title: "useActionState", url: "https://zh-hans.react.dev/reference/react/useActionState" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "角色",
+        body: `管理 form action 的返回值与 isPending，常与 Server Functions 搭配。`,
+      },
+      {
+        type: "code",
+        title: "示意",
+        lang: "tsx",
+        code: `const [state, formAction, pending] = useActionState(login, null)
+return (
+  <form action={formAction}>
+    <button disabled={pending}>登录</button>
+    {state?.error}
+  </form>
+)`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "ua1",
+            question: "useActionState 第三项通常是？",
+            options: ["ref", "isPending", "router", "key"],
+            answer: 1,
+            explain: "pending 标志。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "server-components-rsc",
+    title: "服务器组件与指令",
+    summary: "'use client' / 'use server'、RSC 数据边界——对齐官方 RSC。",
+    level: "进阶",
+    track: "官方对齐",
+    minutes: 14,
+    official: [
+      { title: "服务器组件", url: "https://zh-hans.react.dev/reference/rsc/server-components" },
+      { title: "'use client'", url: "https://zh-hans.react.dev/reference/rsc/use-client" },
+      { title: "Next: Server and Client", url: "https://nextjs.org/docs/app/getting-started/server-and-client-components" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "默认服务端",
+        body: `在 Next App Router 中，页面默认 Server Components：可 await 数据、不进浏览器包。需要交互时才 'use client'。`,
+      },
+      {
+        type: "code",
+        title: "边界",
+        lang: "tsx",
+        code: `// app/page.tsx — Server Component
+export default async function Page() {
+  const data = await db.list()
+  return <ClientTable rows={data} />
+}
+
+// ClientTable.tsx
+"use client"
+export function ClientTable({ rows }) { /* onClick 等 */ }`,
+      },
+      {
+        type: "tip",
+        body: `Server Functions：'use server' 标记可从客户端调用的服务端函数。`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "rsc1",
+            question: "默认 App Router 页面是？",
+            options: ["必须 client", "Server Component", "只能静态", "Web Component"],
+            answer: 1,
+            explain: "默认可在服务端渲染与取数。",
+          },
+          {
+            id: "rsc2",
+            question: "何时 use client？",
+            options: ["永远", "需要 state/effect/浏览器 API", "禁止", "仅 CSS"],
+            answer: 1,
+            explain: "交互与浏览器能力才下沉客户端。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "react-compiler",
+    title: "React Compiler",
+    summary: "自动记忆化；理解编译器能做什么、何时仍需手动优化。",
+    level: "进阶",
+    track: "官方对齐",
+    minutes: 8,
+    official: [
+      { title: "React Compiler", url: "https://zh-hans.react.dev/learn/react-compiler" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "定位",
+        body: `编译器在构建期分析组件，自动插入等价 memo，减少手写 useMemo/useCallback。仍需保持组件纯粹。`,
+      },
+      {
+        type: "tip",
+        body: `官方：https://zh-hans.react.dev/learn/react-compiler`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "rc1",
+            question: "Compiler 主要优化？",
+            options: ["网络协议", "自动记忆化减少无效重渲染", "替换 TypeScript", "数据库"],
+            answer: 1,
+            explain: "构建期优化重渲染。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "rules-of-hooks",
+    title: "Hook 规则",
+    summary: "只在顶层调用；只在 React 函数中调用——官方铁律。",
+    level: "入门",
+    track: "官方对齐",
+    minutes: 6,
+    official: [
+      { title: "Hook 规则", url: "https://zh-hans.react.dev/reference/rules/rules-of-hooks" },
+      { title: "eslint exhaustive-deps", url: "https://zh-hans.react.dev/reference/eslint-plugin-react-hooks/lints/exhaustive-deps" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "两条",
+        body: `1. 不在循环/条件/嵌套函数里调用 Hook。2. 只在函数组件或自定义 Hook 中调用。`,
+      },
+      {
+        type: "code",
+        title: "错误示范",
+        lang: "tsx",
+        code: `if (ok) {
+  const [x, setX] = useState(0) // 禁止：条件调用
+}`,
+      },
+      {
+        type: "tip",
+        body: `eslint-plugin-react-hooks 的 rules-of-hooks / exhaustive-deps。`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "rh1",
+            question: "可以在 if 里 useState 吗？",
+            options: ["可以", "不可以", "仅生产", "仅 StrictMode"],
+            answer: 1,
+            explain: "Hook 顺序必须稳定。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "next-app-router",
+    title: "App Router：布局与页面",
+    summary: "app/ 目录、layout.tsx、page.tsx、嵌套布局与模板。",
+    level: "入门",
+    track: "Next.js",
+    minutes: 12,
+    official: [
+      { title: "Layouts and Pages", url: "https://nextjs.org/docs/app/getting-started/layouts-and-pages" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "约定",
+        body: `\`app/page.tsx\` 路由 \`/\`；\`app/blog/page.tsx\` → \`/blog\`。\`layout.tsx\` 共享 UI 且保持状态。`,
+      },
+      {
+        type: "code",
+        title: "结构",
+        lang: "tsx",
+        code: `app/
+  layout.tsx      // 根布局
+  page.tsx        // /
+  dashboard/
+    layout.tsx    // 嵌套布局
+    page.tsx      // /dashboard
+    settings/page.tsx`,
+      },
+      {
+        type: "tip",
+        body: `官方 Getting Started → Layouts and Pages。`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "nar1",
+            question: "layout 与 page 区别？",
+            options: ["无区别", "layout 包裹子路由并保留状态", "page 不能导出", "layout 仅 client"],
+            answer: 1,
+            explain: "布局跨导航保留。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "next-linking",
+    title: "链接与导航",
+    summary: "next/link、useRouter、预取与软导航。",
+    level: "入门",
+    track: "Next.js",
+    minutes: 8,
+    official: [
+      { title: "Linking and Navigating", url: "https://nextjs.org/docs/app/getting-started/linking-and-navigating" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "优化",
+        body: `Link 默认预取视口内路由；客户端导航无整页刷新。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `import Link from "next/link"
+import { useRouter } from "next/navigation"
+
+<Link href="/lesson/intro">课程</Link>
+router.push("/studio")`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "nl1",
+            question: "App Router 的 useRouter 来自？",
+            options: ["next/router", "next/navigation", "react-router", "window"],
+            answer: 1,
+            explain: "App Router 用 next/navigation。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "next-server-client",
+    title: "Server 与 Client Components",
+    summary: "何时服务端取数，何时下沉交互——Next 官方核心课。",
+    level: "入门",
+    track: "Next.js",
+    minutes: 12,
+    official: [
+      { title: "Server and Client Components", url: "https://nextjs.org/docs/app/getting-started/server-and-client-components" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "能力差",
+        body: `Server：可密钥、直连 DB、减小包体。Client：state、effects、浏览器 API。通过 props 把序列化数据传入 Client。`,
+      },
+      {
+        type: "code",
+        title: "组合",
+        lang: "tsx",
+        code: `// Server
+async function Page() {
+  const post = await getPost()
+  return <LikeButton id={post.id} initial={post.likes} />
+}
+// Client LikeButton 处理点击`,
+      },
+      {
+        type: "demo",
+        kind: "async",
+        title: "对照：客户端请求态",
+        hint: "对比服务端 await 的简洁性。",
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "nsc1",
+            question: "密钥 API Key 应放？",
+            options: ["Client 组件", "仅服务端环境", "localStorage", "CSS 变量"],
+            answer: 1,
+            explain: "服务端不暴露给浏览器。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "next-fetching",
+    title: "数据获取与 Streaming",
+    summary: "Server Component 中 async/await、loading.tsx、Suspense。",
+    level: "进阶",
+    track: "Next.js",
+    minutes: 12,
+    official: [
+      { title: "Fetching Data", url: "https://nextjs.org/docs/app/getting-started/fetching-data" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "模式",
+        body: `在 Server Component \`await fetch\`/\`db\`；用 \`loading.tsx\` 或 \`<Suspense>\` 流式展示 fallback。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `export default async function Page() {
+  const res = await fetch("https://api.example.com/items", {
+    next: { revalidate: 60 },
+  })
+  const items = await res.json()
+  return <List items={items} />
+}`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "nf1",
+            question: "streaming 的 UI 占位常用？",
+            options: ["只有 alert", "loading.tsx / Suspense fallback", "必须 SPA", "iframe"],
+            answer: 1,
+            explain: "官方推荐 Suspense 边界。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "next-mutations",
+    title: "变更数据与 Server Actions",
+    summary: "表单 action、revalidatePath/Tag、渐进增强。",
+    level: "进阶",
+    track: "Next.js",
+    minutes: 12,
+    official: [
+      { title: "Mutating Data", url: "https://nextjs.org/docs/app/getting-started/mutating-data" },
+      { title: "Forms", url: "https://nextjs.org/docs/app/guides/forms" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "Server Actions",
+        body: `用 async 函数 + 'use server' 处理变更，可从 form action 调用，无需手写 API 路由。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `"use server"
+export async function createPost(formData: FormData) {
+  await db.post.create({ title: formData.get("title") })
+  revalidatePath("/posts")
+}`,
+      },
+      {
+        type: "tip",
+        body: `官方：Mutating Data / Forms guides。`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "nm1",
+            question: "变更后刷新缓存数据常用？",
+            options: ["location.reload 必须", "revalidatePath / revalidateTag", "只能等一天", "删除 node_modules"],
+            answer: 1,
+            explain: "按需 revalidate。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "next-caching",
+    title: "缓存与再验证",
+    summary: "Full Route Cache、Data Cache、时间/标签失效——建立正确模型。",
+    level: "进阶",
+    track: "Next.js",
+    minutes: 12,
+    official: [
+      { title: "Caching", url: "https://nextjs.org/docs/app/getting-started/caching" },
+      { title: "Revalidating", url: "https://nextjs.org/docs/app/getting-started/revalidating" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "层次",
+        body: `静态生成结果、fetch 缓存、Router Cache 等层级不同。用 revalidate 秒数或 tag 做失效。`,
+      },
+      {
+        type: "code",
+        title: "标签失效",
+        lang: "tsx",
+        code: `await fetch(url, { next: { tags: ["products"] } })
+// 变更后
+revalidateTag("products")`,
+      },
+      {
+        type: "tip",
+        body: `Next 16 还有 Cache Components 等演进；先掌握 revalidate 与标签。`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "nc1",
+            question: "on-demand 失效用？",
+            options: ["只有 CSS", "revalidateTag / revalidatePath", "必须重启服务器", "client setState"],
+            answer: 1,
+            explain: "按路径或标签失效。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "next-route-handlers",
+    title: "Route Handlers",
+    summary: "app/api 下 GET/POST，返回 Response/JSON。",
+    level: "进阶",
+    track: "Next.js",
+    minutes: 10,
+    official: [
+      { title: "Route Handlers", url: "https://nextjs.org/docs/app/getting-started/route-handlers" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "用途",
+        body: `Webhooks、公开 JSON API、非表单客户端。很多 CRUD 可用 Server Actions 替代。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// app/api/hello/route.ts
+export async function GET() {
+  return Response.json({ ok: true })
+}`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "nrh1",
+            question: "App Router API 文件惯例？",
+            options: ["pages/api only", "route.ts 导出 HTTP 方法", "必须 express", ".jsx 即可"],
+            answer: 1,
+            explain: "route.ts 中导出 GET/POST…",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "next-metadata",
+    title: "Metadata 与 SEO",
+    summary: "export metadata / generateMetadata、OG 图、JSON-LD。",
+    level: "进阶",
+    track: "Next.js",
+    minutes: 8,
+    official: [
+      { title: "Metadata and OG", url: "https://nextjs.org/docs/app/getting-started/metadata-and-og-images" },
+      { title: "JSON-LD", url: "https://nextjs.org/docs/app/guides/json-ld" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "API",
+        body: `静态 \`export const metadata\`；动态 \`generateMetadata\`。利于标题、描述、社交卡片。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `export const metadata = {
+  title: "React 实战学习",
+  description: "交互式中文教程",
+}`,
+      },
+      {
+        type: "tip",
+        body: `还可配合 JSON-LD guide 做结构化数据。`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "nmd1",
+            question: "动态标题用？",
+            options: ["document.title 仅 client", "generateMetadata", "必须 Helmet 老库", "CSS content"],
+            answer: 1,
+            explain: "服务端生成元数据。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "next-images-fonts",
+    title: "Image 与 Font 优化",
+    summary: "next/image、next/font：布局稳定与性能。",
+    level: "入门",
+    track: "Next.js",
+    minutes: 8,
+    official: [
+      { title: "Images", url: "https://nextjs.org/docs/app/getting-started/images" },
+      { title: "Fonts", url: "https://nextjs.org/docs/app/getting-started/fonts" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "收益",
+        body: `自动尺寸、懒加载、现代格式；字体子集与去 CLS。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `import Image from "next/image"
+import { Inter } from "next/font/google"
+const inter = Inter({ subsets: ["latin"] })
+<Image src="/hero.png" alt="" width={800} height={400} />`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "nif1",
+            question: "next/image 帮助？",
+            options: ["只换语法", "优化图片加载与布局稳定性", "替代 CDN 必须", "禁用缓存"],
+            answer: 1,
+            explain: "性能与 CLS。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "next-error-handling",
+    title: "错误处理",
+    summary: "error.tsx、not-found、边界与预期错误。",
+    level: "进阶",
+    track: "Next.js",
+    minutes: 8,
+    official: [
+      { title: "Error Handling", url: "https://nextjs.org/docs/app/getting-started/error-handling" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "文件约定",
+        body: `\`error.tsx\` 捕获段错误；\`not-found.tsx\` 处理 404；可 \`notFound()\` 抛出。`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "neh1",
+            question: "段错误 UI 文件？",
+            options: ["bug.tsx", "error.tsx", "fail.js", "404 only root"],
+            answer: 1,
+            explain: "error.tsx 错误边界。",
+          }
+        ],
+      }
+    ],
+  },
+  {
+    slug: "next-ai-llms",
+    title: "AI 友好文档与 llms.txt",
+    summary: "官方提供 llms.txt 索引；让人与 Agent 都能读到结构化文档。",
+    level: "入门",
+    track: "Next.js",
+    minutes: 8,
+    official: [
+      { title: "Next llms.txt", url: "https://nextjs.org/llms.txt" },
+      { title: "Next docs index", url: "https://nextjs.org/docs/llms.txt" },
+      { title: "React llms.txt", url: "https://zh-hans.react.dev/llms.txt" },
+      { title: "AI Coding Agents", url: "https://nextjs.org/docs/app/guides/ai-agents" },
+    ],
+    blocks: [
+      {
+        type: "text",
+        title: "官方入口",
+        body: `React：https://react.dev/llms.txt（中文 https://zh-hans.react.dev/llms.txt）。Next：https://nextjs.org/llms.txt 与 /docs/llms.txt、/docs/llms-full.txt。`,
+      },
+      {
+        type: "text",
+        title: "本站",
+        body: `本项目在 /llms.txt 提供课程索引，在「官方文档」页对照 react.dev / nextjs.org 目录。`,
+      },
+      {
+        type: "tip",
+        body: `写文档时提供 Markdown 纯文本，利于 LLM 与人类检索。`,
+      },
+      {
+        type: "quiz",
+        questions: [
+          {
+            id: "nal1",
+            question: "Next 完整文档 LLM 索引？",
+            options: ["/favicon.ico", "/docs/llms.txt", "仅 Discord", "package.json"],
+            answer: 1,
+            explain: "官方文档页也写明了该索引。",
+          }
+        ],
+      }
+    ],
+  }
 ];
 
 export const TRACKS = [
@@ -1866,6 +3084,8 @@ export const TRACKS = [
   "进阶模式",
   "现代 React",
   "数据层",
+  "官方对齐",
+  "Next.js",
 ] as const;
 
 export function getLesson(slug: string): Lesson | undefined {

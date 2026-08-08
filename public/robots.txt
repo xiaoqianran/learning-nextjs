@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://xiaoqianran.github.io/learning-nextjs/sitemap.xml
+# LLM-friendly index
+# https://xiaoqianran.github.io/learning-nextjs/llms.txt

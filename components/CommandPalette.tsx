@@ -16,10 +16,12 @@ import {
   Home,
   Map as MapIcon,
   Keyboard,
+  Library,
 } from "lucide-react";
 
 const PAGES = [
   { href: "/", label: "首页", icon: Home },
+  { href: "/official", label: "官方文档", icon: Library },
   { href: "/studio", label: "全栈工坊", icon: Server },
   { href: "/cheatsheet", label: "速查表", icon: BookMarked },
   { href: "/playground", label: "沙箱", icon: Code2 },

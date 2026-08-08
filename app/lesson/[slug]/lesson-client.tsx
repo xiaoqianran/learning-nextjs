@@ -21,6 +21,7 @@ import {
   Check,
   Clock,
   Lightbulb,
+  ExternalLink,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -106,6 +107,24 @@ export function LessonClient() {
         </div>
         <p className="mt-2 text-base text-muted">{lesson.summary}</p>
       </header>
+
+      {lesson.official && lesson.official.length > 0 ? (
+        <div className="mt-6 flex flex-wrap items-center gap-2 rounded-lg border border-border bg-surface-2/60 px-3 py-2.5">
+          <span className="text-xs font-medium text-muted">官方原文</span>
+          {lesson.official.map((o) => (
+            <a
+              key={o.url}
+              href={o.url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 rounded-full border border-border bg-surface px-2.5 py-1 text-xs text-primary no-underline hover:border-primary/40"
+            >
+              {o.title}
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
+          ))}
+        </div>
+      ) : null}
 
       <div className="mt-8 space-y-8">
         {lesson.blocks.map((block, i) => {
