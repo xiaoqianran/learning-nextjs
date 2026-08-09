@@ -12,39 +12,98 @@ export const MIGRATED_LESSONS: Lesson[] = [
     level: "入门",
     track: "官方 Learn",
     minutes: 20,
-    official: [
-      { title: "官方教程：井字棋", url: "https://zh-hans.react.dev/learn/tutorial-tic-tac-toe" },
-    ],
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 跟着官方教程做完井字棋，串联 props、state、不可变更新与组件拆分。\\n\\n• 重点是 UI = f(state) 与提升 state。\\n\\n• 做完后对照本站「React 哲学」复盘。`,
+        title: "概念深讲",
+        body: `• 跟着官方教程做完井字棋，串联 props、state、不可变更新与组件拆分。\\\\n\\\\n• 重点是 UI = f(state) 与提升 state。\\\\n\\\\n• 做完后对照本站「React 哲学」复盘。
+
+为什么这一节重要：官方入门教程：组件、state、可交互棋盘。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「教程：井字棋游戏」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「教程：井字棋游戏」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「tic-tac-toe」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是教程：井字棋游戏？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "方格组件",
+        title: "对应源码",
         lang: "tsx",
         code: `function Square({ value, onSquareClick }: { value: string; onSquareClick: () => void }) {
   return <button onClick={onSquareClick}>{value}</button>
 }`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：教程：井字棋游戏
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
         type: "tip",
-        body: `完整步骤见官方教程。`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "ttt1",
-            question: "井字棋教程核心训练？",
-            options: ["CSS 动画", "组件 + state 数据流", "GraphQL", "SSR only"],
+            id: "tic-tac-toe-8cfd-1",
+            question: "关于「教程：井字棋游戏」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "交互与状态是主线。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "tic-tac-toe-8cfd-2",
+            question: "学习「教程：井字棋游戏」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "tic-tac-toe-8cfd-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -53,33 +112,99 @@ export const MIGRATED_LESSONS: Lesson[] = [
     summary: "包管理器、推荐工具链与环境前提。",
     level: "入门",
     track: "官方 Learn",
-    minutes: 8,
-    official: [
-      { title: "安装", url: "https://zh-hans.react.dev/learn/installation" },
-      { title: "创建应用", url: "https://zh-hans.react.dev/learn/creating-a-react-app" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 现代推荐：用框架（Next.js 等）创建应用。\\n\\n• 需要 Node.js LTS。\\n\\n• 生产项目优先框架而非手写打包配置入门。`,
+        title: "概念深讲",
+        body: `• 现代推荐：用框架（Next.js 等）创建应用。\\\\n\\\\n• 需要 Node.js LTS。\\\\n\\\\n• 生产项目优先框架而非手写打包配置入门。
+
+为什么这一节重要：包管理器、推荐工具链与环境前提。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「安装 React」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「安装 React」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「install-react」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是安装 React？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 安装 React
+// slug: install-react
+console.log('demo: install-react')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：安装 React
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `见官方 Installation。`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "ir1",
-            question: "官方更推荐新人？",
-            options: ["手写 babel 入门", "用框架/脚手架创建应用", "必须 CDN", "禁用 TS"],
+            id: "install-react-44a8-1",
+            question: "关于「安装 React」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "框架提供约定与工具。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "install-react-44a8-2",
+            question: "学习「安装 React」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "install-react-44a8-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -88,35 +213,98 @@ export const MIGRATED_LESSONS: Lesson[] = [
     summary: "框架选型与 create 命令心智。",
     level: "入门",
     track: "官方 Learn",
-    minutes: 8,
-    official: [
-      { title: "创建应用", url: "https://zh-hans.react.dev/learn/creating-a-react-app" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 官方引导使用完整能力框架（如 Next.js）。\\n\\n• 本仓库是 Next.js App Router 示例。\\n\\n• 创建后关注目录约定、dev、类型检查。`,
+        title: "概念深讲",
+        body: `• 官方引导使用完整能力框架（如 Next.js）。\\\\n\\\\n• 本仓库是 Next.js App Router 示例。\\\\n\\\\n• 创建后关注目录约定、dev、类型检查。
+
+为什么这一节重要：框架选型与 create 命令心智。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「创建一个 React 应用」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「创建一个 React 应用」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「create-react-app-guide」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是创建一个 React 应用？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "创建",
+        title: "对应源码",
         lang: "tsx",
         code: `// npx create-next-app@latest
 // npm run dev`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：创建一个 React 应用
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "cra1",
-            question: "本站技术栈？",
-            options: ["jQuery", "Next.js 上的 React", "仅 CDN", "Angular"],
+            id: "create-react-app-guide-2770-1",
+            question: "关于「创建一个 React 应用」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "App Router + React。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "create-react-app-guide-2770-2",
+            question: "学习「创建一个 React 应用」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "create-react-app-guide-2770-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -126,35 +314,98 @@ export const MIGRATED_LESSONS: Lesson[] = [
     level: "进阶",
     track: "官方 Learn",
     minutes: 12,
-    official: [
-      { title: "从零构建", url: "https://zh-hans.react.dev/learn/build-a-react-app-from-scratch" },
-    ],
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• createRoot(domNode).render(<App />)。\\n\\n• 需要打包 JSX。\\n\\n• 从零为了理解工具链，业务仍建议框架。`,
+        title: "概念深讲",
+        body: `• createRoot(domNode).render(<App />)。\\\\n\\\\n• 需要打包 JSX。\\\\n\\\\n• 从零为了理解工具链，业务仍建议框架。
+
+为什么这一节重要：打包器、入口、根节点挂载。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「从零构建一个 React 应用」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「从零构建一个 React 应用」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「build-from-scratch」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是从零构建一个 React 应用？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "挂载",
+        title: "对应源码",
         lang: "tsx",
         code: `import { createRoot } from "react-dom/client"
 import App from "./App"
 createRoot(document.getElementById("root")!).render(<App />)`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：从零构建一个 React 应用
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "bfs1",
-            question: "现代挂载 API？",
-            options: ["ReactDOM.render 旧版", "createRoot", "document.write", "innerHTML"],
+            id: "build-from-scratch-e47a-1",
+            question: "关于「从零构建一个 React 应用」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "createRoot。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "build-from-scratch-e47a-2",
+            question: "学习「从零构建一个 React 应用」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "build-from-scratch-e47a-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -163,28 +414,99 @@ createRoot(document.getElementById("root")!).render(<App />)`,
     summary: "渐进增强：局部挂载岛屿。",
     level: "进阶",
     track: "官方 Learn",
-    minutes: 10,
-    official: [
-      { title: "添加到现有项目", url: "https://zh-hans.react.dev/learn/add-react-to-an-existing-project" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 可在非 React 站点局部挂载组件。\\n\\n• 注意样式隔离与构建。\\n\\n• 逐步迁移页面。`,
+        title: "概念深讲",
+        body: `• 可在非 React 站点局部挂载组件。\\\\n\\\\n• 注意样式隔离与构建。\\\\n\\\\n• 逐步迁移页面。
+
+为什么这一节重要：渐进增强：局部挂载岛屿。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「将 React 添加到现有项目」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「将 React 添加到现有项目」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「add-react-existing」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是将 React 添加到现有项目？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 将 React 添加到现有项目
+// slug: add-react-existing
+console.log('demo: add-react-existing')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：将 React 添加到现有项目
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "are1",
-            question: "存量引入策略？",
-            options: ["只能全站重写", "局部挂载逐步迁移", "禁止混用", "删后端"],
+            id: "add-react-existing-b748-1",
+            question: "关于「将 React 添加到现有项目」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "渐进。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "add-react-existing-b748-2",
+            question: "学习「将 React 添加到现有项目」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "add-react-existing-b748-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -193,29 +515,99 @@ createRoot(document.getElementById("root")!).render(<App />)`,
     summary: "ESLint、格式化、React 插件。",
     level: "入门",
     track: "官方 Learn",
-    minutes: 6,
-    official: [
-      { title: "编辑器设置", url: "https://zh-hans.react.dev/learn/editor-setup" },
-      { title: "开发者工具", url: "https://zh-hans.react.dev/learn/react-developer-tools" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• ESLint + eslint-plugin-react-hooks。\\n\\n• TypeScript 跳转。\\n\\n• 安装 React DevTools。`,
+        title: "概念深讲",
+        body: `• ESLint + eslint-plugin-react-hooks。\\\\n\\\\n• TypeScript 跳转。\\\\n\\\\n• 安装 React DevTools。
+
+为什么这一节重要：ESLint、格式化、React 插件。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「编辑器设置」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「编辑器设置」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「editor-setup」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是编辑器设置？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 编辑器设置
+// slug: editor-setup
+console.log('demo: editor-setup')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：编辑器设置
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "es1",
-            question: "Hooks 规则静态检查？",
-            options: ["感觉", "eslint-plugin-react-hooks", "CSS lint", "DNS"],
+            id: "editor-setup-f71f-1",
+            question: "关于「编辑器设置」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "官方插件。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "editor-setup-f71f-2",
+            question: "学习「编辑器设置」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "editor-setup-f71f-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -224,32 +616,99 @@ createRoot(document.getElementById("root")!).render(<App />)`,
     summary: "组件树、props/state、Profiler。",
     level: "入门",
     track: "官方 Learn",
-    minutes: 8,
-    official: [
-      { title: "React 开发者工具", url: "https://zh-hans.react.dev/learn/react-developer-tools" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• Components 面板看树与 hooks。\\n\\n• Profiler 分析提交耗时。\\n\\n• 配合 Elements 定位 DOM。`,
+        title: "概念深讲",
+        body: `• Components 面板看树与 hooks。\\\\n\\\\n• Profiler 分析提交耗时。\\\\n\\\\n• 配合 Elements 定位 DOM。
+
+为什么这一节重要：组件树、props/state、Profiler。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「React 开发者工具」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「React 开发者工具」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「react-devtools」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是React 开发者工具？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// React 开发者工具
+// slug: react-devtools
+console.log('demo: react-devtools')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：React 开发者工具
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `浏览器扩展：React Developer Tools。`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "rdv1",
-            question: "分析为何重渲染？",
-            options: ["只看 Network", "Profiler", "DNS", "FTP"],
+            id: "react-devtools-5115-1",
+            question: "关于「React 开发者工具」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "Profiler。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "react-devtools-5115-2",
+            question: "学习「React 开发者工具」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "react-devtools-5115-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -258,28 +717,99 @@ createRoot(document.getElementById("root")!).render(<App />)`,
     summary: "官方「描述 UI」章节导读。",
     level: "入门",
     track: "官方 Learn",
-    minutes: 8,
-    official: [
-      { title: "描述 UI", url: "https://zh-hans.react.dev/learn/describing-the-ui" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 界面拆组件、props 配置、JSX 描述。\\n\\n• 先静态 UI，再交互。\\n\\n• 串联组件/JSX/props/条件/列表/纯粹/UI 树。`,
+        title: "概念深讲",
+        body: `• 界面拆组件、props 配置、JSX 描述。\\\\n\\\\n• 先静态 UI，再交互。\\\\n\\\\n• 串联组件/JSX/props/条件/列表/纯粹/UI 树。
+
+为什么这一节重要：官方「描述 UI」章节导读。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「描述 UI」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「描述 UI」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「describing-the-ui」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是描述 UI？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 描述 UI
+// slug: describing-the-ui
+console.log('demo: describing-the-ui')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：描述 UI
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "dui1",
-            question: "描述 UI 的基础单位？",
-            options: ["数据库行", "组件", "端口", "CSS 文件"],
+            id: "describing-the-ui-2ecb-1",
+            question: "关于「描述 UI」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "组件。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "describing-the-ui-2ecb-2",
+            question: "学习「描述 UI」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "describing-the-ui-2ecb-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -288,19 +818,55 @@ createRoot(document.getElementById("root")!).render(<App />)`,
     summary: "定义、命名、返回 JSX。",
     level: "入门",
     track: "官方 Learn",
-    minutes: 8,
-    official: [
-      { title: "你的第一个组件", url: "https://zh-hans.react.dev/learn/your-first-component" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 返回标签的函数；大写开头。\\n\\n• 嵌套组合形成树。\\n\\n• 常用 default 导出页面级组件。`,
+        title: "概念深讲",
+        body: `• 返回标签的函数；大写开头。\\\\n\\\\n• 嵌套组合形成树。\\\\n\\\\n• 常用 default 导出页面级组件。
+
+为什么这一节重要：定义、命名、返回 JSX。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「你的第一个组件」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「你的第一个组件」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「first-component」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是你的第一个组件？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "组合",
+        title: "对应源码",
         lang: "tsx",
         code: `function Profile() {
   return <img src="avatar.png" alt="A" />
@@ -315,23 +881,45 @@ export default function Gallery() {
 }`,
       },
       {
-        type: "demo",
-        kind: "props",
-        title: "动手：组件",
-        hint: "改 props 看输出。",
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：你的第一个组件
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "props", title: "动手：组件", hint: "改 props 看输出。" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "fc1",
-            question: "组件名必须？",
-            options: ["小写 html", "大写开头", "数字开头", "强制下划线"],
+            id: "first-component-2cd1-1",
+            question: "关于「你的第一个组件」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "大写区分原生标签。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "first-component-2cd1-2",
+            question: "学习「你的第一个组件」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "first-component-2cd1-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -340,35 +928,98 @@ export default function Gallery() {
     summary: "default / named 与拆分文件。",
     level: "入门",
     track: "官方 Learn",
-    minutes: 8,
-    official: [
-      { title: "导入与导出", url: "https://zh-hans.react.dev/learn/importing-and-exporting-components" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• default：import X from './X'。\\n\\n• named：import { X } from './X'。\\n\\n• 按功能拆文件。`,
+        title: "概念深讲",
+        body: `• default：import X from './X'。\\\\n\\\\n• named：import { X } from './X'。\\\\n\\\\n• 按功能拆文件。
+
+为什么这一节重要：default / named 与拆分文件。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「组件的导入与导出」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「组件的导入与导出」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「import-export」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是组件的导入与导出？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "导入导出",
+        title: "对应源码",
         lang: "tsx",
         code: `export function Avatar() { return <img alt="" /> }
 // import { Avatar } from "./Avatar"`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：组件的导入与导出
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "ie1",
-            question: "named export 导入？",
-            options: ["import X from", "import { X } from", "require.only", "include"],
+            id: "import-export-d309-1",
+            question: "关于「组件的导入与导出」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "花括号。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "import-export-d309-2",
+            question: "学习「组件的导入与导出」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "import-export-d309-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -377,40 +1028,99 @@ export default function Gallery() {
     summary: "嵌入表达式与样式对象。",
     level: "入门",
     track: "官方 Learn",
-    minutes: 8,
-    official: [
-      { title: "JSX 大括号", url: "https://zh-hans.react.dev/learn/javascript-in-jsx-with-curly-braces" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• {} 内写表达式。\\n\\n• style 接受对象 style={{ color: 'red' }}。\\n\\n• 不能直接写 if 语句，用三元或提前计算。`,
+        title: "概念深讲",
+        body: `• {} 内写表达式。\\\\n\\\\n• style 接受对象 style={{ color: 'red' }}。\\\\n\\\\n• 不能直接写 if 语句，用三元或提前计算。
+
+为什么这一节重要：嵌入表达式与样式对象。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「JSX 中的 JavaScript 大括号」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「JSX 中的 JavaScript 大括号」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「jsx-curly-braces」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是JSX 中的 JavaScript 大括号？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "表达式",
+        title: "对应源码",
         lang: "tsx",
         code: `const name = "Ada"
 return <h1 style={{ color: "#61dafb" }}>Hello {name}</h1>`,
       },
       {
-        type: "demo",
-        kind: "jsx",
-        title: "动手：JSX 表达式",
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：JSX 中的 JavaScript 大括号
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "jsx", title: "动手：JSX 表达式" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "jc1",
-            question: "JSX 表达式用？",
-            options: ["<% %>", "{}", "[[ ]]", "##"],
+            id: "jsx-curly-braces-bfc3-1",
+            question: "关于「JSX 中的 JavaScript 大括号」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "花括号。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "jsx-curly-braces-bfc3-2",
+            question: "学习「JSX 中的 JavaScript 大括号」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "jsx-curly-braces-bfc3-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -419,28 +1129,99 @@ return <h1 style={{ color: "#61dafb" }}>Hello {name}</h1>`,
     summary: "渲染树与模块依赖树。",
     level: "入门",
     track: "官方 Learn",
-    minutes: 10,
-    official: [
-      { title: "将 UI 视为树", url: "https://zh-hans.react.dev/learn/understanding-your-ui-as-a-tree" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• React 遍历组件树渲染。\\n\\n• 父到子 props 单向流。\\n\\n• 帮助定位 state 与性能边界。`,
+        title: "概念深讲",
+        body: `• React 遍历组件树渲染。\\\\n\\\\n• 父到子 props 单向流。\\\\n\\\\n• 帮助定位 state 与性能边界。
+
+为什么这一节重要：渲染树与模块依赖树。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「将 UI 视为树」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「将 UI 视为树」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「ui-as-tree」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是将 UI 视为树？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 将 UI 视为树
+// slug: ui-as-tree
+console.log('demo: ui-as-tree')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：将 UI 视为树
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "uat1",
-            question: "数据默认流向？",
-            options: ["子到父自动", "父到子 props", "双向强制", "全局 only"],
+            id: "ui-as-tree-1e8e-1",
+            question: "关于「将 UI 视为树」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "单向。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "ui-as-tree-1e8e-2",
+            question: "学习「将 UI 视为树」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "ui-as-tree-1e8e-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -449,28 +1230,99 @@ return <h1 style={{ color: "#61dafb" }}>Hello {name}</h1>`,
     summary: "事件与 state 章节导读。",
     level: "入门",
     track: "官方 Learn",
-    minutes: 6,
-    official: [
-      { title: "添加交互", url: "https://zh-hans.react.dev/learn/adding-interactivity" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 交互 = 事件 + state + 重渲染。\\n\\n• 先事件再快照/队列。\\n\\n• 官方本章覆盖事件到数组更新。`,
+        title: "概念深讲",
+        body: `• 交互 = 事件 + state + 重渲染。\\\\n\\\\n• 先事件再快照/队列。\\\\n\\\\n• 官方本章覆盖事件到数组更新。
+
+为什么这一节重要：事件与 state 章节导读。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「添加交互」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「添加交互」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「adding-interactivity」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是添加交互？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 添加交互
+// slug: adding-interactivity
+console.log('demo: adding-interactivity')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：添加交互
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "ai1",
-            question: "交互闭环？",
-            options: ["只改 CSS", "事件→setState→渲染", "整页刷新", "改 HTML 文件"],
+            id: "adding-interactivity-9683-1",
+            question: "关于「添加交互」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "状态驱动。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "adding-interactivity-9683-2",
+            question: "学习「添加交互」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "adding-interactivity-9683-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -479,41 +1331,100 @@ return <h1 style={{ color: "#61dafb" }}>Hello {name}</h1>`,
     summary: "传函数而非调用；preventDefault。",
     level: "入门",
     track: "官方 Learn",
-    minutes: 8,
-    official: [
-      { title: "响应事件", url: "https://zh-hans.react.dev/learn/responding-to-events" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• onClick={handler} 不要 onClick={handler()}。\\n\\n• 处理函数内更新 state。\\n\\n• e.preventDefault() 阻止默认。`,
+        title: "概念深讲",
+        body: `• onClick={handler} 不要 onClick={handler()}。\\\\n\\\\n• 处理函数内更新 state。\\\\n\\\\n• e.preventDefault() 阻止默认。
+
+为什么这一节重要：传函数而非调用；preventDefault。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「响应事件」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「响应事件」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「responding-to-events」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是响应事件？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "事件",
+        title: "对应源码",
         lang: "tsx",
         code: `function Button({ onSmash, children }: { onSmash: () => void; children: React.ReactNode }) {
   return <button onClick={onSmash}>{children}</button>
 }`,
       },
       {
-        type: "demo",
-        kind: "counter",
-        title: "动手：点击",
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：响应事件
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "counter", title: "动手：点击" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "rte1",
-            question: "onClick={fn()} 会？",
-            options: ["正确绑定", "渲染时立刻调用", "编译失败", "仅 SSR"],
+            id: "responding-to-events-3d04-1",
+            question: "关于「响应事件」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "应传引用。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "responding-to-events-3d04-2",
+            question: "学习「响应事件」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "responding-to-events-3d04-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -522,39 +1433,98 @@ return <h1 style={{ color: "#61dafb" }}>Hello {name}</h1>`,
     summary: "useState 跨渲染保持。",
     level: "入门",
     track: "官方 Learn",
-    minutes: 10,
-    official: [
-      { title: "state：组件的记忆", url: "https://zh-hans.react.dev/learn/state-a-components-memory" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 普通变量重渲染丢失。\\n\\n• 每实例独立 state。\\n\\n• 更新触发重渲染。`,
+        title: "概念深讲",
+        body: `• 普通变量重渲染丢失。\\\\n\\\\n• 每实例独立 state。\\\\n\\\\n• 更新触发重渲染。
+
+为什么这一节重要：useState 跨渲染保持。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「state：组件的记忆」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「state：组件的记忆」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「state-memory」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是state：组件的记忆？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "记忆",
+        title: "对应源码",
         lang: "tsx",
         code: `const [index, setIndex] = useState(0)`,
       },
       {
-        type: "demo",
-        kind: "state",
-        title: "动手：useState",
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：state：组件的记忆
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "state", title: "动手：useState" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "sm1",
-            question: "为何不用 let 计数？",
-            options: ["可以用且推荐", "重新渲染会丢失", "禁止 let", "仅 TS"],
+            id: "state-memory-82d6-1",
+            question: "关于「state：组件的记忆」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "函数会重跑。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "state-memory-82d6-2",
+            question: "学习「state：组件的记忆」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "state-memory-82d6-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -563,28 +1533,99 @@ return <h1 style={{ color: "#61dafb" }}>Hello {name}</h1>`,
     summary: "触发 → 渲染 → 提交 DOM。",
     level: "入门",
     track: "官方 Learn",
-    minutes: 10,
-    official: [
-      { title: "渲染和提交", url: "https://zh-hans.react.dev/learn/render-and-commit" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 三步：触发、渲染算 JSX、提交改 DOM。\\n\\n• 渲染必须纯。\\n\\n• 帮助理解双调用与批处理。`,
+        title: "概念深讲",
+        body: `• 三步：触发、渲染算 JSX、提交改 DOM。\\\\n\\\\n• 渲染必须纯。\\\\n\\\\n• 帮助理解双调用与批处理。
+
+为什么这一节重要：触发 → 渲染 → 提交 DOM。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「渲染和提交」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「渲染和提交」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「render-and-commit」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是渲染和提交？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 渲染和提交
+// slug: render-and-commit
+console.log('demo: render-and-commit')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：渲染和提交
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "rac1",
-            question: "提交阶段？",
-            options: ["只算 props", "把变更应用到 DOM", "编译 TS", "拉 Git"],
+            id: "render-and-commit-02c9-1",
+            question: "关于「渲染和提交」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "commit。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "render-and-commit-02c9-2",
+            question: "学习「渲染和提交」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "render-and-commit-02c9-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -593,41 +1634,100 @@ return <h1 style={{ color: "#61dafb" }}>Hello {name}</h1>`,
     summary: "批处理与函数式更新。",
     level: "入门",
     track: "官方 Learn",
-    minutes: 10,
-    official: [
-      { title: "队列更新", url: "https://zh-hans.react.dev/learn/queueing-a-series-of-state-updates" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 同事件多更新可批处理。\\n\\n• 基于前值：setX(x => x+1)。\\n\\n• 配合 state 快照理解。`,
+        title: "概念深讲",
+        body: `• 同事件多更新可批处理。\\\\n\\\\n• 基于前值：setX(x => x+1)。\\\\n\\\\n• 配合 state 快照理解。
+
+为什么这一节重要：批处理与函数式更新。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「把一系列 state 更新加入队列」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「把一系列 state 更新加入队列」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「queue-state-updates」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是把一系列 state 更新加入队列？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "队列",
+        title: "对应源码",
         lang: "tsx",
         code: `setAge(a => a + 1)
 setAge(a => a + 1)
 setAge(a => a + 1) // +3`,
       },
       {
-        type: "demo",
-        kind: "state",
-        title: "动手：队列",
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：把一系列 state 更新加入队列
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "state", title: "动手：队列" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "qsu1",
-            question: "三次函数式 +1？",
-            options: ["+1", "+3", "0", "报错"],
+            id: "queue-state-updates-ee85-1",
+            question: "关于「把一系列 state 更新加入队列」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "链式。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "queue-state-updates-ee85-2",
+            question: "学习「把一系列 state 更新加入队列」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "queue-state-updates-ee85-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -636,34 +1736,97 @@ setAge(a => a + 1) // +3`,
     summary: "展开拷贝；禁止 mutate。",
     level: "入门",
     track: "官方 Learn",
-    minutes: 10,
-    official: [
-      { title: "更新对象", url: "https://zh-hans.react.dev/learn/updating-objects-in-state" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 禁止 user.name = x 后 set(user)。\\n\\n• setUser({ ...user, name })。\\n\\n• 嵌套需多层展开或扁平化。`,
+        title: "概念深讲",
+        body: `• 禁止 user.name = x 后 set(user)。\\\\n\\\\n• setUser({ ...user, name })。\\\\n\\\\n• 嵌套需多层展开或扁平化。
+
+为什么这一节重要：展开拷贝；禁止 mutate。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「更新 state 中的对象」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「更新 state 中的对象」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「update-objects」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是更新 state 中的对象？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "对象",
+        title: "对应源码",
         lang: "tsx",
         code: `setPlayer({ ...player, score: player.score + 1 })`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：更新 state 中的对象
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "uobj1",
-            question: "正确更新？",
-            options: ["obj.x=1; set(obj)", "set({...obj,x:1})", "delete obj", "freeze 后 mutate"],
+            id: "update-objects-3198-1",
+            question: "关于「更新 state 中的对象」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "新对象。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "update-objects-3198-2",
+            question: "学习「更新 state 中的对象」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "update-objects-3198-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -672,39 +1835,98 @@ setAge(a => a + 1) // +3`,
     summary: "map/filter；不用原地 push。",
     level: "入门",
     track: "官方 Learn",
-    minutes: 10,
-    official: [
-      { title: "更新数组", url: "https://zh-hans.react.dev/learn/updating-arrays-in-state" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 新增 [...arr, x]。\\n\\n• 删除 filter。\\n\\n• 替换 map。`,
+        title: "概念深讲",
+        body: `• 新增 [...arr, x]。\\\\n\\\\n• 删除 filter。\\\\n\\\\n• 替换 map。
+
+为什么这一节重要：map/filter；不用原地 push。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「更新 state 中的数组」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「更新 state 中的数组」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「update-arrays」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是更新 state 中的数组？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "数组",
+        title: "对应源码",
         lang: "tsx",
         code: `setArtists(artists.filter(a => a.id !== id))`,
       },
       {
-        type: "demo",
-        kind: "list",
-        title: "动手：列表",
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：更新 state 中的数组
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "list", title: "动手：列表" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "uarr1",
-            question: "删除一项？",
-            options: ["splice 原地 set 原数组", "filter 新数组", "length=0", "eval"],
+            id: "update-arrays-26e2-1",
+            question: "关于「更新 state 中的数组」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "不可变。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "update-arrays-26e2-2",
+            question: "学习「更新 state 中的数组」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "update-arrays-26e2-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -713,28 +1935,99 @@ setAge(a => a + 1) // +3`,
     summary: "官方状态管理章节地图。",
     level: "进阶",
     track: "官方 Learn",
-    minutes: 8,
-    official: [
-      { title: "状态管理", url: "https://zh-hans.react.dev/learn/managing-state" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 输入驱动、结构、共享、重置、reducer、context。\\n\\n• 先本地再提升。\\n\\n• 避免一上来全局 store。`,
+        title: "概念深讲",
+        body: `• 输入驱动、结构、共享、重置、reducer、context。\\\\n\\\\n• 先本地再提升。\\\\n\\\\n• 避免一上来全局 store。
+
+为什么这一节重要：官方状态管理章节地图。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「状态管理（导读）」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「状态管理（导读）」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「managing-state」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是状态管理（导读）？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 状态管理（导读）
+// slug: managing-state
+console.log('demo: managing-state')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：状态管理（导读）
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "ms1",
-            question: "升级顺序？",
-            options: ["先 Redux", "本地→提升→context/reducer", "先事件总线", "只用 URL"],
+            id: "managing-state-87af-1",
+            question: "关于「状态管理（导读）」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "渐进。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "managing-state-87af-2",
+            question: "学习「状态管理（导读）」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "managing-state-87af-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -743,34 +2036,97 @@ setAge(a => a + 1) // +3`,
     summary: "声明式 UI 状态机。",
     level: "进阶",
     track: "官方 Learn",
-    minutes: 10,
-    official: [
-      { title: "用 State 响应输入", url: "https://zh-hans.react.dev/learn/reacting-to-input-with-state" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 用 state 描述界面模式。\\n\\n• 如 typing/sending/sent。\\n\\n• 每状态对应 UI。`,
+        title: "概念深讲",
+        body: `• 用 state 描述界面模式。\\\\n\\\\n• 如 typing/sending/sent。\\\\n\\\\n• 每状态对应 UI。
+
+为什么这一节重要：声明式 UI 状态机。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「用 State 响应输入」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「用 State 响应输入」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「reacting-to-input」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是用 State 响应输入？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "状态机",
+        title: "对应源码",
         lang: "tsx",
         code: `if (status === 'sent') return <h1>Done</h1>`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：用 State 响应输入
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "rti1",
-            question: "声明式？",
-            options: ["$('#x').hide()", "state 描述模式再渲染", "document.write", "alert 流程"],
+            id: "reacting-to-input-262a-1",
+            question: "关于「用 State 响应输入」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "UI=f(state)。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "reacting-to-input-262a-2",
+            question: "学习「用 State 响应输入」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "reacting-to-input-262a-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -780,33 +2136,96 @@ setAge(a => a + 1) // +3`,
     level: "进阶",
     track: "官方 Learn",
     minutes: 12,
-    official: [
-      { title: "选择 State 结构", url: "https://zh-hans.react.dev/learn/choosing-the-state-structure" },
-    ],
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 能派生的不存。\\n\\n• 避免矛盾字段。\\n\\n• 深嵌套可扁平。`,
+        title: "概念深讲",
+        body: `• 能派生的不存。\\\\n\\\\n• 避免矛盾字段。\\\\n\\\\n• 深嵌套可扁平。
+
+为什么这一节重要：避免冗余与矛盾。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「选择 State 结构」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「选择 State 结构」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「state-structure」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是选择 State 结构？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "派生",
+        title: "对应源码",
         lang: "tsx",
         code: `const full = first + ' ' + last`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：选择 State 结构
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "sst1",
-            question: "fullName 应？",
-            options: ["state+effect 同步", "first/last 派生", "必须 context", "存 DOM"],
+            id: "state-structure-1327-1",
+            question: "关于「选择 State 结构」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "派生。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "state-structure-1327-2",
+            question: "学习「选择 State 结构」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "state-structure-1327-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -816,39 +2235,98 @@ setAge(a => a + 1) // +3`,
     level: "进阶",
     track: "官方 Learn",
     minutes: 12,
-    official: [
-      { title: "Reducer 和 Context", url: "https://zh-hans.react.dev/learn/scaling-up-with-reducer-and-context" },
-    ],
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• reducer 收敛逻辑。\\n\\n• 分拆 state/dispatch context。\\n\\n• 仍渐进引入。`,
+        title: "概念深讲",
+        body: `• reducer 收敛逻辑。\\\\n\\\\n• 分拆 state/dispatch context。\\\\n\\\\n• 仍渐进引入。
+
+为什么这一节重要：dispatch 下发规模化。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「用 Reducer + Context 拓展」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「用 Reducer + Context 拓展」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「reducer-context-scale」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是用 Reducer + Context 拓展？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "规模化",
+        title: "对应源码",
         lang: "tsx",
         code: `const dispatch = useContext(TasksDispatchContext)
 dispatch({ type: "added", text })`,
       },
       {
-        type: "demo",
-        kind: "reducer",
-        title: "动手：reducer",
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：用 Reducer + Context 拓展
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "reducer", title: "动手：reducer" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "rcs1",
-            question: "规模化组合？",
-            options: ["仅 CSS 变量", "useReducer + Context", "jQuery", "localStorage only"],
+            id: "reducer-context-scale-e0f6-1",
+            question: "关于「用 Reducer + Context 拓展」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "官方模式。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "reducer-context-scale-e0f6-2",
+            question: "学习「用 Reducer + Context 拓展」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "reducer-context-scale-e0f6-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -857,28 +2335,99 @@ dispatch({ type: "added", text })`,
     summary: "ref 与 Effect。",
     level: "进阶",
     track: "官方 Learn",
-    minutes: 8,
-    official: [
-      { title: "脱围机制", url: "https://zh-hans.react.dev/learn/escape-hatches" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 多数功能不必脱围。\\n\\n• ref：DOM/定时器。\\n\\n• Effect：外部系统。`,
+        title: "概念深讲",
+        body: `• 多数功能不必脱围。\\\\n\\\\n• ref：DOM/定时器。\\\\n\\\\n• Effect：外部系统。
+
+为什么这一节重要：ref 与 Effect。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「脱围机制（导读）」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「脱围机制（导读）」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「escape-hatches」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是脱围机制（导读）？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 脱围机制（导读）
+// slug: escape-hatches
+console.log('demo: escape-hatches')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：脱围机制（导读）
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "eh1",
-            question: "脱围用于？",
-            options: ["所有业务", "外部系统/DOM", "替代 props", "写 SQL"],
+            id: "escape-hatches-e6bc-1",
+            question: "关于「脱围机制（导读）」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "逃逸口。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "escape-hatches-e6bc-2",
+            question: "学习「脱围机制（导读）」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "escape-hatches-e6bc-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -887,40 +2436,99 @@ dispatch({ type: "added", text })`,
     summary: "不触发渲染的可变盒。",
     level: "进阶",
     track: "官方 Learn",
-    minutes: 10,
-    official: [
-      { title: "使用 ref 引用值", url: "https://zh-hans.react.dev/learn/referencing-values-with-refs" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 改 current 不重渲染。\\n\\n• 适合 interval id。\\n\\n• 展示数据用 state。`,
+        title: "概念深讲",
+        body: `• 改 current 不重渲染。\\\\n\\\\n• 适合 interval id。\\\\n\\\\n• 展示数据用 state。
+
+为什么这一节重要：不触发渲染的可变盒。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「使用 ref 引用值」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「使用 ref 引用值」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「ref-values」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是使用 ref 引用值？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "ref",
+        title: "对应源码",
         lang: "tsx",
         code: `const countRef = useRef(0)
 countRef.current += 1`,
       },
       {
-        type: "demo",
-        kind: "ref",
-        title: "动手：ref",
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：使用 ref 引用值
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "ref", title: "动手：ref" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "rv1",
-            question: "改 ref.current 重渲染？",
-            options: ["会", "不会", "仅 StrictMode", "仅生产"],
+            id: "ref-values-0489-1",
+            question: "关于「使用 ref 引用值」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "不会。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "ref-values-0489-2",
+            question: "学习「使用 ref 引用值」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "ref-values-0489-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -929,40 +2537,99 @@ countRef.current += 1`,
     summary: "focus、scroll、测量。",
     level: "进阶",
     track: "官方 Learn",
-    minutes: 10,
-    official: [
-      { title: "操作 DOM", url: "https://zh-hans.react.dev/learn/manipulating-the-dom-with-refs" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• ref 挂宿主元素。\\n\\n• 事件或 Effect 中操作。\\n\\n• 渲染期勿读写 DOM。`,
+        title: "概念深讲",
+        body: `• ref 挂宿主元素。\\\\n\\\\n• 事件或 Effect 中操作。\\\\n\\\\n• 渲染期勿读写 DOM。
+
+为什么这一节重要：focus、scroll、测量。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「使用 ref 操作 DOM」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「使用 ref 操作 DOM」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「ref-dom」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是使用 ref 操作 DOM？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "DOM",
+        title: "对应源码",
         lang: "tsx",
         code: `const inputRef = useRef<HTMLInputElement>(null)
 inputRef.current?.focus()`,
       },
       {
-        type: "demo",
-        kind: "ref",
-        title: "动手：DOM ref",
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：使用 ref 操作 DOM
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "ref", title: "动手：DOM ref" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "rdom1",
-            question: "聚焦？",
-            options: ["仅 CSS", "ref.current.focus()", "document.all", "alert"],
+            id: "ref-dom-00a7-1",
+            question: "关于「使用 ref 操作 DOM」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "命令式。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "ref-dom-00a7-2",
+            question: "学习「使用 ref 操作 DOM」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "ref-dom-00a7-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -972,18 +2639,54 @@ inputRef.current?.focus()`,
     level: "进阶",
     track: "官方 Learn",
     minutes: 12,
-    official: [
-      { title: "使用 Effect 同步", url: "https://zh-hans.react.dev/learn/synchronizing-with-effects" },
-    ],
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 渲染后同步外部。\\n\\n• 返回清理函数。\\n\\n• 依赖控制重跑。`,
+        title: "概念深讲",
+        body: `• 渲染后同步外部。\\\\n\\\\n• 返回清理函数。\\\\n\\\\n• 依赖控制重跑。
+
+为什么这一节重要：订阅与清理。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「使用 Effect 进行同步」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「使用 Effect 进行同步」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「sync-effects」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是使用 Effect 进行同步？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "Effect",
+        title: "对应源码",
         lang: "tsx",
         code: `useEffect(() => {
   const id = setInterval(() => {}, 1000)
@@ -991,22 +2694,45 @@ inputRef.current?.focus()`,
 }, [])`,
       },
       {
-        type: "demo",
-        kind: "effect",
-        title: "动手：Effect",
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：使用 Effect 进行同步
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      { type: "demo", kind: "effect", title: "动手：Effect" },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "se1",
-            question: "清理何时跑？",
-            options: ["永不", "下次 effect 前与卸载", "仅构建", "仅 hydrate"],
+            id: "sync-effects-5e91-1",
+            question: "关于「使用 Effect 进行同步」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "防泄漏。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "sync-effects-5e91-2",
+            question: "学习「使用 Effect 进行同步」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "sync-effects-5e91-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1016,27 +2742,98 @@ inputRef.current?.focus()`,
     level: "进阶",
     track: "官方 Learn",
     minutes: 12,
-    official: [
-      { title: "生命周期", url: "https://zh-hans.react.dev/learn/lifecycle-of-reactive-effects" },
-    ],
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 不是简单 mount/unmount 类比。\\n\\n• 依赖变：清旧跑新。\\n\\n• 正确设计订阅。`,
+        title: "概念深讲",
+        body: `• 不是简单 mount/unmount 类比。\\\\n\\\\n• 依赖变：清旧跑新。\\\\n\\\\n• 正确设计订阅。
+
+为什么这一节重要：依赖变化：清理后重同步。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「响应式 Effect 的生命周期」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「响应式 Effect 的生命周期」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「effect-lifecycle」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是响应式 Effect 的生命周期？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 响应式 Effect 的生命周期
+// slug: effect-lifecycle
+console.log('demo: effect-lifecycle')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：响应式 Effect 的生命周期
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "el1",
-            question: "roomId 变化？",
-            options: ["旧订阅残留", "清理后重订阅", "崩溃", "忽略"],
+            id: "effect-lifecycle-2243-1",
+            question: "关于「响应式 Effect 的生命周期」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "清理。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "effect-lifecycle-2243-2",
+            question: "学习「响应式 Effect 的生命周期」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "effect-lifecycle-2243-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1045,28 +2842,99 @@ inputRef.current?.focus()`,
     summary: "事件逻辑 vs 响应依赖。",
     level: "进阶",
     track: "官方 Learn",
-    minutes: 10,
-    official: [
-      { title: "将事件从 Effect 分开", url: "https://zh-hans.react.dev/learn/separating-events-from-effects" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 事件不应无故进依赖。\\n\\n• 现代用 useEffectEvent。\\n\\n• 区分反应依赖与读取最新值。`,
+        title: "概念深讲",
+        body: `• 事件不应无故进依赖。\\\\n\\\\n• 现代用 useEffectEvent。\\\\n\\\\n• 区分反应依赖与读取最新值。
+
+为什么这一节重要：事件逻辑 vs 响应依赖。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「将事件从 Effect 中分开」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「将事件从 Effect 中分开」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「separate-events-effects」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是将事件从 Effect 中分开？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 将事件从 Effect 中分开
+// slug: separate-events-effects
+console.log('demo: separate-events-effects')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：将事件从 Effect 中分开
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "see1",
-            question: "与 useEffectEvent？",
-            options: ["无关", "同一问题的 API 解法", "取代 useState", "CSS"],
+            id: "separate-events-effects-9b2a-1",
+            question: "关于「将事件从 Effect 中分开」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "分离事件。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "separate-events-effects-9b2a-2",
+            question: "学习「将事件从 Effect 中分开」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "separate-events-effects-9b2a-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1076,32 +2944,98 @@ inputRef.current?.focus()`,
     level: "进阶",
     track: "官方 Learn",
     minutes: 12,
-    official: [
-      { title: "移除 Effect 依赖", url: "https://zh-hans.react.dev/learn/removing-effect-dependencies" },
-      { title: "exhaustive-deps", url: "https://zh-hans.react.dev/reference/eslint-plugin-react-hooks/lints/exhaustive-deps" },
-    ],
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 勿乱删依赖。\\n\\n• 下移函数、拆 Effect、事件分离。\\n\\n• 目标是正确性。`,
+        title: "概念深讲",
+        body: `• 勿乱删依赖。\\\\n\\\\n• 下移函数、拆 Effect、事件分离。\\\\n\\\\n• 目标是正确性。
+
+为什么这一节重要：合法减少依赖，不骗 lint。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「移除 Effect 依赖」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「移除 Effect 依赖」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「remove-effect-deps」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是移除 Effect 依赖？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 移除 Effect 依赖
+// slug: remove-effect-deps
+console.log('demo: remove-effect-deps')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：移除 Effect 依赖
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `配合 eslint exhaustive-deps。`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "red1",
-            question: "乱删依赖？",
-            options: ["最佳实践", "易陈旧闭包", "加速 10 倍", "官方推荐"],
+            id: "remove-effect-deps-95d6-1",
+            question: "关于「移除 Effect 依赖」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "闭包过期。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "remove-effect-deps-95d6-2",
+            question: "学习「移除 Effect 依赖」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "remove-effect-deps-95d6-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1110,19 +3044,55 @@ inputRef.current?.focus()`,
     summary: "共享逻辑不共享 state 实例。",
     level: "进阶",
     track: "官方 Learn",
-    minutes: 10,
-    official: [
-      { title: "自定义 Hook", url: "https://zh-hans.react.dev/learn/reusing-logic-with-custom-hooks" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• useX 命名。\\n\\n• 共享逻辑非 UI。\\n\\n• 每调用独立 state。`,
+        title: "概念深讲",
+        body: `• useX 命名。\\\\n\\\\n• 共享逻辑非 UI。\\\\n\\\\n• 每调用独立 state。
+
+为什么这一节重要：共享逻辑不共享 state 实例。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「使用自定义 Hook 复用逻辑」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「使用自定义 Hook 复用逻辑」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「custom-hooks-official」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是使用自定义 Hook 复用逻辑？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "自定义 Hook",
+        title: "对应源码",
         lang: "tsx",
         code: `function useOnlineStatus() {
   const [online, setOnline] = useState(true)
@@ -1131,17 +3101,44 @@ inputRef.current?.focus()`,
 }`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：使用自定义 Hook 复用逻辑
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
+      },
+      {
         type: "quiz",
         questions: [
           {
-            id: "cho1",
-            question: "两组件同 hook？",
-            options: ["共享同一 state", "各自独立 state", "报错", "必须 memo"],
+            id: "custom-hooks-official-a53d-1",
+            question: "关于「使用自定义 Hook 复用逻辑」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "独立。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "custom-hooks-official-a53d-2",
+            question: "学习「使用自定义 Hook 复用逻辑」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "custom-hooks-official-a53d-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1150,29 +3147,99 @@ inputRef.current?.focus()`,
     summary: "自动记忆化动机与能力边界。",
     level: "进阶",
     track: "官方 Learn",
-    minutes: 8,
-    official: [
-      { title: "介绍", url: "https://zh-hans.react.dev/learn/react-compiler/introduction" },
-      { title: "Compiler", url: "https://zh-hans.react.dev/learn/react-compiler" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 构建期优化重渲染。\\n\\n• 仍需组件纯粹。\\n\\n• 减少手写 memo。`,
+        title: "概念深讲",
+        body: `• 构建期优化重渲染。\\\\n\\\\n• 仍需组件纯粹。\\\\n\\\\n• 减少手写 memo。
+
+为什么这一节重要：自动记忆化动机与能力边界。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「React Compiler 介绍」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「React Compiler 介绍」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「compiler-intro」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是React Compiler 介绍？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// React Compiler 介绍
+// slug: compiler-intro
+console.log('demo: compiler-intro')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：React Compiler 介绍
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "ci1",
-            question: "Compiler 做什么？",
-            options: ["写数据库", "自动记忆化", "替代路由", "生成 CSS"],
+            id: "compiler-intro-b612-1",
+            question: "关于「React Compiler 介绍」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "优化。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "compiler-intro-b612-2",
+            question: "学习「React Compiler 介绍」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "compiler-intro-b612-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1181,28 +3248,99 @@ inputRef.current?.focus()`,
     summary: "babel/插件接入。",
     level: "进阶",
     track: "官方 Learn",
-    minutes: 6,
-    official: [
-      { title: "安装", url: "https://zh-hans.react.dev/learn/react-compiler/installation" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 按官方安装步骤接入构建。\\n\\n• Next 等框架有集成说明。`,
+        title: "概念深讲",
+        body: `• 按官方安装步骤接入构建。\\\\n\\\\n• Next 等框架有集成说明。
+
+为什么这一节重要：babel/插件接入。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「React Compiler 安装」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「React Compiler 安装」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「compiler-install」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是React Compiler 安装？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// React Compiler 安装
+// slug: compiler-install
+console.log('demo: compiler-install')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：React Compiler 安装
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "cins1",
-            question: "Compiler 运行时机？",
-            options: ["仅浏览器运行时手写", "构建期", "DNS", "仅测试"],
+            id: "compiler-install-8b19-1",
+            question: "关于「React Compiler 安装」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "编译期。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "compiler-install-8b19-2",
+            question: "学习「React Compiler 安装」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "compiler-install-8b19-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1211,28 +3349,99 @@ inputRef.current?.focus()`,
     summary: "门控与增量开启。",
     level: "进阶",
     track: "官方 Learn",
-    minutes: 8,
-    official: [
-      { title: "逐步使用", url: "https://zh-hans.react.dev/learn/react-compiler/incremental-adoption" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 可 gating 渐进。\\n\\n• 先目录后全量。\\n\\n• 观察兼容性。`,
+        title: "概念深讲",
+        body: `• 可 gating 渐进。\\\\n\\\\n• 先目录后全量。\\\\n\\\\n• 观察兼容性。
+
+为什么这一节重要：门控与增量开启。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Compiler 逐步采用」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Compiler 逐步采用」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「compiler-incremental」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Compiler 逐步采用？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Compiler 逐步采用
+// slug: compiler-incremental
+console.log('demo: compiler-incremental')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Compiler 逐步采用
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "cinc1",
-            question: "推荐策略？",
-            options: ["无监控全开永远", "增量/门控", "删掉 hooks", "禁用 TS"],
+            id: "compiler-incremental-3bd9-1",
+            question: "关于「Compiler 逐步采用」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "渐进。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "compiler-incremental-3bd9-2",
+            question: "学习「Compiler 逐步采用」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "compiler-incremental-3bd9-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1241,28 +3450,99 @@ inputRef.current?.focus()`,
     summary: "排除不兼容模式。",
     level: "进阶",
     track: "官方 Learn",
-    minutes: 6,
-    official: [
-      { title: "调试", url: "https://zh-hans.react.dev/learn/react-compiler/debugging" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 查看编译失败原因。\\n\\n• 不纯组件需先修好。`,
+        title: "概念深讲",
+        body: `• 查看编译失败原因。\\\\n\\\\n• 不纯组件需先修好。
+
+为什么这一节重要：排除不兼容模式。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Compiler 调试」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Compiler 调试」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「compiler-debug」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Compiler 调试？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Compiler 调试
+// slug: compiler-debug
+console.log('demo: compiler-debug')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Compiler 调试
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
+        type: "tip",
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "cdb1",
-            question: "编译异常优先查？",
-            options: ["DNS", "不纯/不兼容模式", "改端口", "关 ESLint"],
+            id: "compiler-debug-11fd-1",
+            question: "关于「Compiler 调试」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
             answer: 1,
-            explain: "纯度。",
-          }
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "compiler-debug-11fd-2",
+            question: "学习「Compiler 调试」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "compiler-debug-11fd-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1271,32 +3551,104 @@ inputRef.current?.focus()`,
     summary: "自定义 Hook 的 DevTools 标签。",
     level: "进阶",
     track: "API 参考",
-    minutes: 5,
-    official: [
-      { title: "useDebugValue", url: "https://zh-hans.react.dev/reference/react/useDebugValue" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 开发工具展示。\\n\\n• 可延迟格式化。`,
+        title: "概念深讲",
+        body: `• 开发工具展示。\\\\n\\\\n• 可延迟格式化。
+
+为什么这一节重要：自定义 Hook 的 DevTools 标签。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「useDebugValue」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/useDebugValue`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「useDebugValue」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-use-debug-value」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是useDebugValue？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// useDebugValue
+// slug: api-use-debug-value
+console.log('demo: api-use-debug-value')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：useDebugValue
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/useDebugValue`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-use-debu",
-            question: "useDebugValue 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-use-debug-value-24d4-1",
+            question: "关于「useDebugValue」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-use-debug-value-24d4-2",
+            question: "学习「useDebugValue」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-use-debug-value-24d4-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1305,32 +3657,104 @@ inputRef.current?.focus()`,
     summary: "定制 ref 句柄。",
     level: "进阶",
     track: "API 参考",
-    minutes: 8,
-    official: [
-      { title: "useImperativeHandle", url: "https://zh-hans.react.dev/reference/react/useImperativeHandle" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 配合 forwardRef。\\n\\n• 只暴露必要方法。`,
+        title: "概念深讲",
+        body: `• 配合 forwardRef。\\\\n\\\\n• 只暴露必要方法。
+
+为什么这一节重要：定制 ref 句柄。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「useImperativeHandle」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/useImperativeHandle`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「useImperativeHandle」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-use-imperative-handle」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是useImperativeHandle？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// useImperativeHandle
+// slug: api-use-imperative-handle
+console.log('demo: api-use-imperative-handle')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：useImperativeHandle
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/useImperativeHandle`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-use-impe",
-            question: "useImperativeHandle 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-use-imperative-handle-12a5-1",
+            question: "关于「useImperativeHandle」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-use-imperative-handle-12a5-2",
+            question: "学习「useImperativeHandle」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-use-imperative-handle-12a5-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1339,32 +3763,104 @@ inputRef.current?.focus()`,
     summary: "绘制前同步 DOM 读改。",
     level: "进阶",
     track: "API 参考",
-    minutes: 8,
-    official: [
-      { title: "useLayoutEffect", url: "https://zh-hans.react.dev/reference/react/useLayoutEffect" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 测布局防闪烁。\\n\\n• 多数情况 useEffect。`,
+        title: "概念深讲",
+        body: `• 测布局防闪烁。\\\\n\\\\n• 多数情况 useEffect。
+
+为什么这一节重要：绘制前同步 DOM 读改。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「useLayoutEffect」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/useLayoutEffect`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「useLayoutEffect」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-use-layout-effect」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是useLayoutEffect？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// useLayoutEffect
+// slug: api-use-layout-effect
+console.log('demo: api-use-layout-effect')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：useLayoutEffect
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/useLayoutEffect`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-use-layo",
-            question: "useLayoutEffect 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-use-layout-effect-47ef-1",
+            question: "关于「useLayoutEffect」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-use-layout-effect-47ef-2",
+            question: "学习「useLayoutEffect」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-use-layout-effect-47ef-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1373,32 +3869,104 @@ inputRef.current?.focus()`,
     summary: "CSS-in-JS 插样式。",
     level: "进阶",
     track: "API 参考",
-    minutes: 5,
-    official: [
-      { title: "useInsertionEffect", url: "https://zh-hans.react.dev/reference/react/useInsertionEffect" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 布局 effect 前。\\n\\n• 应用代码少用。`,
+        title: "概念深讲",
+        body: `• 布局 effect 前。\\\\n\\\\n• 应用代码少用。
+
+为什么这一节重要：CSS-in-JS 插样式。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「useInsertionEffect」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/useInsertionEffect`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「useInsertionEffect」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-use-insertion-effect」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是useInsertionEffect？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// useInsertionEffect
+// slug: api-use-insertion-effect
+console.log('demo: api-use-insertion-effect')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：useInsertionEffect
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/useInsertionEffect`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-use-inse",
-            question: "useInsertionEffect 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-use-insertion-effect-8a52-1",
+            question: "关于「useInsertionEffect」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-use-insertion-effect-8a52-2",
+            question: "学习「useInsertionEffect」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-use-insertion-effect-8a52-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1407,32 +3975,104 @@ inputRef.current?.focus()`,
     summary: "订阅外部 store。",
     level: "进阶",
     track: "API 参考",
-    minutes: 10,
-    official: [
-      { title: "useSyncExternalStore", url: "https://zh-hans.react.dev/reference/react/useSyncExternalStore" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 并发安全。\\n\\n• 状态库底层常用。`,
+        title: "概念深讲",
+        body: `• 并发安全。\\\\n\\\\n• 状态库底层常用。
+
+为什么这一节重要：订阅外部 store。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「useSyncExternalStore」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/useSyncExternalStore`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「useSyncExternalStore」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-use-sync-external-store」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是useSyncExternalStore？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// useSyncExternalStore
+// slug: api-use-sync-external-store
+console.log('demo: api-use-sync-external-store')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：useSyncExternalStore
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/useSyncExternalStore`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-use-sync",
-            question: "useSyncExternalStore 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-use-sync-external-store-ac5b-1",
+            question: "关于「useSyncExternalStore」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-use-sync-external-store-ac5b-2",
+            question: "学习「useSyncExternalStore」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-use-sync-external-store-ac5b-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1441,32 +4081,104 @@ inputRef.current?.focus()`,
     summary: "读 Promise/Context。",
     level: "进阶",
     track: "API 参考",
-    minutes: 10,
-    official: [
-      { title: "use API", url: "https://zh-hans.react.dev/reference/react/use" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 可条件调用。\\n\\n• 与 Suspense 集成。`,
+        title: "概念深讲",
+        body: `• 可条件调用。\\\\n\\\\n• 与 Suspense 集成。
+
+为什么这一节重要：读 Promise/Context。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「use API」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/use`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「use API」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-use-hook」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是use API？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// use API
+// slug: api-use-hook
+console.log('demo: api-use-hook')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：use API
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/use`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-use-hook",
-            question: "use API 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-use-hook-9c5d-1",
+            question: "关于「use API」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-use-hook-9c5d-2",
+            question: "学习「use API」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-use-hook-9c5d-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1475,32 +4187,104 @@ inputRef.current?.focus()`,
     summary: "无 DOM 包裹多节点。",
     level: "入门",
     track: "API 参考",
-    minutes: 5,
-    official: [
-      { title: "Fragment", url: "https://zh-hans.react.dev/reference/react/Fragment" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• <>...</>。\\n\\n• 需 key 用 Fragment。`,
+        title: "概念深讲",
+        body: `• <>...</>。\\\\n\\\\n• 需 key 用 Fragment。
+
+为什么这一节重要：无 DOM 包裹多节点。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Fragment」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/Fragment`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Fragment」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-fragment」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Fragment？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Fragment
+// slug: api-fragment
+console.log('demo: api-fragment')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Fragment
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/Fragment`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-fragment",
-            question: "Fragment 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-fragment-e272-1",
+            question: "关于「Fragment」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-fragment-e272-2",
+            question: "学习「Fragment」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-fragment-e272-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1509,32 +4293,104 @@ inputRef.current?.focus()`,
     summary: "开发期暴露不纯。",
     level: "入门",
     track: "API 参考",
-    minutes: 6,
-    official: [
-      { title: "StrictMode", url: "https://zh-hans.react.dev/reference/react/StrictMode" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 无 UI。\\n\\n• 双调用渲染。`,
+        title: "概念深讲",
+        body: `• 无 UI。\\\\n\\\\n• 双调用渲染。
+
+为什么这一节重要：开发期暴露不纯。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「StrictMode」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/StrictMode`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「StrictMode」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-strict-mode」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是StrictMode？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// StrictMode
+// slug: api-strict-mode
+console.log('demo: api-strict-mode')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：StrictMode
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/StrictMode`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-strict-m",
-            question: "StrictMode 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-strict-mode-99b0-1",
+            question: "关于「StrictMode」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-strict-mode-99b0-2",
+            question: "学习「StrictMode」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-strict-mode-99b0-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1543,32 +4399,104 @@ inputRef.current?.focus()`,
     summary: "测量渲染。",
     level: "进阶",
     track: "API 参考",
-    minutes: 6,
-    official: [
-      { title: "Profiler", url: "https://zh-hans.react.dev/reference/react/Profiler" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• onRender 回调。\\n\\n• 或 DevTools。`,
+        title: "概念深讲",
+        body: `• onRender 回调。\\\\n\\\\n• 或 DevTools。
+
+为什么这一节重要：测量渲染。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Profiler」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/Profiler`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Profiler」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-profiler」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Profiler？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Profiler
+// slug: api-profiler
+console.log('demo: api-profiler')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Profiler
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/Profiler`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-profiler",
-            question: "Profiler 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-profiler-a98d-1",
+            question: "关于「Profiler」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-profiler-a98d-2",
+            question: "学习「Profiler」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-profiler-a98d-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1577,32 +4505,104 @@ inputRef.current?.focus()`,
     summary: "活动/隐藏子树（新）。",
     level: "进阶",
     track: "API 参考",
-    minutes: 8,
-    official: [
-      { title: "Activity", url: "https://zh-hans.react.dev/reference/react/Activity" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 保活与隐藏模式。\\n\\n• 复杂导航场景。`,
+        title: "概念深讲",
+        body: `• 保活与隐藏模式。\\\\n\\\\n• 复杂导航场景。
+
+为什么这一节重要：活动/隐藏子树（新）。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Activity」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/Activity`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Activity」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-activity」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Activity？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Activity
+// slug: api-activity
+console.log('demo: api-activity')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Activity
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/Activity`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-activity",
-            question: "Activity 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-activity-1bff-1",
+            question: "关于「Activity」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-activity-1bff-2",
+            question: "学习「Activity」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-activity-1bff-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1611,32 +4611,104 @@ inputRef.current?.focus()`,
     summary: "视图过渡动画边界。",
     level: "进阶",
     track: "API 参考",
-    minutes: 8,
-    official: [
-      { title: "ViewTransition", url: "https://zh-hans.react.dev/reference/react/ViewTransition" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 声明式过渡。\\n\\n• 渐进增强。`,
+        title: "概念深讲",
+        body: `• 声明式过渡。\\\\n\\\\n• 渐进增强。
+
+为什么这一节重要：视图过渡动画边界。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「ViewTransition」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/ViewTransition`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「ViewTransition」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-view-transition」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是ViewTransition？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// ViewTransition
+// slug: api-view-transition
+console.log('demo: api-view-transition')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：ViewTransition
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/ViewTransition`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-view-tra",
-            question: "ViewTransition 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-view-transition-e5ee-1",
+            question: "关于「ViewTransition」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-view-transition-e5ee-2",
+            question: "学习「ViewTransition」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-view-transition-e5ee-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1645,32 +4717,104 @@ inputRef.current?.focus()`,
     summary: "非紧急更新。",
     level: "进阶",
     track: "API 参考",
-    minutes: 8,
-    official: [
-      { title: "startTransition", url: "https://zh-hans.react.dev/reference/react/startTransition" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 与 useTransition 同族。\\n\\n• 保输入流畅。`,
+        title: "概念深讲",
+        body: `• 与 useTransition 同族。\\\\n\\\\n• 保输入流畅。
+
+为什么这一节重要：非紧急更新。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「startTransition」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/startTransition`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「startTransition」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-start-transition」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是startTransition？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// startTransition
+// slug: api-start-transition
+console.log('demo: api-start-transition')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：startTransition
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/startTransition`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-start-tr",
-            question: "startTransition 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-start-transition-f9a4-1",
+            question: "关于「startTransition」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-start-transition-f9a4-2",
+            question: "学习「startTransition」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-start-transition-f9a4-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1679,32 +4823,104 @@ inputRef.current?.focus()`,
     summary: "懒加载组件。",
     level: "进阶",
     track: "API 参考",
-    minutes: 8,
-    official: [
-      { title: "lazy", url: "https://zh-hans.react.dev/reference/react/lazy" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 配 Suspense。\\n\\n• 代码分割。`,
+        title: "概念深讲",
+        body: `• 配 Suspense。\\\\n\\\\n• 代码分割。
+
+为什么这一节重要：懒加载组件。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「lazy」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/lazy`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「lazy」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-lazy」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是lazy？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// lazy
+// slug: api-lazy
+console.log('demo: api-lazy')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：lazy
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/lazy`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-lazy",
-            question: "lazy 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-lazy-398e-1",
+            question: "关于「lazy」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-lazy-398e-2",
+            question: "学习「lazy」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-lazy-398e-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1713,32 +4929,104 @@ inputRef.current?.focus()`,
     summary: "props 浅比较跳过渲染。",
     level: "进阶",
     track: "API 参考",
-    minutes: 8,
-    official: [
-      { title: "memo", url: "https://zh-hans.react.dev/reference/react/memo" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 纯展示列表项常用。\\n\\n• Compiler 可能减少手写。`,
+        title: "概念深讲",
+        body: `• 纯展示列表项常用。\\\\n\\\\n• Compiler 可能减少手写。
+
+为什么这一节重要：props 浅比较跳过渲染。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「memo」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/memo`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「memo」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-memo-ref」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是memo？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// memo
+// slug: api-memo-ref
+console.log('demo: api-memo-ref')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：memo
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/memo`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-memo-ref",
-            question: "memo 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-memo-ref-baba-1",
+            question: "关于「memo」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-memo-ref-baba-2",
+            question: "学习「memo」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-memo-ref-baba-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1747,32 +5035,104 @@ inputRef.current?.focus()`,
     summary: "服务端缓存函数。",
     level: "进阶",
     track: "API 参考",
-    minutes: 8,
-    official: [
-      { title: "cache (React)", url: "https://zh-hans.react.dev/reference/react/cache" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• RSC 去重请求。\\n\\n• 不同于 Next fetch 配置。`,
+        title: "概念深讲",
+        body: `• RSC 去重请求。\\\\n\\\\n• 不同于 Next fetch 配置。
+
+为什么这一节重要：服务端缓存函数。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「cache (React)」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/cache`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「cache (React)」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-cache」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是cache (React)？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// cache (React)
+// slug: api-cache
+console.log('demo: api-cache')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：cache (React)
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/cache`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-cache",
-            question: "cache (React) 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-cache-f3c3-1",
+            question: "关于「cache (React)」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-cache-f3c3-2",
+            question: "学习「cache (React)」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-cache-f3c3-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1781,32 +5141,104 @@ inputRef.current?.focus()`,
     summary: "创建 Context。",
     level: "入门",
     track: "API 参考",
-    minutes: 6,
-    official: [
-      { title: "createContext", url: "https://zh-hans.react.dev/reference/react/createContext" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• Provider value。\\n\\n• useContext/use 读取。`,
+        title: "概念深讲",
+        body: `• Provider value。\\\\n\\\\n• useContext/use 读取。
+
+为什么这一节重要：创建 Context。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「createContext」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/createContext`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「createContext」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-create-context」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是createContext？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// createContext
+// slug: api-create-context
+console.log('demo: api-create-context')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：createContext
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/createContext`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-create-c",
-            question: "createContext 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-create-context-2056-1",
+            question: "关于「createContext」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-create-context-2056-2",
+            question: "学习「createContext」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-create-context-2056-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1815,32 +5247,104 @@ inputRef.current?.focus()`,
     summary: "父 form pending。",
     level: "进阶",
     track: "API 参考",
-    minutes: 8,
-    official: [
-      { title: "useFormStatus", url: "https://zh-hans.react.dev/reference/react-dom/hooks/useFormStatus" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 在子组件调用。\\n\\n• 配 Server Actions。`,
+        title: "概念深讲",
+        body: `• 在子组件调用。\\\\n\\\\n• 配 Server Actions。
+
+为什么这一节重要：父 form pending。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「useFormStatus」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react-dom/hooks/useFormStatus`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「useFormStatus」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-use-form-status」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是useFormStatus？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// useFormStatus
+// slug: api-use-form-status
+console.log('demo: api-use-form-status')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：useFormStatus
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react-dom/hooks/useFormStatus`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-use-form",
-            question: "useFormStatus 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-use-form-status-ce16-1",
+            question: "关于「useFormStatus」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-use-form-status-ce16-2",
+            question: "学习「useFormStatus」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-use-form-status-ce16-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1849,134 +5353,422 @@ inputRef.current?.focus()`,
     summary: "传送到外部 DOM。",
     level: "进阶",
     track: "API 参考",
-    minutes: 6,
-    official: [
-      { title: "createPortal 参考", url: "https://zh-hans.react.dev/reference/react-dom/createPortal" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• Modal 到 body。\\n\\n• 事件仍走 React 树。`,
+        title: "概念深讲",
+        body: `• Modal 到 body。\\\\n\\\\n• 事件仍走 React 树。
+
+为什么这一节重要：传送到外部 DOM。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「createPortal 参考」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react-dom/createPortal`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「createPortal 参考」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-create-portal-ref」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是createPortal 参考？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// createPortal 参考
+// slug: api-create-portal-ref
+console.log('demo: api-create-portal-ref')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：createPortal 参考
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react-dom/createPortal`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-create-p",
-            question: "createPortal 参考 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-create-portal-ref-2a2f-1",
+            question: "关于「createPortal 参考」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-create-portal-ref-2a2f-2",
+            question: "学习「createPortal 参考」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-create-portal-ref-2a2f-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
     slug: "api-server-functions",
     title: "Server Functions",
-    summary: "'use server' 可调用服务端。",
+    summary: "Server Functions",
     level: "进阶",
     track: "API 参考",
-    minutes: 10,
-    official: [
-      { title: "Server Functions", url: "https://zh-hans.react.dev/reference/rsc/server-functions" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 客户端可调。\\n\\n• 须鉴权与校验。`,
+        title: "概念深讲",
+        body: `• 客户端可调。\\\\n\\\\n• 须鉴权与校验。
+
+为什么这一节重要：Server Functions不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Server Functions」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/rsc/server-functions`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Server Functions」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-server-functions」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Server Functions？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Server Functions
+// slug: api-server-functions
+console.log('demo: api-server-functions')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Server Functions
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/rsc/server-functions`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-server-f",
-            question: "Server Functions 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-server-functions-456b-1",
+            question: "关于「Server Functions」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-server-functions-456b-2",
+            question: "学习「Server Functions」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-server-functions-456b-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
     slug: "api-use-client-directive",
-    title: "'use client' 指令",
+    title: "",
     summary: "客户端边界。",
     level: "进阶",
     track: "API 参考",
-    minutes: 8,
-    official: [
-      { title: "'use client' 指令", url: "https://zh-hans.react.dev/reference/rsc/use-client" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 文件顶层。\\n\\n• 导入链客户端化。`,
+        title: "概念深讲",
+        body: `• 文件顶层。\\\\n\\\\n• 导入链客户端化。
+
+为什么这一节重要：客户端边界。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/rsc/use-client`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-use-client-directive」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 
+// slug: api-use-client-directive
+console.log('demo: api-use-client-directive')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/rsc/use-client`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-use-clie",
-            question: "'use client' 指令 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-use-client-directive-d697-1",
+            question: "关于「」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-use-client-directive-d697-2",
+            question: "学习「」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-use-client-directive-d697-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
     slug: "api-use-server-directive",
-    title: "'use server' 指令",
+    title: "",
     summary: "服务端函数标记。",
     level: "进阶",
     track: "API 参考",
-    minutes: 8,
-    official: [
-      { title: "'use server' 指令", url: "https://zh-hans.react.dev/reference/rsc/use-server" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 文件或函数级。\\n\\n• 防未授权调用。`,
+        title: "概念深讲",
+        body: `• 文件或函数级。\\\\n\\\\n• 防未授权调用。
+
+为什么这一节重要：服务端函数标记。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/rsc/use-server`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-use-server-directive」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 
+// slug: api-use-server-directive
+console.log('demo: api-use-server-directive')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/rsc/use-server`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-use-serv",
-            question: "'use server' 指令 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-use-server-directive-b188-1",
+            question: "关于「」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-use-server-directive-b188-2",
+            question: "学习「」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-use-server-directive-b188-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -1985,32 +5777,104 @@ inputRef.current?.focus()`,
     summary: "纯粹与 Hooks 规则。",
     level: "入门",
     track: "API 参考",
-    minutes: 8,
-    official: [
-      { title: "React 规则总览", url: "https://zh-hans.react.dev/reference/rules" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 组件/Hook 须纯。\\n\\n• React 调用你。\\n\\n• Hook 顶层。`,
+        title: "概念深讲",
+        body: `• 组件/Hook 须纯。\\\\n\\\\n• React 调用你。\\\\n\\\\n• Hook 顶层。
+
+为什么这一节重要：纯粹与 Hooks 规则。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「React 规则总览」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/rules`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「React 规则总览」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-react-rules」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是React 规则总览？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// React 规则总览
+// slug: api-react-rules
+console.log('demo: api-react-rules')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：React 规则总览
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/rules`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-react-ru",
-            question: "React 规则总览 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-react-rules-6fce-1",
+            question: "关于「React 规则总览」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-react-rules-6fce-2",
+            question: "学习「React 规则总览」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-react-rules-6fce-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2019,32 +5883,104 @@ inputRef.current?.focus()`,
     summary: "Class 与 Children 等。",
     level: "进阶",
     track: "API 参考",
-    minutes: 8,
-    official: [
-      { title: "过时 API 一览", url: "https://zh-hans.react.dev/reference/react/legacy" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 新代码用函数组件。\\n\\n• 维护老代码查阅。`,
+        title: "概念深讲",
+        body: `• 新代码用函数组件。\\\\n\\\\n• 维护老代码查阅。
+
+为什么这一节重要：Class 与 Children 等。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「过时 API 一览」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/legacy`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「过时 API 一览」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-legacy」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是过时 API 一览？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 过时 API 一览
+// slug: api-legacy
+console.log('demo: api-legacy')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：过时 API 一览
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/legacy`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-legacy",
-            question: "过时 API 一览 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-legacy-dc2e-1",
+            question: "关于「过时 API 一览」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-legacy-dc2e-2",
+            question: "学习「过时 API 一览」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-legacy-dc2e-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2053,32 +5989,104 @@ inputRef.current?.focus()`,
     summary: "传递 ref。",
     level: "进阶",
     track: "API 参考",
-    minutes: 8,
-    official: [
-      { title: "forwardRef", url: "https://zh-hans.react.dev/reference/react/forwardRef" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 库常见。\\n\\n• 配 useImperativeHandle。`,
+        title: "概念深讲",
+        body: `• 库常见。\\\\n\\\\n• 配 useImperativeHandle。
+
+为什么这一节重要：传递 ref。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「forwardRef」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/forwardRef`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「forwardRef」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-forward-ref」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是forwardRef？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// forwardRef
+// slug: api-forward-ref
+console.log('demo: api-forward-ref')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：forwardRef
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/forwardRef`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-forward-",
-            question: "forwardRef 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-forward-ref-34c3-1",
+            question: "关于「forwardRef」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-forward-ref-34c3-2",
+            question: "学习「forwardRef」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-forward-ref-34c3-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2087,32 +6095,104 @@ inputRef.current?.focus()`,
     summary: "测试中刷更新。",
     level: "进阶",
     track: "API 参考",
-    minutes: 6,
-    official: [
-      { title: "act 测试工具", url: "https://zh-hans.react.dev/reference/react/act" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• RTL 已封装。\\n\\n• 断言前更新完成。`,
+        title: "概念深讲",
+        body: `• RTL 已封装。\\\\n\\\\n• 断言前更新完成。
+
+为什么这一节重要：测试中刷更新。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「act 测试工具」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react/act`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「act 测试工具」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-act」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是act 测试工具？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// act 测试工具
+// slug: api-act
+console.log('demo: api-act')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：act 测试工具
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react/act`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-act",
-            question: "act 测试工具 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-act-39ad-1",
+            question: "关于「act 测试工具」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-act-39ad-2",
+            question: "学习「act 测试工具」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-act-39ad-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2121,32 +6201,104 @@ inputRef.current?.focus()`,
     summary: "表单与 Action。",
     level: "进阶",
     track: "API 参考",
-    minutes: 8,
-    official: [
-      { title: "React DOM <form>", url: "https://zh-hans.react.dev/reference/react-dom/components/form" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• action 可接 Server Function。\\n\\n• 渐进增强。`,
+        title: "概念深讲",
+        body: `• action 可接 Server Function。\\\\n\\\\n• 渐进增强。
+
+为什么这一节重要：表单与 Action。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「React DOM <form>」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/react-dom/components/form`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「React DOM <form>」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-form-component」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是React DOM <form>？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// React DOM <form>
+// slug: api-form-component
+console.log('demo: api-form-component')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：React DOM <form>
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/react-dom/components/form`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-form-com",
-            question: "React DOM <form> 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-form-component-c320-1",
+            question: "关于「React DOM <form>」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-form-component-c320-2",
+            question: "学习「React DOM <form>」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-form-component-c320-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2155,32 +6307,104 @@ inputRef.current?.focus()`,
     summary: "性能轨道参考。",
     level: "进阶",
     track: "API 参考",
-    minutes: 5,
-    official: [
-      { title: "React Performance tracks", url: "https://zh-hans.react.dev/reference/dev-tools/react-performance-tracks" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• DevTools 性能能力。\\n\\n• 配合 Profiler。`,
+        title: "概念深讲",
+        body: `• DevTools 性能能力。\\\\n\\\\n• 配合 Profiler。
+
+为什么这一节重要：性能轨道参考。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「React Performance tracks」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方原文：https://zh-hans.react.dev/reference/dev-tools/react-performance-tracks`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「React Performance tracks」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「api-devtools-perf」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是React Performance tracks？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// React Performance tracks
+// slug: api-devtools-perf
+console.log('demo: api-devtools-perf')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：React Performance tracks
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方原文：https://zh-hans.react.dev/reference/dev-tools/react-performance-tracks`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "api-devtools",
-            question: "React Performance tracks 属于？",
-            options: ["官方 API/参考能力", "仅 Vue", "删除 React", "操作系统调用"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "api-devtools-perf-b21c-1",
+            question: "关于「React Performance tracks」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "api-devtools-perf-b21c-2",
+            question: "学习「React Performance tracks」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "api-devtools-perf-b21c-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2189,38 +6413,102 @@ inputRef.current?.focus()`,
     summary: "create-next-app、TS、ESLint。",
     level: "入门",
     track: "Next 指南",
-    minutes: 8,
-    official: [
-      { title: "Next.js 安装", url: "https://nextjs.org/docs/app/getting-started/installation" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 初始化项目。\\n\\n• App Router 默认。\\n\\n• 路径别名。`,
+        title: "概念深讲",
+        body: `• 初始化项目。\\\\n\\\\n• App Router 默认。\\\\n\\\\n• 路径别名。
+
+为什么这一节重要：create-next-app、TS、ESLint。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Next.js 安装」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/getting-started/installation`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Next.js 安装」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-install」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Next.js 安装？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "示例",
+        title: "对应源码",
         lang: "tsx",
         code: `// npx create-next-app@latest`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Next.js 安装
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/getting-started/installation`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-install",
-            question: "本课主题？",
-            options: ["Next.js 安装", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-install-fe3b-1",
+            question: "关于「Next.js 安装」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-install-fe3b-2",
+            question: "学习「Next.js 安装」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-install-fe3b-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2229,32 +6517,104 @@ inputRef.current?.focus()`,
     summary: "app/ public/ 约定文件。",
     level: "入门",
     track: "Next 指南",
-    minutes: 10,
-    official: [
-      { title: "项目结构", url: "https://nextjs.org/docs/app/getting-started/project-structure" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• app 即路由。\\n\\n• layout/page/loading/error/route。\\n\\n• public 静态资源。`,
+        title: "概念深讲",
+        body: `• app 即路由。\\\\n\\\\n• layout/page/loading/error/route。\\\\n\\\\n• public 静态资源。
+
+为什么这一节重要：app/ public/ 约定文件。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「项目结构」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/getting-started/project-structure`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「项目结构」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-project-structure」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是项目结构？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 项目结构
+// slug: next-project-structure
+console.log('demo: next-project-structure')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：项目结构
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/getting-started/project-structure`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-project",
-            question: "本课主题？",
-            options: ["项目结构", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-project-structure-926d-1",
+            question: "关于「项目结构」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-project-structure-926d-2",
+            question: "学习「项目结构」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-project-structure-926d-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2263,32 +6623,104 @@ inputRef.current?.focus()`,
     summary: "Tailwind、Modules、全局 CSS。",
     level: "入门",
     track: "Next 指南",
-    minutes: 8,
-    official: [
-      { title: "CSS 方案", url: "https://nextjs.org/docs/app/getting-started/css" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 官方友好 Tailwind。\\n\\n• Modules 局部作用域。\\n\\n• 全局样式进根 layout。`,
+        title: "概念深讲",
+        body: `• 官方友好 Tailwind。\\\\n\\\\n• Modules 局部作用域。\\\\n\\\\n• 全局样式进根 layout。
+
+为什么这一节重要：Tailwind、Modules、全局 CSS。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「CSS 方案」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/getting-started/css`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「CSS 方案」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-css」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是CSS 方案？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// CSS 方案
+// slug: next-css
+console.log('demo: next-css')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：CSS 方案
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/getting-started/css`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-css",
-            question: "本课主题？",
-            options: ["CSS 方案", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-css-93ab-1",
+            question: "关于「CSS 方案」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-css-93ab-2",
+            question: "学习「CSS 方案」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-css-93ab-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2297,32 +6729,104 @@ inputRef.current?.focus()`,
     summary: "请求改写/重定向/鉴权边界。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 10,
-    official: [
-      { title: "Proxy", url: "https://nextjs.org/docs/app/getting-started/proxy" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 请求层拦截。\\n\\n• i18n/鉴权/A-B。\\n\\n• 见当前版本文档。`,
+        title: "概念深讲",
+        body: `• 请求层拦截。\\\\n\\\\n• i18n/鉴权/A-B。\\\\n\\\\n• 见当前版本文档。
+
+为什么这一节重要：请求改写/重定向/鉴权边界。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Proxy」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/getting-started/proxy`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Proxy」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-proxy」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Proxy？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Proxy
+// slug: next-proxy
+console.log('demo: next-proxy')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Proxy
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/getting-started/proxy`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-proxy",
-            question: "本课主题？",
-            options: ["Proxy", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-proxy-3fcf-1",
+            question: "关于「Proxy」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-proxy-3fcf-2",
+            question: "学习「Proxy」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-proxy-3fcf-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2331,32 +6835,104 @@ inputRef.current?.focus()`,
     summary: "平台与构建。",
     level: "入门",
     track: "Next 指南",
-    minutes: 8,
-    official: [
-      { title: "部署 Next.js", url: "https://nextjs.org/docs/app/getting-started/deploying" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• Vercel 或自托管。\\n\\n• 环境变量。\\n\\n• Pages 可用静态导出。`,
+        title: "概念深讲",
+        body: `• Vercel 或自托管。\\\\n\\\\n• 环境变量。\\\\n\\\\n• Pages 可用静态导出。
+
+为什么这一节重要：平台与构建。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「部署 Next.js」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/getting-started/deploying`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「部署 Next.js」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-deploying」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是部署 Next.js？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 部署 Next.js
+// slug: next-deploying
+console.log('demo: next-deploying')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：部署 Next.js
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/getting-started/deploying`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-deployi",
-            question: "本课主题？",
-            options: ["部署 Next.js", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-deploying-7db7-1",
+            question: "关于「部署 Next.js」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-deploying-7db7-2",
+            question: "学习「部署 Next.js」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-deploying-7db7-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2365,32 +6941,104 @@ inputRef.current?.focus()`,
     summary: "版本与 codemod。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 6,
-    official: [
-      { title: "升级 Next.js", url: "https://nextjs.org/docs/app/getting-started/upgrading" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 跟 upgrading 指南。\\n\\n• 读 breaking changes。`,
+        title: "概念深讲",
+        body: `• 跟 upgrading 指南。\\\\n\\\\n• 读 breaking changes。
+
+为什么这一节重要：版本与 codemod。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「升级 Next.js」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/getting-started/upgrading`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「升级 Next.js」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-upgrading」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是升级 Next.js？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 升级 Next.js
+// slug: next-upgrading
+console.log('demo: next-upgrading')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：升级 Next.js
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/getting-started/upgrading`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-upgradi",
-            question: "本课主题？",
-            options: ["升级 Next.js", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-upgrading-2482-1",
+            question: "关于「升级 Next.js」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-upgrading-2482-2",
+            question: "学习「升级 Next.js」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-upgrading-2482-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2400,31 +7048,103 @@ inputRef.current?.focus()`,
     level: "进阶",
     track: "Next 指南",
     minutes: 12,
-    official: [
-      { title: "Authentication 指南", url: "https://nextjs.org/docs/app/guides/authentication" },
-    ],
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• Server 读 session。\\n\\n• 保护 Actions/Handlers。\\n\\n• 可配 Auth.js。`,
+        title: "概念深讲",
+        body: `• Server 读 session。\\\\n\\\\n• 保护 Actions/Handlers。\\\\n\\\\n• 可配 Auth.js。
+
+为什么这一节重要：会话与保护路由。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Authentication 指南」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/authentication`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Authentication 指南」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-auth-guide」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Authentication 指南？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Authentication 指南
+// slug: next-auth-guide
+console.log('demo: next-auth-guide')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Authentication 指南
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/authentication`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-auth-gu",
-            question: "本课主题？",
-            options: ["Authentication 指南", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-auth-guide-c078-1",
+            question: "关于「Authentication 指南」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-auth-guide-c078-2",
+            question: "学习「Authentication 指南」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-auth-guide-c078-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2433,39 +7153,103 @@ inputRef.current?.focus()`,
     summary: "NEXT_PUBLIC_ 与私密变量。",
     level: "入门",
     track: "Next 指南",
-    minutes: 8,
-    official: [
-      { title: "环境变量", url: "https://nextjs.org/docs/app/guides/environment-variables" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• .env.local。\\n\\n• PUBLIC 才进浏览器。\\n\\n• 生产平台配置。`,
+        title: "概念深讲",
+        body: `• .env.local。\\\\n\\\\n• PUBLIC 才进浏览器。\\\\n\\\\n• 生产平台配置。
+
+为什么这一节重要：NEXT_PUBLIC_ 与私密变量。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「环境变量」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/environment-variables`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「环境变量」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-env」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是环境变量？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "示例",
+        title: "对应源码",
         lang: "tsx",
         code: `process.env.DATABASE_URL
 process.env.NEXT_PUBLIC_APP_URL`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：环境变量
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/environment-variables`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-env",
-            question: "本课主题？",
-            options: ["环境变量", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-env-68a6-1",
+            question: "关于「环境变量」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-env-68a6-2",
+            question: "学习「环境变量」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-env-68a6-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2474,32 +7258,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "Server Actions 表单。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 10,
-    official: [
-      { title: "Forms 指南", url: "https://nextjs.org/docs/app/guides/forms" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• action={serverFn}。\\n\\n• useFormStatus。\\n\\n• 渐进增强。`,
+        title: "概念深讲",
+        body: `• action={serverFn}。\\\\n\\\\n• useFormStatus。\\\\n\\\\n• 渐进增强。
+
+为什么这一节重要：Server Actions 表单。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Forms 指南」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/forms`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Forms 指南」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-forms-guide」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Forms 指南？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Forms 指南
+// slug: next-forms-guide
+console.log('demo: next-forms-guide')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Forms 指南
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/forms`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-forms-g",
-            question: "本课主题？",
-            options: ["Forms 指南", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-forms-guide-253f-1",
+            question: "关于「Forms 指南」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-forms-guide-253f-2",
+            question: "学习「Forms 指南」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-forms-guide-253f-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2508,32 +7364,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "增量静态再生。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 10,
-    official: [
-      { title: "ISR", url: "https://nextjs.org/docs/app/guides/incremental-static-regeneration" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 时间/按需 revalidate。\\n\\n• 内容站友好。`,
+        title: "概念深讲",
+        body: `• 时间/按需 revalidate。\\\\n\\\\n• 内容站友好。
+
+为什么这一节重要：增量静态再生。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「ISR」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/incremental-static-regeneration`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「ISR」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-isr」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是ISR？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// ISR
+// slug: next-isr
+console.log('demo: next-isr')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：ISR
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/incremental-static-regeneration`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-isr",
-            question: "本课主题？",
-            options: ["ISR", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-isr-af1c-1",
+            question: "关于「ISR」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-isr-af1c-2",
+            question: "学习「ISR」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-isr-af1c-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2542,32 +7470,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "Suspense 流式。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 10,
-    official: [
-      { title: "Streaming 指南", url: "https://nextjs.org/docs/app/guides/streaming" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 外壳先到。\\n\\n• loading.tsx。`,
+        title: "概念深讲",
+        body: `• 外壳先到。\\\\n\\\\n• loading.tsx。
+
+为什么这一节重要：Suspense 流式。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Streaming 指南」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/streaming`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Streaming 指南」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-streaming-guide」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Streaming 指南？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Streaming 指南
+// slug: next-streaming-guide
+console.log('demo: next-streaming-guide')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Streaming 指南
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/streaming`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-streami",
-            question: "本课主题？",
-            options: ["Streaming 指南", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-streaming-guide-e3d3-1",
+            question: "关于「Streaming 指南」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-streaming-guide-e3d3-2",
+            question: "学习「Streaming 指南」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-streaming-guide-e3d3-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2576,38 +7576,102 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "output export。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 10,
-    official: [
-      { title: "静态导出", url: "https://nextjs.org/docs/app/guides/static-exports" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 适合 GitHub Pages。\\n\\n• 无 Node 特性限制。\\n\\n• 本站 build:pages。`,
+        title: "概念深讲",
+        body: `• 适合 GitHub Pages。\\\\n\\\\n• 无 Node 特性限制。\\\\n\\\\n• 本站 build:pages。
+
+为什么这一节重要：output export。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「静态导出」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/static-exports`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「静态导出」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-static-exports」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是静态导出？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
       },
       {
         type: "code",
-        title: "示例",
+        title: "对应源码",
         lang: "tsx",
         code: `output: 'export'`,
       },
       {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：静态导出
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
+      },
+      {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/static-exports`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-static-",
-            question: "本课主题？",
-            options: ["静态导出", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-static-exports-8c54-1",
+            question: "关于「静态导出」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-static-exports-8c54-2",
+            question: "学习「静态导出」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-static-exports-8c54-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2616,32 +7680,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "多语言路由。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 10,
-    official: [
-      { title: "国际化 i18n", url: "https://nextjs.org/docs/app/guides/internationalization" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 前缀/域名。\\n\\n• 字典内容。`,
+        title: "概念深讲",
+        body: `• 前缀/域名。\\\\n\\\\n• 字典内容。
+
+为什么这一节重要：多语言路由。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「国际化 i18n」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/internationalization`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「国际化 i18n」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-i18n」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是国际化 i18n？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 国际化 i18n
+// slug: next-i18n
+console.log('demo: next-i18n')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：国际化 i18n
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/internationalization`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-i18n",
-            question: "本课主题？",
-            options: ["国际化 i18n", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-i18n-a013-1",
+            question: "关于「国际化 i18n」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-i18n-a013-2",
+            question: "学习「国际化 i18n」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-i18n-a013-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2650,32 +7786,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "防泄漏与校验。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 10,
-    official: [
-      { title: "数据安全", url: "https://nextjs.org/docs/app/guides/data-security" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 密钥仅服务端。\\n\\n• 校验输入。`,
+        title: "概念深讲",
+        body: `• 密钥仅服务端。\\\\n\\\\n• 校验输入。
+
+为什么这一节重要：防泄漏与校验。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「数据安全」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/data-security`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「数据安全」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-data-security」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是数据安全？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 数据安全
+// slug: next-data-security
+console.log('demo: next-data-security')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：数据安全
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/data-security`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-data-se",
-            question: "本课主题？",
-            options: ["数据安全", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-data-security-e6e2-1",
+            question: "关于「数据安全」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-data-security-e6e2-2",
+            question: "学习「数据安全」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-data-security-e6e2-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2684,32 +7892,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "redirect API。",
     level: "入门",
     track: "Next 指南",
-    minutes: 6,
-    official: [
-      { title: "重定向", url: "https://nextjs.org/docs/app/guides/redirecting" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• Server/Action 调用。\\n\\n• 与 next.config 互补。`,
+        title: "概念深讲",
+        body: `• Server/Action 调用。\\\\n\\\\n• 与 next.config 互补。
+
+为什么这一节重要：redirect API。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「重定向」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/redirecting`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「重定向」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-redirects」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是重定向？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 重定向
+// slug: next-redirects
+console.log('demo: next-redirects')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：重定向
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/redirecting`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-redirec",
-            question: "本课主题？",
-            options: ["重定向", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-redirects-e68c-1",
+            question: "关于「重定向」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-redirects-e68c-2",
+            question: "学习「重定向」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-redirects-e68c-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2718,32 +7998,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "production checklist。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 10,
-    official: [
-      { title: "生产清单", url: "https://nextjs.org/docs/app/guides/production-checklist" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 性能安全 SEO。\\n\\n• 上线打勾。`,
+        title: "概念深讲",
+        body: `• 性能安全 SEO。\\\\n\\\\n• 上线打勾。
+
+为什么这一节重要：production checklist。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「生产清单」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/production-checklist`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「生产清单」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-production」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是生产清单？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 生产清单
+// slug: next-production
+console.log('demo: next-production')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：生产清单
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/production-checklist`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-product",
-            question: "本课主题？",
-            options: ["生产清单", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-production-8af1-1",
+            question: "关于「生产清单」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-production-8af1-2",
+            question: "学习「生产清单」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-production-8af1-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2752,32 +8104,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "Link 预取。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 8,
-    official: [
-      { title: "预取 Prefetching", url: "https://nextjs.org/docs/app/guides/prefetching" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 视口预取。\\n\\n• 可控策略。`,
+        title: "概念深讲",
+        body: `• 视口预取。\\\\n\\\\n• 可控策略。
+
+为什么这一节重要：Link 预取。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「预取 Prefetching」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/prefetching`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「预取 Prefetching」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-prefetching」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是预取 Prefetching？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 预取 Prefetching
+// slug: next-prefetching
+console.log('demo: next-prefetching')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：预取 Prefetching
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/prefetching`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-prefetc",
-            question: "本课主题？",
-            options: ["预取 Prefetching", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-prefetching-02a7-1",
+            question: "关于「预取 Prefetching」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-prefetching-02a7-2",
+            question: "学习「预取 Prefetching」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-prefetching-02a7-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2786,32 +8210,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "dynamic import。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 8,
-    official: [
-      { title: "懒加载", url: "https://nextjs.org/docs/app/guides/lazy-loading" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 减首包。\\n\\n• ssr:false 选项。`,
+        title: "概念深讲",
+        body: `• 减首包。\\\\n\\\\n• ssr:false 选项。
+
+为什么这一节重要：dynamic import。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「懒加载」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/lazy-loading`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「懒加载」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-lazy-loading」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是懒加载？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 懒加载
+// slug: next-lazy-loading
+console.log('demo: next-lazy-loading')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：懒加载
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/lazy-loading`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-lazy-lo",
-            question: "本课主题？",
-            options: ["懒加载", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-lazy-loading-96e8-1",
+            question: "关于「懒加载」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-lazy-loading-96e8-2",
+            question: "学习「懒加载」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-lazy-loading-96e8-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2820,32 +8316,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "next/script。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 6,
-    official: [
-      { title: "Scripts", url: "https://nextjs.org/docs/app/guides/scripts" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 加载策略。\\n\\n• 第三方脚本。`,
+        title: "概念深讲",
+        body: `• 加载策略。\\\\n\\\\n• 第三方脚本。
+
+为什么这一节重要：next/script。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Scripts」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/scripts`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Scripts」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-scripts」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Scripts？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Scripts
+// slug: next-scripts
+console.log('demo: next-scripts')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Scripts
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/scripts`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-scripts",
-            question: "本课主题？",
-            options: ["Scripts", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-scripts-caf2-1",
+            question: "关于「Scripts」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-scripts-caf2-2",
+            question: "学习「Scripts」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-scripts-caf2-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2854,32 +8422,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "Node/Docker。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 8,
-    official: [
-      { title: "自托管", url: "https://nextjs.org/docs/app/guides/self-hosting" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• standalone。\\n\\n• 自管缓存 CDN。`,
+        title: "概念深讲",
+        body: `• standalone。\\\\n\\\\n• 自管缓存 CDN。
+
+为什么这一节重要：Node/Docker。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「自托管」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/self-hosting`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「自托管」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-self-hosting」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是自托管？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 自托管
+// slug: next-self-hosting
+console.log('demo: next-self-hosting')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：自托管
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/self-hosting`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-self-ho",
-            question: "本课主题？",
-            options: ["自托管", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-self-hosting-dac8-1",
+            question: "关于「自托管」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-self-hosting-dac8-2",
+            question: "学习「自托管」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-self-hosting-dac8-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2888,32 +8528,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "高交互 App Router。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 8,
-    official: [
-      { title: "SPA 模式指南", url: "https://nextjs.org/docs/app/guides/single-page-applications" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• Client 为主。\\n\\n• 可混 Server 壳。`,
+        title: "概念深讲",
+        body: `• Client 为主。\\\\n\\\\n• 可混 Server 壳。
+
+为什么这一节重要：高交互 App Router。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「SPA 模式指南」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/single-page-applications`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「SPA 模式指南」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-spa-guide」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是SPA 模式指南？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// SPA 模式指南
+// slug: next-spa-guide
+console.log('demo: next-spa-guide')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：SPA 模式指南
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/single-page-applications`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-spa-gui",
-            question: "本课主题？",
-            options: ["SPA 模式指南", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-spa-guide-ef98-1",
+            question: "关于「SPA 模式指南」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-spa-guide-ef98-2",
+            question: "学习「SPA 模式指南」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-spa-guide-ef98-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2922,32 +8634,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "组件化 Markdown。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 8,
-    official: [
-      { title: "MDX", url: "https://nextjs.org/docs/app/guides/mdx" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 文档/博客。\\n\\n• 嵌 React 组件。`,
+        title: "概念深讲",
+        body: `• 文档/博客。\\\\n\\\\n• 嵌 React 组件。
+
+为什么这一节重要：组件化 Markdown。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「MDX」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/mdx`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「MDX」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-mdx」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是MDX？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// MDX
+// slug: next-mdx
+console.log('demo: next-mdx')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：MDX
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/mdx`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-mdx",
-            question: "本课主题？",
-            options: ["MDX", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-mdx-38c5-1",
+            question: "关于「MDX」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-mdx-38c5-2",
+            question: "学习「MDX」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-mdx-38c5-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2956,32 +8740,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "BFF 聚合。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 10,
-    official: [
-      { title: "Backend for Frontend", url: "https://nextjs.org/docs/app/guides/backend-for-frontend" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• Route Handlers。\\n\\n• 隐藏多服务。`,
+        title: "概念深讲",
+        body: `• Route Handlers。\\\\n\\\\n• 隐藏多服务。
+
+为什么这一节重要：BFF 聚合。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Backend for Frontend」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/backend-for-frontend`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Backend for Frontend」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-backend-ff」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Backend for Frontend？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Backend for Frontend
+// slug: next-backend-ff
+console.log('demo: next-backend-ff')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Backend for Frontend
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/backend-for-frontend`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-backend",
-            question: "本课主题？",
-            options: ["Backend for Frontend", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-backend-ff-9053-1",
+            question: "关于「Backend for Frontend」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-backend-ff-9053-2",
+            question: "学习「Backend for Frontend」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-backend-ff-9053-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -2990,32 +8846,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "VS Code 与 overlay。",
     level: "入门",
     track: "Next 指南",
-    minutes: 6,
-    official: [
-      { title: "调试", url: "https://nextjs.org/docs/app/guides/debugging" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• server/client 日志。\\n\\n• DevTools。`,
+        title: "概念深讲",
+        body: `• server/client 日志。\\\\n\\\\n• DevTools。
+
+为什么这一节重要：VS Code 与 overlay。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「调试」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/debugging`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「调试」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-debugging」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是调试？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 调试
+// slug: next-debugging
+console.log('demo: next-debugging')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：调试
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/debugging`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-debuggi",
-            question: "本课主题？",
-            options: ["调试", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-debugging-a199-1",
+            question: "关于「调试」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-debugging-a199-2",
+            question: "学习「调试」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-debugging-a199-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -3024,32 +8952,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "安全头。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 8,
-    official: [
-      { title: "CSP 内容安全策略", url: "https://nextjs.org/docs/app/guides/content-security-policy" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 防 XSS。\\n\\n• nonce。`,
+        title: "概念深讲",
+        body: `• 防 XSS。\\\\n\\\\n• nonce。
+
+为什么这一节重要：安全头。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「CSP 内容安全策略」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/content-security-policy`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「CSP 内容安全策略」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-csp」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是CSP 内容安全策略？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// CSP 内容安全策略
+// slug: next-csp
+console.log('demo: next-csp')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：CSP 内容安全策略
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/content-security-policy`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-csp",
-            question: "本课主题？",
-            options: ["CSP 内容安全策略", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-csp-d0d4-1",
+            question: "关于「CSP 内容安全策略」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-csp-d0d4-2",
+            question: "学习「CSP 内容安全策略」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-csp-d0d4-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -3058,32 +9058,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "结构化数据。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 6,
-    official: [
-      { title: "JSON-LD", url: "https://nextjs.org/docs/app/guides/json-ld" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• ld+json。\\n\\n• SEO/AI。`,
+        title: "概念深讲",
+        body: `• ld+json。\\\\n\\\\n• SEO/AI。
+
+为什么这一节重要：结构化数据。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「JSON-LD」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/json-ld`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「JSON-LD」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-json-ld」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是JSON-LD？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// JSON-LD
+// slug: next-json-ld
+console.log('demo: next-json-ld')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：JSON-LD
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/json-ld`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-json-ld",
-            question: "本课主题？",
-            options: ["JSON-LD", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-json-ld-8453-1",
+            question: "关于「JSON-LD」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-json-ld-8453-2",
+            question: "学习「JSON-LD」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-json-ld-8453-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -3092,32 +9164,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "CMS 草稿预览。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 6,
-    official: [
-      { title: "Draft Mode", url: "https://nextjs.org/docs/app/guides/draft-mode" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 绕过静态缓存。\\n\\n• 编辑流。`,
+        title: "概念深讲",
+        body: `• 绕过静态缓存。\\\\n\\\\n• 编辑流。
+
+为什么这一节重要：CMS 草稿预览。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Draft Mode」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/draft-mode`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Draft Mode」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-draft-mode」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Draft Mode？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Draft Mode
+// slug: next-draft-mode
+console.log('demo: next-draft-mode')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Draft Mode
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/draft-mode`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-draft-m",
-            question: "本课主题？",
-            options: ["Draft Mode", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-draft-mode-2eff-1",
+            question: "关于「Draft Mode」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-draft-mode-2eff-2",
+            question: "学习「Draft Mode」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-draft-mode-2eff-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -3126,32 +9270,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "加速 build。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 5,
-    official: [
-      { title: "CI 构建缓存", url: "https://nextjs.org/docs/app/guides/ci-build-caching" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 缓存 .next/cache。\\n\\n• Actions 配置。`,
+        title: "概念深讲",
+        body: `• 缓存 .next/cache。\\\\n\\\\n• Actions 配置。
+
+为什么这一节重要：加速 build。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「CI 构建缓存」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/ci-build-caching`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「CI 构建缓存」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-ci-cache」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是CI 构建缓存？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// CI 构建缓存
+// slug: next-ci-cache
+console.log('demo: next-ci-cache')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：CI 构建缓存
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/ci-build-caching`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-ci-cach",
-            question: "本课主题？",
-            options: ["CI 构建缓存", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-ci-cache-04c3-1",
+            question: "关于「CI 构建缓存」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-ci-cache-04c3-2",
+            question: "学习「CI 构建缓存」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-ci-cache-04c3-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -3160,32 +9376,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "分析包体。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 8,
-    official: [
-      { title: "包打包优化", url: "https://nextjs.org/docs/app/guides/package-bundling" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• analyzer。\\n\\n• 避免坏 barrel。`,
+        title: "概念深讲",
+        body: `• analyzer。\\\\n\\\\n• 避免坏 barrel。
+
+为什么这一节重要：分析包体。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「包打包优化」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/package-bundling`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「包打包优化」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-package-bundling」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是包打包优化？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 包打包优化
+// slug: next-package-bundling
+console.log('demo: next-package-bundling')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：包打包优化
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/package-bundling`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-package",
-            question: "本课主题？",
-            options: ["包打包优化", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-package-bundling-8070-1",
+            question: "关于「包打包优化」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-package-bundling-8070-2",
+            question: "学习「包打包优化」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-package-bundling-8070-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -3194,32 +9482,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "服务器优先。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 8,
-    official: [
-      { title: "渲染哲学", url: "https://nextjs.org/docs/app/guides/rendering-philosophy" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 默认 Server。\\n\\n• 交互下沉 Client。`,
+        title: "概念深讲",
+        body: `• 默认 Server。\\\\n\\\\n• 交互下沉 Client。
+
+为什么这一节重要：服务器优先。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「渲染哲学」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/rendering-philosophy`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「渲染哲学」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-rendering-philosophy」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是渲染哲学？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 渲染哲学
+// slug: next-rendering-philosophy
+console.log('demo: next-rendering-philosophy')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：渲染哲学
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/rendering-philosophy`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-renderi",
-            question: "本课主题？",
-            options: ["渲染哲学", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-rendering-philosophy-1afe-1",
+            question: "关于「渲染哲学」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-rendering-philosophy-1afe-2",
+            question: "学习「渲染哲学」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-rendering-philosophy-1afe-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -3228,32 +9588,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "表单与变更深入。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 10,
-    official: [
-      { title: "Server Actions 指南", url: "https://nextjs.org/docs/app/guides/server-actions" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 'use server'。\\n\\n• revalidate。\\n\\n• 安全校验。`,
+        title: "概念深讲",
+        body: `• 'use server'。\\\\n\\\\n• revalidate。\\\\n\\\\n• 安全校验。
+
+为什么这一节重要：表单与变更深入。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Server Actions 指南」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/server-actions`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Server Actions 指南」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-server-actions-guide」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Server Actions 指南？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Server Actions 指南
+// slug: next-server-actions-guide
+console.log('demo: next-server-actions-guide')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Server Actions 指南
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/server-actions`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-server-",
-            question: "本课主题？",
-            options: ["Server Actions 指南", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-server-actions-guide-7045-1",
+            question: "关于「Server Actions 指南」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-server-actions-guide-7045-2",
+            question: "学习「Server Actions 指南」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-server-actions-guide-7045-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -3262,32 +9694,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "更即点即开的导航。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 8,
-    official: [
-      { title: "Instant navigation", url: "https://nextjs.org/docs/app/guides/instant-navigation" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 预取与预渲染策略。\\n\\n• 16.x 演进能力。`,
+        title: "概念深讲",
+        body: `• 预取与预渲染策略。\\\\n\\\\n• 16.x 演进能力。
+
+为什么这一节重要：更即点即开的导航。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Instant navigation」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/instant-navigation`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Instant navigation」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-instant-nav」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Instant navigation？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Instant navigation
+// slug: next-instant-nav
+console.log('demo: next-instant-nav')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Instant navigation
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/instant-navigation`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-instant",
-            question: "本课主题？",
-            options: ["Instant navigation", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-instant-nav-1244-1",
+            question: "关于「Instant navigation」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-instant-nav-1244-2",
+            question: "学习「Instant navigation」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-instant-nav-1244-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -3296,32 +9800,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "导航保留 UI 状态。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 8,
-    official: [
-      { title: "Preserving UI state", url: "https://nextjs.org/docs/app/guides/preserving-ui-state" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 布局保活。\\n\\n• 避免丢失输入。`,
+        title: "概念深讲",
+        body: `• 布局保活。\\\\n\\\\n• 避免丢失输入。
+
+为什么这一节重要：导航保留 UI 状态。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Preserving UI state」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/preserving-ui-state`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Preserving UI state」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-preserving-ui」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Preserving UI state？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Preserving UI state
+// slug: next-preserving-ui
+console.log('demo: next-preserving-ui')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Preserving UI state
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/preserving-ui-state`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-preserv",
-            question: "本课主题？",
-            options: ["Preserving UI state", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-preserving-ui-c282-1",
+            question: "关于「Preserving UI state」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-preserving-ui-c282-2",
+            question: "学习「Preserving UI state」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-preserving-ui-c282-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -3330,32 +9906,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "可观测性。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 6,
-    official: [
-      { title: "OpenTelemetry", url: "https://nextjs.org/docs/app/guides/open-telemetry" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 链路追踪。\\n\\n• 生产监控。`,
+        title: "概念深讲",
+        body: `• 链路追踪。\\\\n\\\\n• 生产监控。
+
+为什么这一节重要：可观测性。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「OpenTelemetry」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/open-telemetry`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「OpenTelemetry」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-open-telemetry」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是OpenTelemetry？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// OpenTelemetry
+// slug: next-open-telemetry
+console.log('demo: next-open-telemetry')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：OpenTelemetry
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/open-telemetry`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-open-te",
-            question: "本课主题？",
-            options: ["OpenTelemetry", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-open-telemetry-ecf5-1",
+            question: "关于「OpenTelemetry」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-open-telemetry-ecf5-2",
+            question: "学习「OpenTelemetry」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-open-telemetry-ecf5-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -3364,32 +10012,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "Speed Insights 等。",
     level: "入门",
     track: "Next 指南",
-    minutes: 5,
-    official: [
-      { title: "Analytics", url: "https://nextjs.org/docs/app/guides/analytics" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 性能指标。\\n\\n• 真实用户监控。`,
+        title: "概念深讲",
+        body: `• 性能指标。\\\\n\\\\n• 真实用户监控。
+
+为什么这一节重要：Speed Insights 等。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Analytics」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/analytics`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Analytics」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-analytics」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Analytics？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Analytics
+// slug: next-analytics
+console.log('demo: next-analytics')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Analytics
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/analytics`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-analyti",
-            question: "本课主题？",
-            options: ["Analytics", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-analytics-dfc8-1",
+            question: "关于「Analytics」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-analytics-dfc8-2",
+            question: "学习「Analytics」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-analytics-dfc8-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -3398,32 +10118,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "加快 dev 体验。",
     level: "入门",
     track: "Next 指南",
-    minutes: 6,
-    official: [
-      { title: "本地开发环境", url: "https://nextjs.org/docs/app/guides/local-development" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• Turbopack 等。\\n\\n• 环境优化。`,
+        title: "概念深讲",
+        body: `• Turbopack 等。\\\\n\\\\n• 环境优化。
+
+为什么这一节重要：加快 dev 体验。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「本地开发环境」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/local-development`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「本地开发环境」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-local-dev」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是本地开发环境？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 本地开发环境
+// slug: next-local-dev
+console.log('demo: next-local-dev')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：本地开发环境
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/local-development`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-local-d",
-            question: "本课主题？",
-            options: ["本地开发环境", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-local-dev-1f43-1",
+            question: "关于「本地开发环境」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-local-dev-1f43-2",
+            question: "学习「本地开发环境」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-local-dev-1f43-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -3432,32 +10224,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "Agent 访问应用状态。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 6,
-    official: [
-      { title: "Next.js MCP Server", url: "https://nextjs.org/docs/app/guides/mcp" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• AI 编码代理集成。\\n\\n• 配合 llms.txt。`,
+        title: "概念深讲",
+        body: `• AI 编码代理集成。\\\\n\\\\n• 配合 llms.txt。
+
+为什么这一节重要：Agent 访问应用状态。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Next.js MCP Server」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/mcp`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Next.js MCP Server」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-mcp」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Next.js MCP Server？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Next.js MCP Server
+// slug: next-mcp
+console.log('demo: next-mcp')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Next.js MCP Server
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/mcp`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-mcp",
-            question: "本课主题？",
-            options: ["Next.js MCP Server", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-mcp-1b59-1",
+            question: "关于「Next.js MCP Server」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-mcp-1b59-2",
+            question: "学习「Next.js MCP Server」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-mcp-1b59-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -3466,32 +10330,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "从 CRA/Vite 等迁移。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 10,
-    official: [
-      { title: "迁移到 Next.js", url: "https://nextjs.org/docs/app/guides/migrating" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 官方 migrating 指南。\\n\\n• 路由与数据层映射。`,
+        title: "概念深讲",
+        body: `• 官方 migrating 指南。\\\\n\\\\n• 路由与数据层映射。
+
+为什么这一节重要：从 CRA/Vite 等迁移。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「迁移到 Next.js」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/migrating`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「迁移到 Next.js」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-migrating」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是迁移到 Next.js？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// 迁移到 Next.js
+// slug: next-migrating
+console.log('demo: next-migrating')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：迁移到 Next.js
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/migrating`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-migrati",
-            question: "本课主题？",
-            options: ["迁移到 Next.js", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-migrating-3860-1",
+            question: "关于「迁移到 Next.js」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-migrating-3860-2",
+            question: "学习「迁移到 Next.js」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-migrating-3860-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -3500,32 +10436,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "可安装与离线。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 8,
-    official: [
-      { title: "PWA", url: "https://nextjs.org/docs/app/guides/progressive-web-apps" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• Service Worker 策略。\\n\\n• 渐进增强。`,
+        title: "概念深讲",
+        body: `• Service Worker 策略。\\\\n\\\\n• 渐进增强。
+
+为什么这一节重要：可安装与离线。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「PWA」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/progressive-web-apps`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「PWA」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-pwa」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是PWA？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// PWA
+// slug: next-pwa
+console.log('demo: next-pwa')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：PWA
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/progressive-web-apps`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-pwa",
-            question: "本课主题？",
-            options: ["PWA", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-pwa-a30c-1",
+            question: "关于「PWA」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-pwa-a30c-2",
+            question: "学习「PWA」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-pwa-a30c-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -3534,32 +10542,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "Sass 集成。",
     level: "入门",
     track: "Next 指南",
-    minutes: 5,
-    official: [
-      { title: "Sass", url: "https://nextjs.org/docs/app/guides/sass" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 内置支持。\\n\\n• 模块化样式。`,
+        title: "概念深讲",
+        body: `• 内置支持。\\\\n\\\\n• 模块化样式。
+
+为什么这一节重要：Sass 集成。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Sass」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/sass`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Sass」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-sass」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Sass？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Sass
+// slug: next-sass
+console.log('demo: next-sass')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Sass
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/sass`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-sass",
-            question: "本课主题？",
-            options: ["Sass", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-sass-191a-1",
+            question: "关于「Sass」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-sass-191a-2",
+            question: "学习「Sass」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-sass-191a-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
   },
   {
@@ -3568,32 +10648,104 @@ process.env.NEXT_PUBLIC_APP_URL`,
     summary: "纯静态公开页策略。",
     level: "进阶",
     track: "Next 指南",
-    minutes: 6,
-    official: [
-      { title: "Public 静态页", url: "https://nextjs.org/docs/app/guides/public-static-pages" },
-    ],
+    minutes: 12,
     blocks: [
       {
         type: "text",
-        title: "要点（对齐官方）",
-        body: `• 营销页。\\n\\n• 缓存友好。`,
+        title: "概念深讲",
+        body: `• 营销页。\\\\n\\\\n• 缓存友好。
+
+为什么这一节重要：纯静态公开页策略。不只是名词，而是后续所有实践的前提。学习时请同时抓住三件事：① 它解决什么问题；② 核心机制/API 是什么；③ 什么情况下不该用、常见坑是什么。`,
+      },
+      {
+        type: "text",
+        title: "机制与关键点",
+        body: `围绕「Public 静态页」，建议你用下面清单自检是否真懂：
+· 输入/前置条件是什么？
+· 输出/副作用是什么？
+· 与相邻概念如何区分？（容易混淆的一对一对比）
+· 复杂度或性能上的直觉（是否 O(n)、是否阻塞、是否有状态）
+· 在真实项目里通常放在哪一层（入口、中间件、数据层、UI、运维）？
+
+把每个点用自己的话写进笔记；能讲给别人听，才算过关。`,
+      },
+      {
+        type: "text",
+        title: "补充要点 1",
+        body: `官方文档：https://nextjs.org/docs/app/guides/public-static-pages`,
+      },
+      {
+        type: "text",
+        title: "实践步骤",
+        body: `1. 只读官方/权威文档里与「Public 静态页」直接相关的一小节，不要发散。
+2. 在本机或本站 Demo 里最小复现：只验证一个行为。
+3. 故意制造一个错误（错参数、错顺序、错环境），观察报错信息。
+4. 改对后再总结：「正确做法 / 错误做法 / 如何排查」三行笔记。
+5. 做本节测验；错题收入错题本，隔天再测一次。`,
+      },
+      {
+        type: "text",
+        title: "踩坑与排障",
+        body: `· 文档示例能跑、自己环境不能：先对齐版本与配置，再怀疑代码。
+· 「好像懂了」但默写不出来：回去做最小复现，而不是再看一遍视频。
+· 多个概念一起崩：二分法缩小范围（注释一半配置/代码）。
+· 与「next-public-static」相关的问题，优先查官方 FAQ 与 issue 里的 breaking change。
+· 生产环境多一项：可观测性（日志/指标）和回滚策略。`,
+      },
+      {
+        type: "text",
+        title: "面试 / 复盘一问",
+        body: `请用 90 秒回答：什么是Public 静态页？它解决什么问题？举一个你会在项目里使用（或拒绝使用）的场景，并说明取舍。
+
+加分项：对比一个替代方案，并说出性能、复杂度或可维护性上的差异。`,
+      },
+      {
+        type: "code",
+        title: "示例",
+        lang: "tsx",
+        code: `// Public 静态页
+// slug: next-public-static
+console.log('demo: next-public-static')`,
+      },
+      {
+        type: "code",
+        title: "自检清单（注释版）",
+        lang: "text",
+        code: `// [ ] 能用自己的话解释：Public 静态页
+// [ ] 能默写最小示例
+// [ ] 能说出 2 个踩坑
+// [ ] 能在项目场景里决定用/不用`,
       },
       {
         type: "tip",
-        body: `官方文档：https://nextjs.org/docs/app/guides/public-static-pages`,
+        body: `先求「能复现 + 能讲清」，再求「背全 API」。本课 Demo 与测验就是你的验收标准。`,
       },
       {
         type: "quiz",
         questions: [
           {
-            id: "next-public-",
-            question: "本课主题？",
-            options: ["Public 静态页", "仅 Angular", "操作系统", "Photoshop"],
-            answer: 0,
-            explain: "见官方。",
-          }
+            id: "next-public-static-ef1a-1",
+            question: "关于「Public 静态页」，最准确的理解是？",
+            options: ["只需要记住名词即可", "要同时理解问题、机制、适用边界与常见坑", "与实践无关", "只能在考试中使用"],
+            answer: 1,
+            explain: "概念 + 机制 + 边界 + 排障，才是可迁移的掌握。",
+          },
+          {
+            id: "next-public-static-ef1a-2",
+            question: "学习「Public 静态页」时，优先行动是？",
+            options: ["一次看完所有周边主题", "最小复现一个行为，再扩展", "只收藏文档不动手", "跳过报错信息"],
+            answer: 1,
+            explain: "最小复现建立反馈回路。",
+          },
+          {
+            id: "next-public-static-ef1a-3",
+            question: "遇到「示例能跑、自己环境不能」时，你应先？",
+            options: ["重写整个项目", "对齐版本/配置并阅读完整报错", "忽略错误继续下一步", "删除全部依赖"],
+            answer: 1,
+            explain: "环境与版本是第一怀疑对象。",
+          },
         ],
-      }
+      },
     ],
-  }
+  },
 ];
